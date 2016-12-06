@@ -1,16 +1,29 @@
-import { signUp, signIn, getBrowser, cleanDatabase } from './testHelpers.test'
+import { signUp, getBrowser } from './testHelpers.test'
 
 describe("User SignUp", function () {
 
-  // beforeEach(function(){
-  //   server.call('logout');
-  //   cleanDatabase();
-  // });
+  beforeEach(function(){
+    // server.call('logout');
+    cleanDatabase();
+  });
+
+  describe("App title", function () {
+    it("shows the correct app title", function () {
+      var browserInstance = getBrowser(0);
+      browserInstance.url('http://localhost:3000');
+      var title = browserInstance.getTitle();
+      expect(title).to.equal('Save a Nation');
+    });
+  });
 
   describe("New user", function () {
     it("allows a new user to sign up", function () {
-      signUp('pika', 'Pika', 'Chu', 'Pikachu@pika.com', 'pikapika')
-      expect().to.equal();
+      var browserInstance = getBrowser(0)
+      browserInstance.url('http://localhost:3000');
+      signUp('pikachu', 'Pika', 'Chu', 'Pikachu@pika.com', 'pikapika')
+      browserInstance.waitForExist("welcome_text");
+      var welcomeText = browserInstance.getText("welcome_text");
+      expect(welcomeText).toEqual("Welcome pikachu");
     });
   });
 

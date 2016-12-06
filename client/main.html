@@ -6,9 +6,32 @@
   <h1>Save a Nation</h1>
   <h3>Save with your friends to make your home owning dream a reality</h3>
 
-  {{> user_management}}
+  {{#if currentUser}}
+    <p class="welcomeText">Welcome {{currentUser.username}}</p>
+  {{else}}
+    {{> SignUp}}
+  {{/if}}
 </body>
 
-<template name="user_management">
-  <button class="sign_up">Sign up</button>
+<template name="SignUp">
+  <form class="sign-up-form">
+    <div>
+      <input class="username-input" type="text" placeholder="username">
+    </div>
+    <div>
+      <input class="first-name-input" type="text" placeholder="first name">
+    </div>
+    <div>
+      <input class="last-name-input" type="text" placeholder="last name">
+    </div>
+    <div>
+      <input class="email-address-input" type="text" placeholder="email">
+    </div>
+    <div>
+      <input class="password-input" type="password" placeholder="password">
+    </div>
+    <div>
+      <button type="submit">Sign up</button>
+    </div>
+  </form>
 </template>
