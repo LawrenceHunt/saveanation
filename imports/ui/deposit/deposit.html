@@ -1,0 +1,16 @@
+<template name="Deposit">
+
+  <input type="number">
+  <input type="textarea" placeholder="dodged a coffee">
+  <input type="submit">
+
+  <h1 id="balance">Your balance: </h1>
+
+  <h1>Your deposits so far</h1>
+  <ul>
+  {{#each deposit}}
+    <li>{{ amount }} / {{ time }}</li>
+  {{/each}}
+  </ul>
+
+</template>

@@ -5,6 +5,7 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import '../../ui/layouts/mainLayout.js';
 
 
+
 FlowRouter.route('/', {
   name: 'home',
   action() {
@@ -14,3 +15,10 @@ FlowRouter.route('/', {
     BlazeLayout.render("mainLayout", {content: 'Homepage' });
   }
 });
+
+FlowRouter.route('/save', {
+  name: 'save',
+  action() {
+    BlazeLayout.render("mainLayout", {content: 'Deposit'});
+  }
+})
