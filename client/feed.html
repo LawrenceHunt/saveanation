@@ -1,0 +1,20 @@
+<template name="feed">
+  <div class="new-post-container">
+    {{> quickForm collection="Posts" id="insertPostForm" type="insert" class="new-post-form"}}
+  </div>
+  <!-- <input id="post" placeholder="what have you saved today? eh?"> -->
+  <ul>
+    {{#each posts}}
+    <li class="post">
+      <h3 class="post-text">{{body}}</h3>
+      <p class="post-date">
+        {{createdAt}}
+      </p>
+    </li>
+    {{/each}}
+  </ul>
+</template>
+
+<!-- <template name="newPost">
+
+</template> -->
