@@ -1,16 +1,18 @@
 <template name="Deposit">
-
-  <input type="number">
-  <input type="textarea" placeholder="dodged a coffee">
-  <input type="submit">
+<body>
+  <form class="add-deposit">
+    <input name="amount" type="number">
+    <input name="text" type="textarea" placeholder="dodged a coffee">
+    <input type="submit">
+  </form>
 
   <h1 id="balance">Your balance: </h1>
 
-  <h1>Your deposits so far</h1>
+  <h1>Your deposits so far:</h1>
   <ul>
-  {{#each deposit}}
-    <li>{{ amount }} / {{ time }}</li>
+  {{#each deposits}}
+    <li>{{ amount }} / {{ text }} / {{createdAt}}</li>
   {{/each}}
   </ul>
-
+</body>
 </template>

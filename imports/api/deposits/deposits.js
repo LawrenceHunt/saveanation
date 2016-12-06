@@ -18,8 +18,8 @@ if(Meteor.isServer) {
 
 Meteor.methods({
   'deposits.add'(amount, text){
-    check(text, String);
     check(amount, Number);
+    check(text, String);
 
     // Checks user is logged in - bring back once User ID is in place.
     // if(! this.userId) {
