@@ -4,6 +4,6 @@ FlowRouter.route('/', {
   //   if(Meteor.userId()){
   //     FlowRouter.go('recipe-book')
   //   }
-    BlazeLayout.render('MainLayout', { main: 'Homepage' });
+    BlazeLayout.render('App_body', { main: 'Homepage' });
   }
 });
