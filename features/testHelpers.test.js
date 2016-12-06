@@ -29,3 +29,15 @@ export function createCharacter(browserName, characterName) {
          .submitForm( '.newCharacterForm' );
 
 }
+
+export function getText(browserName) {
+  var messageLi = browserName.element('li.message:nth-of-type(1)');
+  return messageLi.getText('p.message_text');
+}
+
+export function sendText(text, browserName) {
+  browserName.url('http://localhost:3000/feed');
+  browserName.setValue('input#message', text);
+  browserName.keys("\uE006"); //press ENTER
+  browserName.waitForExist('li', 2000);
+}
