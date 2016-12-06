@@ -1,1 +1,6 @@
 /* CSS declarations go here */
+body {
+  background-color: #016df3;
+  color: white;
+  font-family: helvetica, arial, sans-serif;
+}
