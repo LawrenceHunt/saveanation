@@ -24,6 +24,6 @@ FlowRouter.route('/save', {
 FlowRouter.route('/target', {
   name: 'target',
   action() {
-    BlazeLayout.render("mainLayout", {content: 'TargetForm'});
+    BlazeLayout.render("mainLayout", {content: 'Target'});
   }
 })

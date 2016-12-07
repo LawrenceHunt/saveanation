@@ -7,7 +7,6 @@ Template.Deposit.onCreated(function depositOnCreated(){
   Meteor.subscribe('deposits');
 });
 
-
 Template.Deposit.helpers({
   deposits() {
     // return Deposits.find({});

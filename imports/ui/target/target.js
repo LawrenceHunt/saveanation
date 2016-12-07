@@ -3,15 +3,26 @@ import { Targets } from '../../api/targets/targets.js';
 
 import './target.html';
 
+Template.Target.onCreated(function targetOnCreated() {
+  Meteor.subscribe('targets');
+});
+
+Template.Target.helpers({
+  targets() {
+    return Targets.find({});
+  },
+});
+
 Template.Target.events({
   'submit .new-target'(event) {
     event.preventDefault();
     const target = event.target;
-    const targetAmount = parseInt(target.amount.value);
-    const targetDate = target.date.value;
+    const targetAmount = parseInt(target.targetAmount.value);
+    const targetDate = new Date(target.targetDate.value);
     Meteor.call('targets.add', targetAmount, targetDate);
 
     // Clear form
-    target.text.value = '';
+    target.targetAmount.value = '';
+    target.targetDate.value = '';
   }
 });
