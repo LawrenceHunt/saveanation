@@ -34,14 +34,13 @@ Meteor.methods({
     check(targetDate, Date);
 
     // Checks user is logged in - bring back once User ID is in place.
-    if(! this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
-
+    // if(! this.userId) {
+    //   throw new Meteor.Error('not-authorized');
+    // }
     Targets.insert({
       targetAmount,
       targetDate,
-      createdBy: userId,
+      createdBy: this.userId,
       createdAt: new Date(),
     });
   },
