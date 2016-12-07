@@ -1,5 +1,5 @@
-export function signUp(email, password){
-  server.call('user.signup', email, password);
+export function signUp(username, email, password){
+  server.call('user.signup', username, email, password);
 }
 export function signIn(browserName, email, password) {
   browserName.url('http://localhost:3000');

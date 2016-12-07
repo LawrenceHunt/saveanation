@@ -24,6 +24,7 @@ kadira:blaze-layout
 kadira:flow-router
 practicalmeteor:mocha
 xolvio:cleaner
+xolvio:backdoor
 check
 reactive-dict
 meteortoys:allthings
