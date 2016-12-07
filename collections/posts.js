@@ -33,11 +33,17 @@ Posts.attachSchema( PostSchema );
 
 Meteor.methods({
   "posts.insert": function(doc) {
-
-    Posts.insert({ body: doc.body, createdAt: doc.createdAt })
-
+    Posts.insert({ body: doc.body, createdAt: doc.createdAt });
   }
-})
+});
+
+if (Meteor.isServer) {
+  Meteor.publish('posts', function() {
+    return Posts.find({}, { sort: { createdAt: -1}});
+  });
+}
+
+
 
 
 
