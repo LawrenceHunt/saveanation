@@ -2,7 +2,6 @@ import { Template } from 'meteor/templating';
 import { Targets } from '../../api/targets/targets.js';
 
 import './target.html';
-import './body.html';
 
 Template.Target.events({
   'submit .new-target'(event) {
