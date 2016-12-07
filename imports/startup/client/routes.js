@@ -4,8 +4,6 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // IMPORTING VIEWS (JS FILES)
 import '../../ui/layouts/mainLayout.js';
 
-
-
 FlowRouter.route('/', {
   name: 'home',
   action() {

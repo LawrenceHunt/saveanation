@@ -8,7 +8,7 @@
     </header>
 
     {{#if currentUser}}
-      {{#if target}}
+      {{#if targets}}
         <h3>Current target: {{target.targetAmount}}</h3>
       {{else}}
         {{> TargetForm}}
@@ -21,7 +21,7 @@
 <template name="TargetForm">
     <form class="new-target">
       <input type="text" name="text" placeholder="Target amount"/>
-      <input type="text" name="text" placeholder="Target complete"/>
+      <input type="date" name="text" placeholder="Target complete"/>
       <button type="submit">Submit</button>
     </form>
 </template>
