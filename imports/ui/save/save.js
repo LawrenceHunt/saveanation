@@ -21,9 +21,9 @@ Template.Save.events({
     const target = event.target;
     const amount = parseInt(target.amount.value);
     const text = target.text.value;
-    Meteor.call('transactions.add', amount, text);
+    Meteor.call('transactions.add', amount, text, 'deposit');
 
     // Clear form
     target.text.value = '';
   }
-})
+});

@@ -1,4 +1,4 @@
-import { getBrowser, cleanDatabase } from './testHelpers.test'
+import { getBrowser, cleanDatabase } from './testHelpers'
 
 describe("Add deposit", function() {
   it("you can add a deposit and see it on the screen", function() {

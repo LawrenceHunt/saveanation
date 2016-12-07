@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "test": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha || exit 0",
-    "test-watch": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --watch || exit 0",
+    "test": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --path=tests|| exit 0",
+    "test-watch": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --watch --path=tests || exit 0",
     "practical": "meteor test --driver-package=practicalmeteor:mocha"
   },
   "dependencies": {

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { expect } from 'meteor/practicalmeteor:chai';
+import { be } from 'meteor/practicalmeteor:chai';
 import { assert } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 
@@ -24,15 +25,19 @@ if(Meteor.isServer) {
       });
 
       it('can add a deposit', function(){
-        addTransaction.call(this,125,"test","deposit");
+        // addTransaction.call(this,125,"test","deposit");
+        addTransaction.apply(invocation, [125, "test", "deposit"]);
         expect(Transactions.find({}).count()).to.equal(1);
       });
       it("handles errors", function(){
         assert.throws(function() {addTransaction.call(this, "A String", "Another String"); }, /Match error/);
       });
-      it("stores userId", function() {
-        addTransaction.call(userId, 125)
-      })
+      it("can add a deposit with userID", function(){
+       addTransaction.apply(invocation, [125, "test", "deposit"]);
+       var transaction = Transactions.findOne({text: "test"});
+        expect(transaction.owner).to.equal(userId);
+      });
+
 
       //
       // beforeEach(() => {
