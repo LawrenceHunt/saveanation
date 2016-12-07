@@ -30,3 +30,28 @@ PostSchema = new SimpleSchema({
 });
 
 Posts.attachSchema( PostSchema );
+
+Meteor.methods({
+  "posts.insert": function(doc) {
+
+    Posts.insert({ body: doc.body, createdAt: doc.createdAt })
+
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

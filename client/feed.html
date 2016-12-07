@@ -1,6 +1,6 @@
 <template name="feed">
   <div class="new-post-container">
-    {{> quickForm collection="Posts" id="insertPostForm" type="insert" class="new-post-form"}}
+    {{> quickForm collection="Posts" id="insertPostForm" type="insert" class="new-post-form" type="method" meteormethod="posts.insert"}}
   </div>
   <ul>
     {{#each posts}}
