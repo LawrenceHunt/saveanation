@@ -19,6 +19,6 @@ FlowRouter.route('/', {
 FlowRouter.route('/save', {
   name: 'save',
   action() {
-    BlazeLayout.render("mainLayout", {content: 'Deposit'});
+    BlazeLayout.render("mainLayout", {content: 'Save'});
   }
 })
