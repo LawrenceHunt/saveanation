@@ -11,9 +11,8 @@ if(Meteor.isServer) {
     return Deposits.find({
       // Publish only the current user's deposits! Bring back once User ID is in place.
       // { owner: this.userId }
-    })
-  })
-
+    });
+  });
 }
 
 Meteor.methods({
@@ -33,4 +32,4 @@ Meteor.methods({
       createdAt: new Date(),
     });
   }
-})
+});

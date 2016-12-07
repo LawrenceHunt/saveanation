@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
 import { Deposits } from '../../api/deposits/deposits.js';
 
-import './Deposit.html';
+import './deposit.html';
 
 Template.Deposit.onCreated(function depositOnCreated(){
   Meteor.subscribe('deposits');
