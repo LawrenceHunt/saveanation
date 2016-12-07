@@ -27,3 +27,5 @@ xolvio:cleaner
 check
 reactive-dict
 meteortoys:allthings
+accounts-ui
+accounts-password
