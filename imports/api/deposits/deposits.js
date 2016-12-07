@@ -28,6 +28,7 @@ Meteor.methods({
 
     Deposits.insert({
       amount,
+      // owner: userId,
       text,
       createdAt: new Date(),
     });
