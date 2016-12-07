@@ -22,8 +22,12 @@ if(Meteor.isServer) {
 
         addDeposit.apply(invocation, [depositId]);
 
-        assert.equal(Deposits.find().count(), 0);
+        assert.equal(Deposits.find().count(), 1);
       });
     });
   });
 };
+
+if(Meteor.isClient) {
+  describe('Deposits')
+}
