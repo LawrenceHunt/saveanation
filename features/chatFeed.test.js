@@ -1,6 +1,5 @@
 import { signUp, signIn, signUpAndSignIn, getBrowser, cleanDatabase, addPost, getText } from './testHelpers.test';
 
-
 var browser;
 
 describe('Saving Feed', function () {

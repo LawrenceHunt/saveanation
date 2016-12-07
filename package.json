@@ -4,7 +4,8 @@
   "scripts": {
     "start": "meteor run",
     "test": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha || exit 0",
-    "test-watch": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --watch || exit 0"
+    "test-watch": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --watch || exit 0",
+    "practical": "meteor test --driver-package=practicalmeteor:mocha"
   },
   "dependencies": {
     "meteor-node-stubs": "~0.2.0",

@@ -1,4 +1,8 @@
-Posts = new Mongo.Collection('posts');
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+import { check } from 'meteor/check';
+
+export const Posts = new Mongo.Collection('posts');
 
 PostSchema = new SimpleSchema({
   body: {
@@ -42,22 +46,3 @@ if (Meteor.isServer) {
     return Posts.find({}, { sort: { createdAt: -1}});
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
