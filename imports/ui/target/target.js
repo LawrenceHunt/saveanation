@@ -26,3 +26,15 @@ Template.Target.events({
     target.targetDate.value = '';
   }
 });
+
+Template.EditTarget.events({
+  'submit .edit-target'(event) {
+    event.preventDefault();
+    const target = event.target;
+    const targetAmount = parseInt(target.targetAmount.value);
+    const targetDate = new Date(target.targetDate.value);
+    Meteor.call('targets.edit', targetAmount, targetDate);
+    // route back to /target
+    FlowRouter.go('target');
+  }
+});

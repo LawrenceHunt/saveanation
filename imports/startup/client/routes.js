@@ -19,11 +19,18 @@ FlowRouter.route('/save', {
   action() {
     BlazeLayout.render("mainLayout", {content: 'Deposit'});
   }
-})
+});
 
 FlowRouter.route('/target', {
   name: 'target',
   action() {
     BlazeLayout.render("mainLayout", {content: 'Target'});
   }
-})
+});
+
+FlowRouter.route('/edit-target', {
+  name: 'edit-target',
+  action() {
+    BlazeLayout.render("mainLayout", {content: 'EditTarget'});
+  }
+});

@@ -10,6 +10,7 @@ if(Meteor.isServer) {
     describe('methods', function() {
       const userId = Random.id();
       const targetDate = new Date();
+      const createdAt = new Date();
       let targetId;
 
       beforeEach(function(){
@@ -41,6 +42,15 @@ if(Meteor.isServer) {
         var testObject = Targets.findOne({createdBy: userId});
         // assert.equal(Targets.find({targetAmount: 5000}).count(), 1);
         assert.equal(testObject.targetAmount, 5000);
+      });
+
+      it('can edit a target value', function() {
+        Targets.insert({targetAmount: 5000, targetDate: targetDate, createdBy: userId, createdAt: createdAt});
+        const editTarget = Meteor.server.method_handlers['targets.edit'];
+        const invocation = { userId };
+        editTarget.apply(invocation, [1000, targetDate]);
+        var testObject = Targets.findOne({createdBy: userId});
+        assert.equal(testObject.targetAmount, 1000);
       });
     });
   });

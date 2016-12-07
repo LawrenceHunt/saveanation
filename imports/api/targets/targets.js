@@ -29,5 +29,13 @@ Meteor.methods({
       createdBy: this.userId,
       createdAt: new Date(),
     });
+  },
+  'targets.edit'(targetAmount, targetDate) {
+    check(targetAmount, Number);
+    check(targetDate, Date);
+    if(! this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    Targets.update({createdBy: this.userId},{$set: {targetAmount:targetAmount,targetDate:targetDate}});
   }
 })
