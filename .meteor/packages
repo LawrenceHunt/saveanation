@@ -37,5 +37,5 @@ check
 
 practicalmeteor:mocha
 xolvio:cleaner
+xolvio:backdoor
 reactive-dict
-random
