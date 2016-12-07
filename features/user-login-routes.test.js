@@ -1,4 +1,4 @@
-import { signUp, cleanDatabase, getBrowser } from './testHelpers.test'
+import { signUp, cleanDatabase, getBrowser } from './testHelpers.test';
 
 // Tests not passing. We'll come back to this later.
 describe("User SignUp", function () {
@@ -20,9 +20,9 @@ describe("User SignUp", function () {
 
   describe("New user", function () {
     it("allows a new user to sign up", function () {
-      var browserInstance = getBrowser(0)
+      var browserInstance = getBrowser(0);
       browserInstance.url('http://localhost:3000');
-      signUp('pikachu', 'Pikachu@pika.com', 'pikapika')
+      signUp('pikachu', 'Pikachu@pika.com', 'pikapika');
       browserInstance.waitForExist("welcome_text");
       var welcomeText = browserInstance.getText("welcome_text");
       expect(welcomeText).toEqual("Welcome pikachu");
