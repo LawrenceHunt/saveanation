@@ -8,8 +8,6 @@ import { Deposits } from './deposits.js';
 if(Meteor.isServer) {
   describe('Deposits', function() {
     describe('methods', function() {
-      const userId = Random.id();
-      let depositId;
 
       beforeEach(function(){
         resetDatabase();
@@ -17,17 +15,13 @@ if(Meteor.isServer) {
 
       it('can add a deposit', function(){
         const addDeposit = Meteor.server.method_handlers['deposits.add'];
-
-        const invocation = { userId };
-
-        addDeposit.apply(invocation, [depositId]);
-
-        assert.equal(Deposits.find().count(), 1);
+        addDeposit.call(this,125,"Test");
+        assert.equal(Deposits.find({}).count(), 1);
       });
     });
   });
-};
+}
 
 if(Meteor.isClient) {
-  describe('Deposits')
+  describe('Deposits');
 }

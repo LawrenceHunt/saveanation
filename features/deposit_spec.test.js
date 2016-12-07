@@ -2,8 +2,8 @@ import { signUp, signIn, getBrowser, cleanDatabase } from './testHelpers.test'
 
 describe("Add deposit", function() {
   it("you can add a deposit and see it on the screen", function() {
+    var mainBrowser = getBrowser(0);
     browser.url("http://localhost:3000/")
-    var mainBrowser = browser.instances[0]
 
     var saveButtonText = mainBrowser.getText('#savings_button')
 
