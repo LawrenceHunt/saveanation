@@ -1,17 +1,18 @@
 <template name="Target">
+  {{#if targets}}
+    <h3>Your target</h3>
+    {{#each targets}}
+      <p>You want to save £{{ targetAmount }} by {{ targetDate }}</p>
+    {{/each}}
+  {{else}}
+    <h2>Enter a target</h2>
+    <form class="new-target">
+      <input type="text" name="targetAmount" placeholder="Target amount"/>
+      <input type="date" name="targetDate" placeholder="Target complete"/>
+      <button type="submit">Submit</button>
+    </form>
+  {{/if}}
 
-  <h2>Enter a target</h2>
-  <form class="new-target">
-    <input type="text" name="targetAmount" placeholder="Target amount"/>
-    <input type="date" name="targetDate" placeholder="Target complete"/>
-    <button type="submit">Submit</button>
-  </form>
 
-  <h3>Your target(s)</h3>
-  <ul>
-  {{#each targets}}
-    <li>You want to save £{{ targetAmount }} by {{ targetDate }}</li>
-  {{/each}}
-  </ul>
 
 </template>
