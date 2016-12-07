@@ -22,7 +22,7 @@ Template.Deposit.events({
     const text = target.text.value;
     Meteor.call('deposits.add', amount, text);
 
-    // Clear form
+    // Clear form field
     target.text.value = '';
   }
 });
