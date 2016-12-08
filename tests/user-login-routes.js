@@ -1,4 +1,4 @@
-import { signUp, cleanDatabase, getBrowser } from './testHelpers.test';
+import { signUp, cleanDatabase, getBrowser } from './testHelpers'
 
 // Tests not passing. We'll come back to this later.
 describe("User SignUp", function () {

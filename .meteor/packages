@@ -39,3 +39,4 @@ practicalmeteor:mocha
 xolvio:cleaner
 xolvio:backdoor
 reactive-dict
+mdg:validated-method

@@ -1,9 +1,9 @@
-import { getBrowser, cleanDatabase } from './testHelpers.test'
+import { getBrowser, cleanDatabase } from './testHelpers'
 
 describe("Add deposit", function() {
   it("you can add a deposit and see it on the screen", function() {
-    browser.url("http://localhost:3000/");
-    var mainBrowser = browser.instances[0];
+    var mainBrowser = getBrowser(0);
+    browser.url("http://localhost:3000/")
 
     var saveButtonText = mainBrowser.getText('#savings_button');
 

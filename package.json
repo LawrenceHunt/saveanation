@@ -3,13 +3,17 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "test": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha || exit 0",
-    "test-watch": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --watch || exit 0",
+    "test": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --path=tests|| exit 0",
+    "test-watch": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --watch --path=tests || exit 0",
     "practical": "meteor test --driver-package=practicalmeteor:mocha"
   },
   "dependencies": {
     "babel-runtime": "^6.18.0",
     "bcrypt": "^0.8.7",
     "meteor-node-stubs": "~0.2.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }
