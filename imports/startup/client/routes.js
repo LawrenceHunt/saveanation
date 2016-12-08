@@ -28,3 +28,10 @@ FlowRouter.route('/feed', {
     BlazeLayout.render("mainLayout", {content: "feed"});
   }
 });
+
+FlowRouter.route('/team', {
+  name: 'team',
+  action() {
+    BlazeLayout.render("mainLayout", {content: "team"});
+  }
+});

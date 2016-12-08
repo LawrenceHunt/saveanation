@@ -3,12 +3,6 @@
 export function signUp(username, email, password){
   server.call('user.signup', username, email, password);
 }
-// export function signUp(username, email, password){
-//   browser = getBrowser(0);
-//   browser.url('http://localhost:3000');
-//   browser.click('#login-sign-in-link');
-//
-// }
 
 export function signIn(browserName, email, password) {
   browserName.url('http://localhost:3000');
@@ -21,8 +15,8 @@ export function getBrowser(i) {
   return browser.instances[i];
 }
 
-export function signUpAndSignIn(browserName, email, password) {
-  signUp(email, password);
+export function signUpAndSignIn(browserName, username, email, password) {
+  signUp(username, email, password);
   signIn(browserName, email, password);
 }
 
