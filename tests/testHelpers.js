@@ -38,3 +38,15 @@ export function createCharacter(browserName, characterName) {
          .submitForm( '.newCharacterForm' );
 
 }
+
+export function getText(browserName) {
+  var messageLi = browserName.element('li.post:nth-of-type(1)');
+  return messageLi.getText('h3.post-text');
+}
+
+export function addPost(text, browserName) {
+  browserName.url('http://localhost:3000/feed');
+  browserName.setValue('input#body', text);
+  browserName.keys("\uE006"); //press ENTER
+  browserName.waitForExist('li', 2000);
+}
