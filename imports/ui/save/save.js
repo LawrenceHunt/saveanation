@@ -19,7 +19,10 @@ Template.Save.helpers({
   balance() {
     var userId = Meteor.userId();
     var account = SavingsAccounts.findOne({createdBy: userId});
-    return account.balance.toString();
+    console.log(account);
+    if (account) {
+      return account.balance.toString();
+    }
   },
   noAccount() {
     var userId = Meteor.userId();

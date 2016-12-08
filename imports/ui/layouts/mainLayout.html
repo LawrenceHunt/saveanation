@@ -1,7 +1,7 @@
 <template name="mainLayout">
   <body>
     <header>
-      {{> loginButtons}}
+      <li>{{> loginButtons}}</li>
       {{#if currentUser}}
         <h3>Welcome {{currentUser.username}}</h3>
       {{/if}}
@@ -10,5 +10,5 @@
     <main>
       {{>Template.dynamic template=content}}
     </main>
-  </body>  
+  </body>
 </template>
