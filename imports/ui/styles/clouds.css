@@ -18,7 +18,8 @@ body {
 
 .skyscraper {
 	position: absolute;
-	top: 420px;
+	top: 20%;
+	left: 0%;
 }
 
 /*Time to finalise the cloud shape*/
