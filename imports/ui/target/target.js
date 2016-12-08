@@ -50,7 +50,6 @@ Template.Target.events({
   'click .delete-target'(event) {
     const target = event.target;
     targetId = target.name;
-    console.log(targetId);
     Meteor.call('targets.remove', targetId);
   }
 });
