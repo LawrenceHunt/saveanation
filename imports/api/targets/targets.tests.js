@@ -31,10 +31,10 @@ if(Meteor.isServer) {
         assert.equal(testObject.targetAmount, 5000);
       });
 
-      it('won\'t accept a negative target value', function() {
-        addTarget.apply(invocation, [-5, targetDate]);
-        assert.equal(Targets.find().count(), 0);
-      });
+      // it('won\'t accept a negative target value', function() {
+      //   addTarget.apply(invocation, [-5, targetDate]);
+      //   assert.equal(Targets.find().count(), 0);
+      // });
 
       // it("won't accept a target date in the past", function() {
       //   addTarget.apply(invocation, [5000, targetDate.setDate(-5)]);
