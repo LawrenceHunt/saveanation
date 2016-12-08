@@ -4,22 +4,34 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // IMPORTING VIEWS (JS FILES)
 import '../../ui/layouts/mainLayout.js';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 FlowRouter.route('/', {
   name: 'home',
   action() {
-  //   if(Meteor.userId()){
-  //     FlowRouter.go('recipe-book')
-  //   }
-    BlazeLayout.render("mainLayout", {content: 'Homepage' });
+    if(Meteor.userId()){
+      FlowRouter.go('feed');
+    }
+    BlazeLayout.render("mainLayout", {content: "Homepage" });
   }
 });
 
 FlowRouter.route('/save', {
   name: 'save',
   action() {
-    BlazeLayout.render("mainLayout", {content: 'Deposit'});
+    BlazeLayout.render("mainLayout", {content: 'Save'});
   }
 });
+
+FlowRouter.route('/feed', {
+  name: 'feed',
+  action() {
+    BlazeLayout.render("mainLayout", {content: "feed"});
+  }
+});
+<<<<<<< HEAD
 
 FlowRouter.route('/target', {
   name: 'target',
@@ -34,3 +46,5 @@ FlowRouter.route('/edit-target', {
     BlazeLayout.render("mainLayout", {content: 'EditTarget'});
   }
 });
+=======
+>>>>>>> master
