@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { SavingsAccounts } from '../savingsAccounts/savingsAccounts.js';
 
 export const Transactions = new Mongo.Collection('transactions');
 
@@ -10,7 +11,7 @@ if(Meteor.isServer) {
   Meteor.publish('transactions', function transactionsPublication() {
     return Transactions.find({
       // Publish only the current user's transactions! Bring back once User ID is in place.
-      // { owner: this.userId }
+       owner: this.userId
     });
   });
 }
@@ -25,13 +26,16 @@ Meteor.methods({
     if(!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    var currentUserID = this.userId;
+    var currentUserId = this.userId;
+    // Create the transaction object
     Transactions.insert({
       amount: amount,
-      owner: currentUserID,
+      owner: currentUserId,
       text: text,
       createdAt: new Date(),
       type: type
     });
+    // Adjust balance
+    Meteor.call('savingsAccounts.adjustBalance', amount, currentUserId);
   }
 });

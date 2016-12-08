@@ -11,7 +11,7 @@ if(Meteor.isServer) {
   describe('savingsAccounts', function() {
     describe('methods', function() {
       const userId = Random.id();
-      const addSavingsAccount = Meteor.server.method_handlers['savingsAccounts.add'];
+      const addSavingsAccount = Meteor.server.method_handlers['savingsAccounts.create'];
       const invocation = { userId };
       // const SavingAccountId = SavingsAccounts.insert({
       //     amount: parseInt(125),

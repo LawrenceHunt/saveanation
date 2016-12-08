@@ -16,17 +16,19 @@ if(Meteor.isServer) {
 }
 
 Meteor.methods({
-  'savingsAccounts.add'(amount){
-    check(amount, Number);
-    // Checks user is logged in - bring back once User ID is in place.
+  'savingsAccounts.create'(amount = 0){
+    // Checks user is logged in
     if(!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    var currentUserID = this.userId;
+    var currentUserId = this.userId;
     SavingsAccounts.insert({
       balance: amount,
-      createdBy: currentUserID,
+      createdBy: currentUserId,
       createdAt: new Date()
     });
+  },
+  'savingsAccounts.adjustBalance'(amount, userId){
+    SavingsAccounts.update({createdBy: userId}, {$inc: {balance: amount}});
   }
 });

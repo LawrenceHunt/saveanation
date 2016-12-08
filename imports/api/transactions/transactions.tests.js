@@ -19,12 +19,11 @@ if(Meteor.isServer) {
 
       beforeEach(function(){
         resetDatabase();
-        SavingsAccounts.insert({ createdBy: invocation, balance: 0 });
+        SavingsAccounts.insert({ createdBy: invocation.userId, balance: 0 });
       });
 
       it('should have an associated account', function(){
         expect(SavingsAccounts.find().count()).to.equal(1);
-        expect(SavingsAccounts.findOne({balance: 0}).createdBy).to.equal(invocation);
       });
 
       it('can add a deposit', function(){
@@ -41,9 +40,8 @@ if(Meteor.isServer) {
       });
       it("adjusts the balance of the associated account", function(){
         addTransaction.apply(invocation, [125, "test", "deposit"]);
-        var savingsAccount = SavingsAccounts.findOne({ createdBy:userId });
-        // console.log(savingsAccount);
-        expect(savingsAccount.createdBy).to.equal(userId);
+        var savingsAccountBalance = SavingsAccounts.findOne({}).balance;
+        expect(savingsAccountBalance).to.equal(125);
       });
     });
   });
