@@ -9,7 +9,6 @@ Template.Deposit.onCreated(function depositOnCreated(){
 
 Template.Deposit.helpers({
   deposits() {
-    // return Deposits.find({});
     return Deposits.find({}, { sort: {createdAt: -1 } });
   },
 });
