@@ -1,18 +1,34 @@
 import { Template } from 'meteor/templating';
 import { Transactions } from '../../api/transactions/transactions.js';
+import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
 
 import './save.html';
 
-Template.Save.onCreated(function depositOnCreated(){
+Template.Save.onCreated(function transactionsOnCreated(){
   Meteor.subscribe('transactions');
 });
-
+Template.Save.onCreated(function balanceOnCreated(){
+  Meteor.subscribe('savingsAccounts');
+});
 
 Template.Save.helpers({
   transactions() {
-    // return transactions.find({});
-    return Transactions.find({}, { sort: {createdAt: -1 } });
+    var userId = Meteor.userId();
+    return Transactions.find({owner: userId}, { sort: {createdAt: -1 } });
   },
+  balance() {
+    var userId = Meteor.userId();
+    var account = SavingsAccounts.findOne({createdBy: userId});
+    return account.balance.toString();
+  },
+  noAccount() {
+    var userId = Meteor.userId();
+    if(SavingsAccounts.findOne({createdBy: userId}) ){
+      return false;
+    } else {
+      return true;
+    }
+  }
 });
 
 Template.Save.events({
@@ -25,5 +41,9 @@ Template.Save.events({
 
     // Clear form
     target.text.value = '';
+  },
+  'click #createAccount'(event){
+    event.preventDefault();
+    Meteor.call('savingsAccounts.create');
   }
 });

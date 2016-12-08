@@ -36,4 +36,6 @@ practicalmeteor:mocha
 xolvio:cleaner
 xolvio:backdoor
 reactive-dict
+random
+hwillson:stub-collections
 mdg:validated-method
