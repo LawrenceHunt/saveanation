@@ -14,6 +14,10 @@ Template.Target.helpers({
 });
 
 Template.Target.events({
+  'calculate .new-target'(event) {
+    event.preventDefault();
+    console.log("hello");
+  },
   'submit .new-target'(event) {
     event.preventDefault();
     const target = event.target;
@@ -24,6 +28,11 @@ Template.Target.events({
     // Clear form
     target.targetAmount.value = '';
     target.targetDate.value = '';
+  },
+  'click .delete-target'() {
+    const target = event.target;
+    targetId = target.name
+    Meteor.call('targets.remove', targetId);
   }
 });
 

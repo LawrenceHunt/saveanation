@@ -18,11 +18,9 @@ Meteor.methods({
   'targets.add'(targetAmount, targetDate){
     check(targetAmount, Number);
     check(targetDate, Date);
-
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-
     Targets.insert({
       targetAmount,
       targetDate,
@@ -37,5 +35,13 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
     Targets.update({createdBy: this.userId},{$set: {targetAmount:targetAmount,targetDate:targetDate}});
+  },
+  'targets.remove'(targetId) {
+    check(targetId, String);
+    const target = Targets.findOne(targetId);
+    if (target.createdBy !== this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    Targets.remove(targetId);
   }
 })
