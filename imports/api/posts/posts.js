@@ -13,15 +13,15 @@ PostSchema = new SimpleSchema({
       id: "body"
     }
   },
-  // author: {
-  //   type: String,
-  //   autoValue: function() {
-  //     return this.userId;
-  //   },
-  //   autoform: {
-  //     type: "hidden"
-  //   }
-  // },
+  author: {
+    type: String,
+    autoValue: function() {
+      return Meteor.user().username;
+    },
+    autoform: {
+      type: "hidden"
+    }
+  },
   createdAt: {
     type: Date,
     autoValue: function() {
@@ -37,7 +37,7 @@ Posts.attachSchema( PostSchema );
 
 Meteor.methods({
   "posts.insert": function(doc) {
-    Posts.insert({ body: doc.body, createdAt: doc.createdAt });
+    Posts.insert({ body: doc.body, createdAt: doc.createdAt, author: doc.author });
   }
 });
 
