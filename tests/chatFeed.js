@@ -1,4 +1,4 @@
-import { signUp, signIn, signUpAndSignIn, getBrowser, cleanDatabase, addPost, getText } from './testHelpers.test';
+import { signUp, signIn, signUpAndSignIn, getBrowser, cleanDatabase, addPost, getText } from './testHelpers';
 
 var browser;
 
