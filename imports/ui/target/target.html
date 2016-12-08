@@ -1,0 +1,26 @@
+<template name="Target">
+  {{#if targets.count != 0}}
+    <h3>Your target</h3>
+    {{#each targets}}
+      <p>You want to save £{{ targetAmount }} by {{ targetDate }}</p>
+    {{/each}}
+    <a href="/edit-target" class="edit-target">Edit Target</a>
+  {{else}}
+    <h2>Enter a target</h2>
+    <form class="new-target">
+      <input type="text" name="targetAmount" placeholder="Target amount"/>
+      <input type="date" name="targetDate" placeholder="Target complete"/>
+      <button type="submit">Submit</button>
+    </form>
+  {{/if}}
+</template>
+
+
+<template name="EditTarget">
+    <h3>Edit your target</h3>
+    <form class="edit-target">
+      <input type="text" name="targetAmount" placeholder="Target amount"/>
+      <input type="date" name="targetDate" placeholder="Target complete"/>
+      <button type="submit">Submit</button>
+    </form>
+</template>
