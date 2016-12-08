@@ -44,4 +44,4 @@ Meteor.methods({
     }
     Targets.remove(targetId);
   }
-})
+});

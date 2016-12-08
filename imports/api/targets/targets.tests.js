@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { assert } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
-
 import { Targets } from './targets.js';
 
 if(Meteor.isServer) {
@@ -10,57 +9,57 @@ if(Meteor.isServer) {
     describe('methods', function() {
       const userId = Random.id();
       const targetDate = new Date();
+      targetDate.setHours(0,0,0,0);
       const createdAt = new Date();
+      const invocation = { userId };
+      const addTarget = Meteor.server.method_handlers['targets.add'];
+
       let targetId;
 
       beforeEach(function(){
         resetDatabase();
-        // targetId = Targets.insert({
-        //   targetAmount: 5000,
-        //   targetDate: new Date(),
-        //   createdAt: new Date(),
-        //   createdBy: userId,
-        //  });
       });
 
       it('can add a target', function(){
-        // Find the internal implementation of the addTarget method so we can
-        // test it in isolation
-        const addTarget = Meteor.server.method_handlers['targets.add'];
-        // Set up a fake method invocation that looks like what the method expects
-        const invocation = { userId };
-        // Run the method with `this` set to the fake invocation
         addTarget.apply(invocation, [5000, targetDate]);
-        // Verify that the method does what we expected
         assert.equal(Targets.find().count(), 1);
       });
 
       it('can add a target value', function() {
-        const addTarget = Meteor.server.method_handlers['targets.add'];
-        const invocation = { userId };
         addTarget.apply(invocation, [5000, targetDate]);
         var testObject = Targets.findOne({createdBy: userId});
-        // assert.equal(Targets.find({targetAmount: 5000}).count(), 1);
         assert.equal(testObject.targetAmount, 5000);
       });
 
+      // it('won\'t accept a negative target value', function() {
+      //   addTarget.apply(invocation, [-5, targetDate]);
+      //   assert.equal(Targets.find().count(), 0);
+      // });
+
+      // it("won't accept a target date in the past", function() {
+      //   addTarget.apply(invocation, [5000, targetDate.setDate(-5)]);
+      //   assert.equal(Targets.find().count(), 0);
+      // });
+
+      // it("won't accept a second target from the same user", function() {
+      //   addTarget.apply(invocation, [5000, targetDate]);
+      //   addTarget.apply(invocation, [5000, targetDate]);
+      //   assert.equal(Targets.find().count(), 1);
+      // })
+
       it('can edit a target value', function() {
-        Targets.insert({targetAmount: 5000, targetDate: targetDate, createdBy: userId, createdAt: createdAt});
+        addTarget.apply(invocation, [5000, targetDate]);
         const editTarget = Meteor.server.method_handlers['targets.edit'];
-        const invocation = { userId };
         editTarget.apply(invocation, [1000, targetDate]);
         var testObject = Targets.findOne({createdBy: userId});
         assert.equal(testObject.targetAmount, 1000);
       });
 
       it('can delete a target', function() {
-        const addTarget = Meteor.server.method_handlers['targets.add'];
-        const invocation = { userId };
         addTarget.apply(invocation, [5000, targetDate]);
-        // Targets.insert({_id: "testTargetId", targetAmount: 5000, targetDate: targetDate, createdBy: userId, createdAt: createdAt});
+        const targetId = Targets.find().fetch()[0]._id;
         const deleteTarget = Meteor.server.method_handlers['targets.remove'];
         deleteTarget.apply(invocation, [targetId]);
-        var testObject = Targets.findOne({_id: targetId});
         assert.equal(Targets.find().count(), 0);
       });
     });
