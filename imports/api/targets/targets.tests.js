@@ -52,6 +52,17 @@ if(Meteor.isServer) {
         var testObject = Targets.findOne({createdBy: userId});
         assert.equal(testObject.targetAmount, 1000);
       });
+
+      it('can delete a target', function() {
+        const addTarget = Meteor.server.method_handlers['targets.add'];
+        const invocation = { userId };
+        addTarget.apply(invocation, [5000, targetDate]);
+        // Targets.insert({_id: "testTargetId", targetAmount: 5000, targetDate: targetDate, createdBy: userId, createdAt: createdAt});
+        const deleteTarget = Meteor.server.method_handlers['targets.remove'];
+        deleteTarget.apply(invocation, [targetId]);
+        var testObject = Targets.findOne({_id: targetId});
+        assert.equal(Targets.find().count(), 0);
+      });
     });
   });
 };
