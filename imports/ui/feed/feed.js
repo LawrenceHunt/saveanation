@@ -1,5 +1,6 @@
 import { Template } from 'meteor/templating';
 import { Posts } from '../../api/posts/posts.js';
+
 import { moment } from 'meteor/momentjs:moment';
 
 import './feed.html';
