@@ -1,12 +1,32 @@
 <template name="homeLayout">
   <body>
-      <div id="clouds-canvas">
-        <img class="skyscraper" src="images/skyscraper.png">
-        <div class="cloud x1"></div>
-      	<div class="cloud x2"></div>
-      	<div class="cloud x3"></div>
-      	<div class="cloud x4"></div>
-      	<div class="cloud x5"></div>
+    <div id="clouds-canvas">
+      <img class="skyscraper" src="images/skyscraper.png">
+
+      <div class="cloud x1"></div>
+      <div class="cloud x2"></div>
+      <div class="cloud x3"></div>
+      <div class="cloud x4"></div>
+      <div class="cloud x5"></div>
+
+      <div id="billboard">
+        {{> carousel}}
+        <button>Start Saving!</button>
+      </div>
+
     </div>
   </body>
+</template>
+
+<template name="carousel">
+  <div id="carousel">
+    <div>
+      <h1>Save a Nation</h1>
+      <p>Hello and welcome to our wonderful site! Swipe left and right and maybe you will eventually find a pig!</p>
+    </div>
+    <div><h1>Two</h1></div>
+    <div><h1>Three</h1></div>
+    <div><h1>Four</h1></div>
+    <div><h1>Pig</h1></div>
+  </div>
 </template>
