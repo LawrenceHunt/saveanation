@@ -14,9 +14,12 @@ Template.Target.helpers({
 });
 
 Template.Target.events({
-  'calculate .new-target'(event) {
+  'click .calculate'(event, template) {
     event.preventDefault();
-    console.log("hello");
+    const targetAmount = template.find('.targetAmount').value;
+    const targetDate = new Date(template.find('.targetDate').value);
+    console.log(targetAmount);
+    console.log(targetDate);
   },
   'submit .new-target'(event) {
     event.preventDefault();
@@ -29,7 +32,7 @@ Template.Target.events({
     target.targetAmount.value = '';
     target.targetDate.value = '';
   },
-  'click .delete-target'() {
+  'click .delete-target'(event) {
     const target = event.target;
     targetId = target.name
     Meteor.call('targets.remove', targetId);
