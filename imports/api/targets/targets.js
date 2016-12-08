@@ -18,8 +18,14 @@ Meteor.methods({
   'targets.add'(targetAmount, targetDate){
     check(targetAmount, Number);
     check(targetDate, Date);
+    var currentDate = new Date();
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
+    }
+    if(targetDate < currentDate){
+      console.log(targetDate);
+      console.log(currentDate);
+      throw new Meteor.Error('Target date cannot be before current date');
     }
     Targets.insert({
       targetAmount,
@@ -31,8 +37,14 @@ Meteor.methods({
   'targets.edit'(targetAmount, targetDate) {
     check(targetAmount, Number);
     check(targetDate, Date);
+    var currentDate = new Date();
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
+    }
+    if(targetDate < currentDate){
+      console.log(targetDate);
+      console.log(currentDate);
+      throw new Meteor.Error('Target date cannot be before current date');
     }
     Targets.update({createdBy: this.userId},{$set: {targetAmount:targetAmount,targetDate:targetDate}});
   },
