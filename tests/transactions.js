@@ -8,6 +8,7 @@ describe("Add deposit", function() {
 
   it("you can add a deposit and see it on the screen", function() {
     var mainBrowser = getBrowser(0);
+
     mainBrowser.url("http://localhost:3000/save");
     mainBrowser.setValue( '[name="amount"]', "15")
            .setValue( '[name="text"]', "Didn't get coffee")
