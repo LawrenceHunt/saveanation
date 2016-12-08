@@ -1,4 +1,3 @@
-<<<<<<< HEAD:features/testHelpers.test.js
 // export function signUp(username, email, password){
 //   server.call('user.signup', username, email, password);
 // }
@@ -30,7 +29,6 @@
 //          .submitForm( '.newCharacterForm' );
 //
 // }
-=======
 
 
 export function signUp(username, email, password){
@@ -83,4 +81,3 @@ export function addPost(text, browserName) {
   browserName.keys("\uE006"); //press ENTER
   browserName.waitForExist('li', 2000);
 }
->>>>>>> master:tests/testHelpers.js
