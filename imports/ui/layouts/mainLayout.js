@@ -4,3 +4,4 @@ import './mainLayout.html';
 import '../homepage/homepage.js';
 import '../feed/feed.js';
 import '../save/save.js';
+import '../team/team.js';
