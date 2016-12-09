@@ -1,11 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { Teams } from '../../api/teams/teams.js';
+
 import './team.html';
 
 
 Template.Team.helpers({
   returnTeamMember() {
-  
+
     return teamMember.name;
   }
 

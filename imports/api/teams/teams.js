@@ -40,12 +40,32 @@ Meteor.methods({
   'team.add'(teamName){
     check(teamName, String);
 
-    var currentUserID = this.userId;
+    var currentUserId = this.userId;
     Teams.insert({
       teamName,
-      memberIds: [currentUserID],
-      createdBy: currentUserID,
+      memberIds: [currentUserId],
+      createdBy: currentUserId,
     });
   },
-  
+  'teamMember.add'(newFriendEmail){
+    check(newFriendEmail, String);
+
+    Accounts.createUser({ email: newFriendEmail });
+    let newFriend = Accounts.findUserByEmail(newFriendEmail)
+    let newFriendId = newFriend._id
+
+    let currentUserId = this.userId;
+
+    let currentTeam = Teams.findOne({ createdBy: currentUserId})
+    let currentTeamId = currentTeam._id
+
+    Teams.update({ teamName: currentTeam.teamName }, { $push: { membersIds: newFriendId } });
+    console.log(currentUserId)
+    console.log(newFriend)
+    console.log(newFriendId)
+    console.log(currentTeam)
+    console.log(currentTeamId);
+
+  }
+
 });
