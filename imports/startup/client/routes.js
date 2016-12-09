@@ -23,7 +23,6 @@ FlowRouter.route('/', {
     if(Meteor.userId()){
       FlowRouter.go('feed');
     }
-    // BlazeLayout.render("mainLayout", {content: "Homepage" });
     BlazeLayout.render("homeLayout");
   }
 });

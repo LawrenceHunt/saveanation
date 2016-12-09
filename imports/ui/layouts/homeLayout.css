@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-body {
+.home-body {
 	/*To hide the horizontal scroller appearing during the animation*/
 	overflow: hidden;
 	height: 100%;
@@ -96,6 +96,7 @@ img.carousel-image {
 /*slick finish*/
 
 #clouds-canvas{
+	overflow: hidden;
   height: 100%;
   width: 100%;
 	padding: 250px;
