@@ -73,11 +73,14 @@ Meteor.methods({
     console.log("currentUserId is: " + currentUserId)
     console.log("currentTeam.memberIds before update is: " + currentTeam.memberIds);
 
-    Teams.update(
-      { _id: currentTeamId },
-      { $push: { memberIds: newFriendId } }
-    );
-    console.log("currentTeam.memberIds after update is: " + currentTeam.memberIds);
+    if(Teams.update({ _id: currentTeamId },{ $push: { memberIds: newFriendId } })) {
+        console.log("Successfully updated team");
+    }
+    else {
+        console.log("Failed to update team");
+    }
+    let currentTeamUpdated = Teams.findOne({ createdBy: currentUserId })
+    console.log("currentTeam.memberIds after update is: " + currentTeamUpdated.memberIds);
   },
 });
 

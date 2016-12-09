@@ -42,7 +42,8 @@ if(Meteor.isServer) {
       addTeamMember.apply(invocation, ["myfriend@friends.com"]);
 
       let rick = Accounts.findUserByEmail("myfriend@friends.com");
-      expect(ourTeam.memberIds).to.include(rick._id);
+      let ourTeamUpdated = Teams.findOne()
+      expect(ourTeamUpdated.memberIds).to.include(rick._id);
     });
   });
 }
