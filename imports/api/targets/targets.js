@@ -11,7 +11,7 @@ if(Meteor.isServer) {
         { createdBy: this.userId },
       ],
     });
-  })
+  });
 }
 
 Meteor.methods({

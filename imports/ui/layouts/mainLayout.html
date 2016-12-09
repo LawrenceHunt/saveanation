@@ -1,44 +1,13 @@
 <template name="mainLayout">
   <body>
     <header>
-
+      {{#if currentUser}}
+        {{>globalNav}}
+      {{/if}}
       <h1>Save a Nation</h1>
     </header>
-    {{#if currentUser}}
-      {{> Dashboard}}
-
-    {{/if}}
     <main>
       {{>Template.dynamic template=content}}
     </main>
   </body>
-</template>
-
-<template name="Dashboard">
-    <p>You're logged in.</p>
-      <nav class="side-nav">
-        <ul>
-          <li>
-            <a href="/profile">
-              Your Profile
-            </a>
-          </li>
-          <li>
-            <a href="/save">
-              Update Your Savings
-            </a>
-          </li>
-          <li>
-            <a href="/target">
-              Your Target
-              </a>
-            </li>
-          <li>
-            <a href="/feed">
-              News Feed
-            </a>
-          </li>
-        </ul>
-      </nav>
-    <p><a href="#" class="logout">Logout</a></p>
 </template>
