@@ -6,8 +6,8 @@
     {{#each posts}}
     <li class="post">
       <h3 class="post-text">{{body}}</h3>
-      <p class="post-date">
-        {{createdAt}}
+      <p class="post-info">
+        {{author}} @ {{formatDate createdAt}}
       </p>
     </li>
     {{/each}}
