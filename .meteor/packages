@@ -24,7 +24,6 @@ kadira:blaze-layout
 aldeed:collection2
 aldeed:autoform
 meteortoys:allthings
-accounts-ui
 accounts-password
 fortawesome:fontawesome
 raix:handlebar-helpers
@@ -41,3 +40,4 @@ hwillson:stub-collections
 mdg:validated-method
 udondan:slick
 momentjs:moment
+accounts-ui-unstyled
