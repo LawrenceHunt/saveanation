@@ -26,6 +26,8 @@ aldeed:autoform
 meteortoys:allthings
 accounts-ui
 accounts-password
+accounts-facebook
+service-configuration
 fortawesome:fontawesome
 raix:handlebar-helpers
 gwendall:auth-client-callbacks
