@@ -1,31 +1,12 @@
 <template name="mainLayout">
   <body>
     <header>
-      <li>{{> loginButtons}}</li>
+      {{> globalNav}}
       {{#if currentUser}}
         <h3>Welcome {{currentUser.username}}</h3>
       {{/if}}
       <h1>Save a Nation</h1>
     </header>
-    <nav class="side-nav">
-      <ul>
-        <li>
-          <a href="/save">
-            Update Your Savings
-          </a>
-        </li>
-        <li>
-          <a href="/target">
-            Your Target
-            </a>
-          </li>
-        <li>
-          <a href="/feed">
-            News Feed
-            </a>
-          </li>
-      </ul>
-    </nav>
     <main>
       {{>Template.dynamic template=content}}
     </main>
