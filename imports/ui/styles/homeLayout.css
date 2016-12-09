@@ -6,15 +6,22 @@ body {
 	height: 100%;
 	width: 100%;
 }
-button {
-	position: absolute;
+
+#buttons {
+	position:absolute;
 	bottom: -10%;
-	right: 34%;
+	right: 27%;
+
+}
+
+#buttons button {
+	text-align: center;
 	color: white;
-	font-size: 32px;
+	font-size: 28px;
 	background-color: red;
-	border-radius: 4px;
+	border-radius: 10px;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	display:inline;
 }
 
 #billboard {

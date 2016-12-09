@@ -11,7 +11,10 @@
 
       <div id="billboard">
         {{> carousel}}
-        <button>Start Saving!</button>
+        <div id="buttons">
+          <button>Sign Up</button>
+          <button>Sign In</button>
+        </div>
       </div>
 
     </div>
@@ -21,12 +24,24 @@
 <template name="carousel">
   <div id="carousel">
     <div>
-      <h1>Save a Nation</h1>
-      <p>Hello and welcome to our wonderful site! Swipe left and right and maybe you will eventually find a pig!</p>
+      <img class="logo-big" src='images/Logo.png'>
+      <h2>Save with your friends - and get on the property ladder together!</h2>
     </div>
-    <div><h1>Two</h1></div>
-    <div><h1>Three</h1></div>
-    <div><h1>Four</h1></div>
-    <div><h1>Pig</h1></div>
+    <div>
+      <h2>HERE'S HOW IT WORKS</h2>
+      <p>Connect your account to the friends you want to save with, and set a saving target.</p>
+    </div>
+    <div>
+      <h2>IMPULSE SPENDING? HOW ABOUT IMPULSE SAVING?</h2>
+      <p>Use the app to save where you can. Dodged that second pint? One tap and the money goes into your account instead, visible to your team.</p>
+    </div>
+    <div>
+      <h2>KEEP EACH OTHER MOTIVATED</h2>
+      <p>With team chat and virtual rewards to spend on your team tower, smash your weekly targets and watch the dream take shape.</p>
+    </div>
+    <div>
+      <h2>BUY YOUR DREAM HOME</h2>
+      <p>Remember - you're under no obligation to buy with your friends. The app just encourages you to save by doing it together.</p>
+    </div>
   </div>
 </template>

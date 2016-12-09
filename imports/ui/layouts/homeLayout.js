@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import './homeLayout.html';
-import '../styles/clouds.css';
+import '../styles/homeLayout.css';
 import { slick } from 'meteor/udondan:slick';
 
 if (Meteor.isClient) {
