@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Template } from 'meteor/templating';
 import './homeLayout.html';
 import '../styles/homeLayout.css';
@@ -11,12 +12,12 @@ if (Meteor.isClient) {
       arrows: true
     });
   };
-  // Template.homeLayout.events({
-  //   'click #signUp'(){
-  //     FlowRouter.go('register');
-  //   },
-  //   'click #signIn'(){
-  //     FlowRouter.go('login');
-  //   }
-  // });
+  Template.homeLayout.events({
+    'click #signUp'(){
+      FlowRouter.go('register');
+    },
+    'click #signIn'(){
+      FlowRouter.go('login');
+    }
+  });
 }
