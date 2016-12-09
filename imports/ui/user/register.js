@@ -35,6 +35,7 @@ Template.Register.events({
     if (isValidPassword(password, passwordAgain)) {
        Accounts.createUser({
            email: email,
+           username: username,
            firstName: firstName,
            lastName: lastName,
            password: password

@@ -1,6 +1,4 @@
-// import { Users } from '../../api/users/login.js';
 import { Template } from 'meteor/templating';
-//
 import './login.html';
 
 // Template.Login.helpers({
