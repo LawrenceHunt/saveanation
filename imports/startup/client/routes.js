@@ -43,3 +43,24 @@ FlowRouter.route('/edit-target', {
     BlazeLayout.render("mainLayout", {content: 'EditTarget'});
   }
 });
+
+FlowRouter.route('/login', {
+   name: 'login',
+   action() {
+   BlazeLayout.render("mainLayout", {content: 'Login'});
+  }
+});
+
+FlowRouter.route('/register', {
+  name: 'register',
+  action() {
+    BlazeLayout.render('mainLayout', {content: 'Register'});
+  }
+});
+
+FlowRouter.route('/profile', {
+  name: 'profile',
+  action() {
+    BlazeLayout.render('mainLayout', {content: 'Profile'});
+  }
+});
