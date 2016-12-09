@@ -1,9 +1,36 @@
-<template name="team">
-  <form id="findTeamMemberForm">
+<template name="Team">
+
+  {{#if teams.count != 0}}
+    {{#each teams}}
+      <h2>{{ teamName }}</h2>
+      <p>{{ memberIds.length }} members</p>
+      <p>{{ memberIds }}</p>
+      <p>Created by {{ createdBy }}</p>
+      <p>Created on {{ createdAt }}</p>
+      <button class="delete-team" name="{{ _id }}">Delete Team</button>
+      <a href="/edit-team" class="edit-team">Edit Team</a>
+
+      <h3>Add team member</h3>
+      <form class="new-team-member">
+        <input type="email" class="memberEmail" name="memberEmail" placeholder="Email address" required/>
+        <button type="submit">Submit</button>
+      </form>
+
+    {{/each}}
+
+  {{else}}
+    <h2>Enter a team</h2>
+    <form class="new-team">
+      <input type="text" class="teamName" name="teamName" placeholder="Team name" required/>
+      <button type="submit">Submit</button>
+    </form>
+  {{/if}}
+
+  <!-- <form id="findTeamMemberForm">
     <input type="text" name="friend_name">
     <button>Find Friend</button>
   </form>
   <h2>Team Members</h2>
   {{#if teamMembeRequest}}
-  {{/if}}
+  {{/if}} -->
 </template>
