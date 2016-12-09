@@ -11,6 +11,6 @@ Template.Profile.helpers({
   userAccount() {
     var userId = Meteor.userId();
     console.log("this is the user:" + userId);
-    return Meteor.user({createdBy: userId}):
+    return Meteor.users({createdBy: userId}):
   }
 });

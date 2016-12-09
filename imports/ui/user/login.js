@@ -1,12 +1,6 @@
 import { Template } from 'meteor/templating';
 import './login.html';
 
-// Template.Login.helpers({
-//   loginForm() {
-//
-//   }
-// });
-
 Template.Login.events({
   'click #login-button': function(e, t) {
      e.preventDefault();
