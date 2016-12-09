@@ -43,3 +43,10 @@ FlowRouter.route('/edit-target', {
     BlazeLayout.render("mainLayout", {content: 'EditTarget'});
   }
 });
+
+FlowRouter.route('/team', {
+  name: 'team',
+  action() {
+    BlazeLayout.render("mainLayout", {content: "team"});
+  }
+});
