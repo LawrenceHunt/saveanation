@@ -6,6 +6,7 @@
       <p>You want to save £{{ targetAmount }} by {{ targetDate }}</p>
       <button class="delete-target" name="{{ _id }}">Delete Target</button>
       <a href="/edit-target" class="edit-target">Edit Target</a>
+
     {{/each}}
 
   {{else}}
@@ -16,6 +17,12 @@
       <button type="button" class="calculate">Calculate</button>
       <button type="submit">Submit</button>
     </form>
+
+    <p>{{ targetSummary }}</p>
+    <p>{{ monthlyTarget }}</p>
+    <p>{{ weeklyTarget }}</p>
+    <p>{{ dailyTarget }}</p>
+    
   {{/if}}
 </template>
 
