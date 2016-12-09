@@ -1,9 +1,11 @@
 import { Template } from 'meteor/templating';
+import { ReactiveDict } from 'meteor/reactive-dict';
 import { Targets } from '../../api/targets/targets.js';
 
 import './target.html';
 
 Template.Target.onCreated(function targetOnCreated() {
+  this.calculation = new ReactiveDict();
   Meteor.subscribe('targets');
 });
 
@@ -11,30 +13,48 @@ Template.Target.helpers({
   targets() {
     return Targets.find({});
   },
+  targetSummary() {
+    const instance = Template.instance();
+    return instance.calculation.get('targetSummary');
+  },
+  dailyTarget() {
+    const instance = Template.instance();
+    return instance.calculation.get('dailyTarget');
+  },
+  weeklyTarget() {
+    const instance = Template.instance();
+    return instance.calculation.get('weeklyTarget');
+  },
+  monthlyTarget() {
+    const instance = Template.instance();
+    return instance.calculation.get('monthlyTarget');
+  },
 });
 
 Template.Target.events({
   'click .calculate'(event, template) {
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
+    const formattedTargetAmount = '£' + targetAmount.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+
     const targetDate = new Date(template.find('.targetDate').value);
+    const formattedTargetDate = targetDate.toDateString();
     const today = new Date();
     const daysToSave = Date.daysBetween(today, targetDate);
+
+    const amountPerMonth = Math.round(((targetAmount / daysToSave) * 365) / 12);
+    const amountPerWeek = Math.round((targetAmount / daysToSave) * 7);
     const amountPerDay = Math.round(targetAmount / daysToSave);
-    console.log("To save £" + targetAmount + " by " + targetDate.toDateString()
-                + ", you'll need to save £" + amountPerDay + " each day.");
 
+    const targetSummary = "To save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
+    const monthlyTarget = "£" + amountPerMonth + " each month.";
+    const weeklyTarget = "£" + amountPerWeek + " each week.";
+    const dailyTarget = "£" + amountPerDay + " each day.";
 
-    // TO DO
-    // calculate number of months between now and targetDate
-    // calculate number of weeks between now and targetDate
-
-    // calculate amount needed to save per month to meet target
-    // calculate amount needed to save per week to meet target
-
-    // Output this to the screen
-
-
+    template.calculation.set('targetSummary', targetSummary);
+    template.calculation.set('monthlyTarget', monthlyTarget);
+    template.calculation.set('weeklyTarget', weeklyTarget);
+    template.calculation.set('dailyTarget', dailyTarget);
   },
   'submit .new-target'(event) {
     event.preventDefault();
