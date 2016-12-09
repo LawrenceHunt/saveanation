@@ -4,12 +4,13 @@ import './profile.html';
 
 
 Template.Profile.onCreated(function userOnCreated(){
-  Meteor.subscribe('users');
+  Meteor.subscribe('userData');
 });
 
 Template.Profile.helpers({
   userAccount() {
     var userId = Meteor.userId();
-    return Meteor.user({owner: userId}):
+    console.log("this is the user:" + userId);
+    return Meteor.user({createdBy: userId}):
   }
 });
