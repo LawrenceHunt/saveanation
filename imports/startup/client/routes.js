@@ -46,18 +46,17 @@ FlowRouter.route('/edit-target', {
 
 FlowRouter.route('/login', {
    name: 'login',
-   action: function() {
-   BlazeLayout.render('mainLayout', {content: 'Login'});
+   action() {
+   BlazeLayout.render('Login');
   }
 });
 
 FlowRouter.route('/register', {
   name: 'register',
-  action: function() {
+  action() {
     BlazeLayout.render('mainLayout', {content: 'Register'});
   }
 });
-
 
 FlowRouter.route('/profile', {
   name: 'profile',
