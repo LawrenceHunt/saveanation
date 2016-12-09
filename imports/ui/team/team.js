@@ -12,14 +12,19 @@ Template.Team.helpers({
   teams() {
     return Teams.find({});
   },
-  team() {
-    var userId = Meteor.userId();
-    return Teams.findOne({createdBy: userId});
-  },
-  returnTeamMember() {
-
-    return teamMember.name;
-  }
+  // team() {
+  //   var userId = Meteor.userId();
+  //   return Teams.findOne({createdBy: userId});
+  // },
+  // teamMembers() {
+  //   var userId = Meteor.userId();
+  //   var team = Teams.findOne({createdBy: userId});
+  //   return team.memberIds;
+  // }
+  // returnTeamMember() {
+  //
+  //   return teamMember.name;
+  // }
 
 })
 

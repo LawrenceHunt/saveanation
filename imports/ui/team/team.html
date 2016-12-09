@@ -1,12 +1,15 @@
 <template name="Team">
-
+  
   {{#if teams.count != 0}}
     {{#each teams}}
       <h2>{{ teamName }}</h2>
       <p>{{ memberIds.length }} members</p>
-      <p>{{ memberIds }}</p>
-      <p>Created by {{ createdBy }}</p>
-      <p>Created on {{ createdAt }}</p>
+
+      {{#each memberIds}}
+        <p>{{ . }}</p>
+      {{/each}}
+
+      <p>Team was created on {{ createdAt }} by {{ createdBy }} </p>
       <button class="delete-team" name="{{ _id }}">Delete Team</button>
       <a href="/edit-team" class="edit-team">Edit Team</a>
 
@@ -15,7 +18,6 @@
         <input type="email" class="memberEmail" name="memberEmail" placeholder="Email address" required/>
         <button type="submit">Submit</button>
       </form>
-
     {{/each}}
 
   {{else}}

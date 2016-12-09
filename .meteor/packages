@@ -24,8 +24,8 @@ kadira:blaze-layout
 aldeed:collection2
 aldeed:autoform
 meteortoys:allthings
-accounts-ui
 accounts-password
+accounts-ui-unstyled
 fortawesome:fontawesome
 raix:handlebar-helpers
 gwendall:auth-client-callbacks
