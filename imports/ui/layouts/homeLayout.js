@@ -11,4 +11,12 @@ if (Meteor.isClient) {
       arrows: true
     });
   };
+  // Template.homeLayout.events({
+  //   'click #signUp'(){
+  //     FlowRouter.go('register');
+  //   },
+  //   'click #signIn'(){
+  //     FlowRouter.go('login');
+  //   }
+  // });
 }
