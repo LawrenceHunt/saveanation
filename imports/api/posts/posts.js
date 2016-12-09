@@ -10,7 +10,7 @@ PostSchema = new SimpleSchema({
     autoform: {
       label: false,
       placeholder: "what have you saved today?",
-      id: "body"
+      id: "post-body"
     }
   },
   author: {
