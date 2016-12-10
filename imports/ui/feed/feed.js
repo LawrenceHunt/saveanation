@@ -4,6 +4,7 @@ import { Posts } from '../../api/posts/posts.js';
 import { moment } from 'meteor/momentjs:moment';
 
 import './feed.html';
+import './feed.css';
 
 Template.feed.onCreated(function feedOnCreated() {
   Meteor.subscribe('posts');

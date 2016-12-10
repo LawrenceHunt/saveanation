@@ -12,8 +12,8 @@
       <div id="billboard">
         {{> carousel}}
         <div id="buttons">
-          <button>Sign Up</button>
-          <button>Sign In</button>
+          <button id="signUp">Sign Up</button>
+          <button id="signIn">Sign In</button>
         </div>
       </div>
 
@@ -24,24 +24,35 @@
 <template name="carousel">
   <div id="carousel">
     <div>
-      <img class="logo-big" src='images/Logo.png'>
+      <img class="logo-big" src="images/Logo.png">
       <h2>Save with your friends - and get on the property ladder together!</h2>
+
     </div>
     <div>
-      <h2>HERE'S HOW IT WORKS</h2>
+      <h2>Here's how it works</h2>
       <p>Connect your account to the friends you want to save with, and set a saving target.</p>
+      <img class="carousel-image" src="images/tour1.png">
+
     </div>
     <div>
-      <h2>IMPULSE SPENDING? HOW ABOUT IMPULSE SAVING?</h2>
-      <p>Use the app to save where you can. Dodged that second pint? One tap and the money goes into your account instead, visible to your team.</p>
+      <h2>Impulse saving</h2>
+      <p>Use the app to save where you can.</p>
+      <p> Dodged that second pint? One tap and the money goes into your account instead, visible to your team.</p>
+      <img class="carousel-image" src="images/tour2.png">
     </div>
     <div>
-      <h2>KEEP EACH OTHER MOTIVATED</h2>
+      <h2>Keep each other motivated!</h2>
       <p>With team chat and virtual rewards to spend on your team tower, smash your weekly targets and watch the dream take shape.</p>
+        <img class="carousel-image" src="images/tour3.png">
+
     </div>
     <div>
-      <h2>BUY YOUR DREAM HOME</h2>
-      <p>Remember - you're under no obligation to buy with your friends. The app just encourages you to save by doing it together.</p>
+      <h2>Buy your dream home!</h2>
+      <p>Together or on your own - there's no obligation here.</p>
+      <p>The app just encourages you to save by doing it together!</p>
+      <img class="carousel-image" src="images/tour5.png">
+
+
     </div>
   </div>
 </template>

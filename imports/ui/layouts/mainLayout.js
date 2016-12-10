@@ -5,3 +5,6 @@ import '../target/target.js';
 import '../feed/feed.js';
 import '../save/save.js';
 import '../team/team.js';
+import '../user/login.js';
+import '../user/register.js';
+import '../partials/globalNav.js';

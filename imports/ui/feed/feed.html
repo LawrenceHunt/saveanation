@@ -1,15 +1,13 @@
 <template name="feed">
   <div class="new-post-container">
-    {{> quickForm collection="Posts" id="insertPostForm" type="insert" class="new-post-form" type="method" meteormethod="posts.insert"}}
+    {{> quickForm buttonContent="Post!" buttonClasses="post-button" collection="Posts" id="insertPostForm" type="insert" class="new-post-form" type="method" meteormethod="posts.insert"}}
   </div>
-  <ul>
+
     {{#each posts}}
-    <li class="post">
-      <h3 class="post-text">{{body}}</h3>
-      <p class="post-info">
-        {{author}} @ {{formatDate createdAt}}
-      </p>
-    </li>
+      <div class="post">
+        <h3 class="post-text">{{body}}</h3>
+        <h4 class="post-info">{{author}} @ {{formatDate createdAt}}</h4>
+      </div>
     {{/each}}
-  </ul>
-</template>   
+
+</template>

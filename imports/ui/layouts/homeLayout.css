@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-body {
+.home-body {
 	/*To hide the horizontal scroller appearing during the animation*/
 	overflow: hidden;
 	height: 100%;
@@ -10,8 +10,25 @@ body {
 #buttons {
 	position:absolute;
 	bottom: -10%;
-	right: 27%;
+	right: 30%;
 
+}
+
+img.logo-big {
+	margin: auto;
+	width: 70%;
+}
+
+img.logo-small {
+	position: absolute;
+	width: 20%;
+}
+
+img.carousel-image {
+	max-width: 300px;
+	margin-top: auto;
+	margin:auto;
+	padding-top: 10px;
 }
 
 #buttons button {
@@ -29,7 +46,7 @@ body {
 	height: 40%;
 	position: absolute;
 	text-align: center;
-	top: 10%;
+	top: 5%;
 	right: 35%;
 }
 
@@ -45,13 +62,32 @@ body {
 	background-color: #fff;
 }
 
-#carousel h1, h2, p {
+#carousel h1 {
+	font-family: 'Montserrat', sans-serif;
+	margin: auto;
+	text-align: center;
+	color: blue;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 2em;
+}
+
+#carousel h2 {
+	font-family: 'Montserrat', sans-serif;
+	margin: auto;
+	text-align: center;
+	padding-top: 0.7em;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+#carousel p {
 	font-family: 'Montserrat', sans-serif;
 	margin: auto;
 	text-align: center;
 	padding-top: 0.2em;
-	/*padding-left: 0.1em;
-	padding-right: 0.1em;*/
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .slick-prev:before, .slick-next:before {
@@ -60,6 +96,7 @@ body {
 /*slick finish*/
 
 #clouds-canvas{
+	overflow: hidden;
   height: 100%;
   width: 100%;
 	padding: 250px;
