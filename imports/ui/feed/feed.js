@@ -12,7 +12,8 @@ Template.feed.onCreated(function feedOnCreated() {
 
 Template.feed.helpers({
   posts() {
-    return Posts.find({}, { sort: { createdAt: -1}});
+    var user = Meteor.user();
+    return Posts.find( { $or: [{author: user.username}, {author: "Swinston"}] }, { sort: { createdAt: -1}});
   },
   formatDate(date) {
     return moment(date).format('h:mma on DD-MMM-YY');

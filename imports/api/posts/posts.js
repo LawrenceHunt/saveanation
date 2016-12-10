@@ -10,9 +10,9 @@ PostSchema = new SimpleSchema({
   },
   author: {
     type: String,
-    autoValue: function() {
-      return Meteor.user().username;
-    },
+    // autoValue: function() {
+    //   return Meteor.user().username;
+    // },
   },
   createdAt: {
     type: Date,
@@ -27,14 +27,15 @@ Posts.attachSchema( PostSchema );
 Meteor.methods({
   'post.add'(text) {
     check(text, String);
-    // Checks user is logged in - bring back once User ID is in place.
+    // Checks user is logged in
     if(!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    var currentUserId = this.userId;
+    var currentUser = Meteor.user().username;
     // Create the post object
     Posts.insert({
-      body: text
+      body: text,
+      author: currentUser
     });
   }
 });

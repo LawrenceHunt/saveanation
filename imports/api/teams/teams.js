@@ -21,7 +21,7 @@ TeamSchema = new SimpleSchema({
       return new Date();
     }
   }
-})
+});
 
 Teams.attachSchema( TeamSchema );
 
@@ -56,11 +56,11 @@ Meteor.methods({
     });
 
     let currentUserId = this.userId;
-    let currentTeam = Teams.findOne({ createdBy: currentUserId })
+    let currentTeam = Teams.findOne({ createdBy: currentUserId });
 
     Teams.update(
       { _id: currentTeam._id },
       { $push: { memberIds: newFriendId } }
-    )
+    );
   },
 });
