@@ -18,35 +18,31 @@
 
 .new-post-container {
   text-align: center;
+  vertical-align: middle;
 }
 
-.form-group {
-  display: inline-block;
-}
-
-#insertPostForm.new-post-form {
-  padding-top: 3em;
+#body-field {
   text-align: center;
-}
-
-#post-body.form-control {
-  text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   background-color: #fff;
   border-radius: 5px;
-  margin-bottom: 10px;
-  max-width: 600px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  max-width: 530px;
   width: 100%;
 }
 
 .post-button {
   text-align: center;
-  padding: 5px;
-  margin-bottom: 10px;
+  vertical-align: middle;
+  padding: 4px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   margin-left: 10px;
+  height: auto;
   color: white;
-  font-size: 24px;
+  font-size: 18px;
   background-color: red;
-  border-radius: 10px;
+  border-radius: 8px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
