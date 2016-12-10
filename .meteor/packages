@@ -25,6 +25,7 @@ aldeed:collection2
 aldeed:autoform
 meteortoys:allthings
 accounts-password
+accounts-ui-unstyled
 accounts-facebook
 service-configuration
 fortawesome:fontawesome
