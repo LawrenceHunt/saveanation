@@ -1,5 +1,5 @@
 <template name="Team">
-  
+
   {{#if teams.count != 0}}
     {{#each teams}}
       <h2>{{ teamName }}</h2>
@@ -13,19 +13,11 @@
       <button class="delete-team" name="{{ _id }}">Delete Team</button>
       <a href="/edit-team" class="edit-team">Edit Team</a>
 
-      <h3>Add team member</h3>
-      <form class="new-team-member">
-        <input type="email" class="memberEmail" name="memberEmail" placeholder="Email address" required/>
-        <button type="submit">Submit</button>
-      </form>
+      {{> addTeamMemberForm }}
     {{/each}}
 
   {{else}}
-    <h2>Enter a team</h2>
-    <form class="new-team">
-      <input type="text" class="teamName" name="teamName" placeholder="Team name" required/>
-      <button type="submit">Submit</button>
-    </form>
+    {{> addNewTeamForm }}
   {{/if}}
 
   <!-- <form id="findTeamMemberForm">

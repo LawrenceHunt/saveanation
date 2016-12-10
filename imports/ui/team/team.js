@@ -3,6 +3,8 @@ import { Template } from 'meteor/templating';
 import { Teams } from '../../api/teams/teams.js';
 
 import './team.html';
+import './addNewTeamForm.html';
+import './addTeamMemberForm.html';
 
 Template.Team.onCreated(function teamOnCreated() {
   Meteor.subscribe('teams');
@@ -42,7 +44,7 @@ Template.Team.events({
     event.preventDefault();
     const target = event.target;
     const memberEmail = target.memberEmail.value;
-    check(memberEmail, String);
+
     Meteor.call('team.addMember', memberEmail);
 
     // Clear form
