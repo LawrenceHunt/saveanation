@@ -18,3 +18,15 @@ Template.feed.helpers({
     return moment(date).format('h:mma on DD-MMM-YY');
   },
 });
+
+Template.feed.events({
+  'submit .add-post'(event) {
+    event.preventDefault();
+    const target = event.target;
+    const text = target.body.value;
+    Meteor.call('post.add', text);
+
+    // Clear form
+    target.body.value = '';
+  },
+});
