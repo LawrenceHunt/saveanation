@@ -20,6 +20,15 @@ Template.Team.helpers({
     return memberIds.map(function(memberId){
       return Meteor.users.findOne(memberId);
     })
+    console.log(memberIds.map(function(memberId){return Meteor.users.findOne(memberId);})
+  )
+    // just another way of doing the above, not using memberIds passed through at template level:
+    // //find current user and team
+    // let currentUserId = Meteor.userId();
+    // let currentTeam = Teams.findOne({memberIds: currentUserId});
+    // currentTeamMembers = currentTeam.memberIds;
+    // //return all team members
+    // return Meteor.users.find({_id: {$in: currentTeamMembers}});
   }
 
 })
