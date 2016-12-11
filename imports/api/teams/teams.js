@@ -25,7 +25,7 @@ TeamSchema = new SimpleSchema({
 
 Teams.attachSchema( TeamSchema );
 
-  if(Meteor.isServer) {
+if(Meteor.isServer) {
 
   Meteor.publish('teams', function teamsPublication() {
     return Teams.find({
@@ -59,17 +59,7 @@ Teams.attachSchema( TeamSchema );
     },
     'team.addMember'(newFriendEmail){
       check(newFriendEmail, String);
-      Meteor.call("serverCreateUser", {email: newFriendEmail, username: newFriendEmail}, function(error, result){
-        if(error) {
-          console.log(error.reason)
-        }
-        else {
-          return result
-        }
-      });
-
-      let newFriend = Meteor.users.findOne({ "emails.address" : newFriendEmail })
-      let newFriendId = newFriend._id
+      let newFriendId = Accounts.createUser({email: newFriendEmail, username: newFriendEmail});
 
       // we can add the below function here to send an enrollment email:
       // Accounts.sendEnrollmentEmail(newFriendId)
