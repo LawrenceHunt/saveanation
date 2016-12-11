@@ -8,7 +8,7 @@ if(Meteor.isServer) {
   // Only publish user accounts that belong to the current user
   Meteor.publish('users', function targetsPublication() {
     if (this.userId) {
-      return Meteor.users.find({_id: this.userId}).fetch();
+      return Meteor.users.find({_id: this.userId});
       }
     });
 }
@@ -18,7 +18,6 @@ Meteor.methods({
     check(userName, String);
     check(firstName, String);
     check(lastName, String);
-    // return Accounts.findUserByEmail(email);
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
