@@ -1,5 +1,6 @@
 <template name="Profile">
   <body>
+
     <div class="post">
     {{#each users}}
       <p>Hello {{fullName}}</p>
@@ -16,18 +17,6 @@
       <div class="post-info">
         <p>{{emailAddress}} </p>
       </div>
-      <!-- <div class="post-text">
-        <p>Your target:</p>
-      </div>
-      <div class="post-info">
-        <p>{{singleTarget}} </p>
-      </div>
-      <div class="post-text">
-        <p>Team target:</p>
-      </div>
-      <div class="post-info">
-        <p>{{teamTarget}} </p>
-      </div> -->
       <p><a href="/edit-profile">Edit</a> your profile</p>
     {{/each}}
     </div>
@@ -38,9 +27,6 @@
 <template name="EditProfile">
   <h3>Edit your profile</h3>
   <form class="edit-profile">
-    <div>
-      <input class="" type="email" placeholder="Email Address" name="emailAddress" id="email" />
-    </div>
     <div>
       <input class="" type="text" placeholder="Username" name="userName" id="username" />
     </div>
