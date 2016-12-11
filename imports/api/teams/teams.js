@@ -28,11 +28,8 @@ Teams.attachSchema( TeamSchema );
 if(Meteor.isServer) {
 
   Meteor.publish('teams', function teamsPublication() {
-    return Teams.find({
-      $or: [
-        { createdBy: this.userId },
-      ],
-    });
+    let currentUserId = this.userId;
+    return Teams.find({memberIds: currentUserId});
   });
 
   Meteor.publish("userDirectory", function () {
