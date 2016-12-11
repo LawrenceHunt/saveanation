@@ -8,3 +8,4 @@ import '../team/team.js';
 import '../user/login.js';
 import '../user/register.js';
 import '../partials/globalNav.js';
+import '../profile/profile.js'
