@@ -76,7 +76,7 @@ FlowRouter.route('/register', {
   }
 });
 
-FlowRouter.route('/profile', {
+FlowRouter.route('/profile', {  // /:_id
   name: 'profile',
   action() {
     BlazeLayout.render('mainLayout', {content: 'Profile'});
