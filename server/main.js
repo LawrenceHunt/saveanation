@@ -6,21 +6,61 @@ import '../imports/api/savingsAccounts/savingsAccounts.js';
 import '../imports/api/teams/teams.js';
 import '../imports/api/profiles/profiles.js';
 
+AccountsTemplates.configure({
+    // Behavior
+    confirmPassword: true,
+    enablePasswordChange: true,
+    forbidClientAccountCreation: false,
+    overrideLoginErrors: true,
+    sendVerificationEmail: false,
+    lowercaseUsername: false,
+    focusFirstInput: true,
 
-function setGravatars() {
-  let users = Meteor.users.find( { md5hash: { $exists: false } } );
-  users.forEach( ( user ) => {
-    Meteor.users.update( { _id: user._id }, {
-      $set: { md5hash: Gravatar.hash( user.emails[0].address ) }
-    });
-  });
-}
+    // Appearance
+    showAddRemoveServices: true,
+    showForgotPasswordLink: true,
+    showLabels: true,
+    showPlaceholders: true,
+    showResendVerificationEmailLink: false,
+
+    // Client-side Validation
+    continuousValidation: false,
+    negativeFeedback: false,
+    negativeValidation: true,
+    positiveValidation: true,
+    positiveFeedback: true,
+    showValidating: true,
+
+    // // Privacy Policy and Terms of Use
+    // privacyUrl: 'privacy',
+    // termsUrl: 'terms-of-use',
+
+    // Redirects
+    homeRoutePath: '/',
+    redirectTimeout: 4000,
+
+    // Texts
+    texts: {
+      button: {
+          signUp: "Register Now!"
+      },
+      socialSignUp: "Register",
+      socialIcons: {
+          "meteor-developer": "fa fa-rocket"
+      },
+      title: {
+          forgotPwd: "Recover Your Password"
+      },
+    },
+});
+
 
 Meteor.startup(() => {
   // code to run on server at startup
   Accounts.onCreateUser( ( options, user ) => {
-    user.md5hash = Gravatar.hash( user.emails[0].address );
+    if (user.emails) {
+      user.md5hash = Gravatar.hash( user.emails[0].address );
+    }
     return user;
   });
-  setGravatars();
 });
