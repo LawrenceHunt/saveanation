@@ -4,10 +4,16 @@ import { check } from 'meteor/check';
 
 export const Users = Meteor.users;
 
+Users.allow({
+  // insert: () => false,
+  update: () => true,
+  // remove: () => false
+});
+
 
 if(Meteor.isServer) {
   // Only publish user accounts that belong to the current user
-  Meteor.publish('userData', function () {
+  Meteor.publish('users', function targetsPublication() {
     if (this.userId) {
       return Meteor.users.find({_id: this.userId}).fetch();
       }
@@ -20,15 +26,19 @@ Meteor.methods({
     check(userName, String);
     check(firstName, String);
     check(lastName, String);
+
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    Users.update({createdBy: this.userId},{$set: {
-          email: emailAddress,
-          username: userName,
-          firstName: firstName,
-          lastName: lastName,
+    Meteor.users.update(this.userId, {$set: {
+      username: "MASSIVE PEST"
+      // emails[0].address: emailAddress
+          // currentUser[0].emails[0].address: emailAddress,
+          // currentUser[0].username: userName,
+          // currentUser[0].profile.firstName: firstName,
+          // currentUser[0].profile.lastName: lastName
+          // profile : { firstName: firstName, lastName: lastName }
         }
       });
-  },
+  }
 });

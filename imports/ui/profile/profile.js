@@ -1,13 +1,10 @@
 import { Template } from 'meteor/templating';
 import { Users } from '../../api/profiles/profiles.js'
-import { Targets } from '../../api/targets/targets.js';
-// import { Teams } from '../../api/teams/teams.js';
 
 import './profile.html';
 
-
 Template.Profile.onCreated(function userOnCreated(){
-  Meteor.subscribe('userData');
+  Meteor.subscribe('users');
 });
 
 Template.Profile.helpers({
@@ -50,13 +47,13 @@ Template.EditProfile.events({
   'submit .edit-profile'(event) {
     event.preventDefault();
     const profile = event.target;
-    const updateEmailAddress = parseInt(profile.emailAddress.value);
-    const updateUsername = parseInt(profile.userName.value);
-    const updateFirstName = parseInt(profile.firstName.value);
-    const updateLastName = parseInt(profile.lastName.value);
-
+    const updateEmailAddress = profile.emailAddress.value;
+    const updateUsername = profile.userName.value;
+    const updateFirstName = profile.firstName.value;
+    const updateLastName = profile.lastName.value;
     Meteor.call('profiles.edit', updateEmailAddress, updateUsername, updateFirstName, updateLastName);
-    // route back to /target
+    // route back to /profile
     FlowRouter.go('profile');
+
   }
 });
