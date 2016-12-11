@@ -8,6 +8,9 @@ import '../imports/api/teams/teams.js';
 Meteor.methods({
   'user.signup'(username, email, password) {
     Accounts.createUser({username: username, email: email, password: password});
+  },
+  serverCreateUser(options) {
+    Accounts.createUser({username: options.username, email: options.email, password: "123321"});
   }
 });
 
