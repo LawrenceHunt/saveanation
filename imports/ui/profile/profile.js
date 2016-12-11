@@ -1,8 +1,7 @@
 import { Template } from 'meteor/templating';
-import { Target } from '../../api/targets/targets.js';
-import { Teams } from '../../api/teams/teams.js';
-
-// import { UserProfile } from '../../api/profiles/profiles.js';
+import { Users } from '../../api/profiles/profiles.js'
+import { Targets } from '../../api/targets/targets.js';
+// import { Teams } from '../../api/teams/teams.js';
 
 import './profile.html';
 
@@ -12,27 +11,52 @@ Template.Profile.onCreated(function userOnCreated(){
 });
 
 Template.Profile.helpers({
-  userAccount() {
-    var userId = Meteor.userId();
-    return userId;
-    console.log("this is the user:" + userId);
-    // return Meteor.users({createdBy: userId}):
+  users() {
+    return Users.find({});
+  },
+  targets() {
+    // const currentUser = Users.find().fetch();
+    return Targets.find({});
   },
   userName() {
-    var userName = Meteor.user().username;
-    return userName;
+    const currentUser = Users.find().fetch();
+    return currentUser[0].username;
   },
   fullName() {
-    var firstName = Meteor.user().profile.firstName;
-    var lastName = Meteor.user().profile.lastName;
+    const currentUser = Users.find().fetch();
+    var firstName = currentUser[0].profile.firstName;
+    var lastName = currentUser[0].profile.lastName;
     return firstName + " " + lastName;
   },
-  // showTarget() {
-  //     const instance = Template.instance();
-  //     return instance.calculation.get('targetSummary');
-  //   }
   emailAddress() {
-    var emailAddress = Meteor.user().emails[0].address;
-    return emailAddress;
+    const currentUser = Users.find().fetch();
+    var email = currentUser[0].emails[0].address;
+    return email;
+  },
+  singleTarget() {
+    var currentUser = Users.find().fetch();
+    var target = Targets.find({}).fetch();
+    // console.log(currentUser[0]._id);
+    // console.log(target);
+    // var singleTarget = Targets.find({createdBy: currentUser[0]._id}).fetch();
+  },
+  teamTarget() {
+    const currentUser = Users.find().fetch();
+
+  },
+});
+
+Template.EditProfile.events({
+  'submit .edit-profile'(event) {
+    event.preventDefault();
+    const profile = event.target;
+    const updateEmailAddress = parseInt(profile.emailAddress.value);
+    const updateUsername = parseInt(profile.userName.value);
+    const updateFirstName = parseInt(profile.firstName.value);
+    const updateLastName = parseInt(profile.lastName.value);
+
+    Meteor.call('profiles.edit', updateEmailAddress, updateUsername, updateFirstName, updateLastName);
+    // route back to /target
+    FlowRouter.go('profile');
   }
 });

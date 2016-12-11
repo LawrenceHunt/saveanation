@@ -27,6 +27,7 @@ meteortoys:allthings
 accounts-password
 accounts-ui-unstyled
 accounts-facebook
+random              
 service-configuration
 fortawesome:fontawesome
 raix:handlebar-helpers
@@ -38,8 +39,7 @@ practicalmeteor:mocha
 xolvio:cleaner
 xolvio:backdoor
 reactive-dict
-random
 hwillson:stub-collections
 mdg:validated-method
 udondan:slick
-momentjs:moment
+momentjs:moment     # dates are more human-readable

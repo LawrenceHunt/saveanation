@@ -5,6 +5,7 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import '../../ui/layouts/mainLayout.js';
 import '../../ui/layouts/homeLayout.js';
 
+
 if(Meteor.isClient) {// checking for the log in and log out. Taken care of by the gwendall:auth-client-callbacks package
  Accounts.onLogin(function() {
    //this is going to get called when the user is logged in
@@ -80,5 +81,12 @@ FlowRouter.route('/profile', {  // /:_id
   name: 'profile',
   action() {
     BlazeLayout.render('mainLayout', {content: 'Profile'});
+  }
+});
+
+FlowRouter.route('/edit-profile', {  // /:_id
+  name: 'edit-profile',
+  action() {
+    BlazeLayout.render('mainLayout', {content: 'EditProfile'});
   }
 });
