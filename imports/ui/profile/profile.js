@@ -23,7 +23,7 @@ Template.Profile.helpers({
   },
   emailAddress() {
     const currentUser = Users.find().fetch();
-    var email = currentUser[0].emails[0].address;
+    var email = currentUser[0].email;
     return email;
   }
 });

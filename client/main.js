@@ -49,3 +49,8 @@ AccountsTemplates.configure({
       },
     },
 });
+
+Accounts.ui.config({
+  requestPermissions: {
+    facebook: ['email']  }
+});

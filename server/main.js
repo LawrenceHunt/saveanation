@@ -59,8 +59,11 @@ Meteor.startup(() => {
   // code to run on server at startup
   Accounts.onCreateUser( ( options, user ) => {
     if (user.emails) {
-      user.md5hash = Gravatar.hash( user.emails[0].address );
+      user.email = user.emails[0].address;
+    } else if(user.facebook) {
+      user.email = user.facebook.email;
     }
+    user.md5hash = Gravatar.hash( user.email );
     return user;
   });
 });
