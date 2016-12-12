@@ -68,10 +68,8 @@ Template.Target.helpers({
   transactionsInRange() {
     const userId = Meteor.userId();
     var currentDate = new Date();
-    var previousDate = Template.Target.__helpers.get('setPreviousDate').call(this,currentDate,7,"days");
-    // var transactionsInRange = Transactions.find( {owner: userId} ).fetch();
+    var previousDate = Template.Target.__helpers.get('setPreviousDate').call(this,currentDate,1,"days");
     var transactionsInRange = Transactions.find( {$and: [ {owner: userId}, {createdAt: {$lt: currentDate, $gte: previousDate} } ] } ).fetch();
-    console.log(transactionsInRange);
     return transactionsInRange;
   },
 
