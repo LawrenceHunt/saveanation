@@ -1,12 +1,15 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Targets } from '../../api/targets/targets.js';
+import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
+
 
 import './target.html';
 
 Template.Target.onCreated(function targetOnCreated() {
   this.calculation = new ReactiveDict();
   Meteor.subscribe('targets');
+  Meteor.subscribe('savingsAccounts');
 });
 
 Template.Target.helpers({
@@ -29,6 +32,16 @@ Template.Target.helpers({
     const instance = Template.instance();
     return instance.calculation.get('monthlyTarget');
   },
+  currentBalance() {
+    const userId = Meteor.userId();
+    const account = SavingsAccounts.findOne({createdBy: userId});
+    if(account) {
+      return account.balance.toString();
+    }
+  },
+  stillToSave() {
+
+  }
 });
 
 Template.Target.events({
@@ -36,6 +49,10 @@ Template.Target.events({
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
     const formattedTargetAmount = '£' + targetAmount.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    const userId = Meteor.userId();
+    const account = SavingsAccounts.findOne({createdBy: userId}).balance;
+
+    const stillToSave = targetAmount - account;
 
     const targetDate = new Date(template.find('.targetDate').value);
     const formattedTargetDate = targetDate.toDateString();
@@ -55,6 +72,9 @@ Template.Target.events({
     template.calculation.set('monthlyTarget', monthlyTarget);
     template.calculation.set('weeklyTarget', weeklyTarget);
     template.calculation.set('dailyTarget', dailyTarget);
+  },
+  'click .currentProgress'(event, template) {
+    
   },
   'submit .new-target'(event) {
     event.preventDefault();
@@ -96,4 +116,4 @@ Date.daysBetween = function( date1, date2 ) {
   var difference_ms = date2_ms - date1_ms;
   // Convert back to days and return
   return Math.round(difference_ms/one_day);
-}
+};
