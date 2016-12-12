@@ -31,6 +31,7 @@ Meteor.methods({
   'targets.edit'(targetAmount, targetDate) {
     check(targetAmount, Number);
     check(targetDate, Date);
+    console.log(Targets);
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
