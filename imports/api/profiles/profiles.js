@@ -26,5 +26,22 @@ Meteor.methods({
           profile: { firstName: firstName, lastName: lastName }
         }
       });
+  },
+  'profiles.add'(firstName, lastName) {
+    check(firstName, String);
+    check(lastName, String);
+    if(! this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    Meteor.users.update(this.userId, {$set: {
+          profile: { firstName: firstName, lastName: lastName }
+        }
+      });
   }
+});
+
+Users.allow({
+  insert() { return true; },
+  update() { return true; },
+  remove() { return false; },
 });

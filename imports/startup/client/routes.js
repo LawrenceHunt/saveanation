@@ -85,6 +85,13 @@ FlowRouter.route('/profile', {  // /:_id
   }
 });
 
+FlowRouter.route('/addprofile', {  // /:_id
+  name: 'addprofile',
+  action() {
+    BlazeLayout.render('mainLayout', {content: 'AddProfile'});
+  }
+});
+
 FlowRouter.route('/edit-profile', {  // /:_id
   name: 'edit-profile',
   action() {
