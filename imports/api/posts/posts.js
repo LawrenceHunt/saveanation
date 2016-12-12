@@ -7,37 +7,33 @@ export const Posts = new Mongo.Collection('posts');
 PostSchema = new SimpleSchema({
   body: {
     type: String,
-    autoform: {
-      label: false,
-      placeholder: "what have you saved today?",
-      id: "post-body"
-    }
   },
   author: {
     type: String,
-    autoValue: function() {
-      return Meteor.user().username;
-    },
-    autoform: {
-      type: "hidden"
-    }
   },
   createdAt: {
     type: Date,
     autoValue: function() {
       return new Date();
     },
-    autoform: {
-      type: "hidden"
-    }
   }
 });
 
 Posts.attachSchema( PostSchema );
 
 Meteor.methods({
-  "posts.insert": function(doc) {
-    Posts.insert({ body: doc.body, createdAt: doc.createdAt, author: doc.author });
+  'post.add'(text) {
+    check(text, String);
+    // Checks user is logged in
+    if(!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    var currentUser = Meteor.user().username;
+    // Create the post object
+    Posts.insert({
+      body: text,
+      author: currentUser
+    });
   }
 });
 

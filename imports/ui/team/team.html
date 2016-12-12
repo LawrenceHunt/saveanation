@@ -5,9 +5,15 @@
       <h2>{{ teamName }}</h2>
       <p>{{ memberIds.length }} members</p>
 
-      {{#each memberIds}}
-        <p>{{ . }}</p>
-      {{/each}}
+      <ul>
+        {{#if Template.subscriptionsReady}}
+          {{#each teamMemberObject memberIds }}
+            {{> teamMember }}
+          {{/each}}
+        {{else}}
+          <p>Loading...</p>
+        {{/if}}
+      </ul>
 
       <p>Team was created on {{ createdAt }} by {{ createdBy }} </p>
       <button class="delete-team" name="{{ _id }}">Delete Team</button>
@@ -19,12 +25,4 @@
   {{else}}
     {{> addNewTeamForm }}
   {{/if}}
-
-  <!-- <form id="findTeamMemberForm">
-    <input type="text" name="friend_name">
-    <button>Find Friend</button>
-  </form>
-  <h2>Team Members</h2>
-  {{#if teamMembeRequest}}
-  {{/if}} -->
 </template>

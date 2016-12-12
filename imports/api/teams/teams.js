@@ -21,46 +21,54 @@ TeamSchema = new SimpleSchema({
       return new Date();
     }
   }
-})
+});
 
 Teams.attachSchema( TeamSchema );
 
 if(Meteor.isServer) {
 
   Meteor.publish('teams', function teamsPublication() {
-    return Teams.find({
-      $or: [
-        { createdBy: this.userId },
-      ],
-    });
+    let currentUserId = this.userId;
+    return Teams.find({memberIds: currentUserId});
+  });
+
+  Meteor.publish("userDirectory", function () {
+    //getting details of current user's team
+    let currentUserId = this.userId;
+    let currentTeam = Teams.findOne({ createdBy: currentUserId });
+    // get a list of all current team memberIds
+    let ids = currentTeam.memberIds;
+    //return only users that belong to this team
+    return Meteor.users.find({_id: {$in: ids}});
+    //this will need to be changed to return only the pertinent fields for security purposes (eg username, email)
+  });
+
+  Meteor.methods({
+    'team.add'(teamName){
+      check(teamName, String);
+
+      var currentUserId = this.userId;
+      Teams.insert({
+        teamName,
+        memberIds: [currentUserId],
+        createdBy: currentUserId,
+      });
+    },
+    'team.addMember'(newFriendEmail){
+      check(newFriendEmail, String);
+      let newFriendId = Accounts.createUser({email: newFriendEmail, username: newFriendEmail});
+
+      // we can add the below function here to send an enrollment email:
+      // Accounts.sendEnrollmentEmail(newFriendId)
+      // more info here http://docs.meteor.com/api/passwords.html#Accounts-sendEnrollmentEmail
+
+      let currentUserId = this.userId;
+      let currentTeam = Teams.findOne({ createdBy: currentUserId });
+
+      Teams.update(
+        { _id: currentTeam._id },
+        { $push: { memberIds: newFriendId } }
+      );
+    },
   });
 }
-
-Meteor.methods({
-  'team.add'(teamName){
-    check(teamName, String);
-
-    var currentUserId = this.userId;
-    Teams.insert({
-      teamName,
-      memberIds: [currentUserId],
-      createdBy: currentUserId,
-    });
-  },
-  'team.addMember'(newFriendEmail){
-    check(newFriendEmail, String);
-
-    var newFriendId = Accounts.createUser({
-      email: newFriendEmail,
-      password: "123password456"
-    });
-
-    let currentUserId = this.userId;
-    let currentTeam = Teams.findOne({ createdBy: currentUserId })
-
-    Teams.update(
-      { _id: currentTeam._id },
-      { $push: { memberIds: newFriendId } }
-    )
-  },
-});

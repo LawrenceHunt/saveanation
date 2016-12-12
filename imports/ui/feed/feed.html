@@ -1,10 +1,14 @@
 <template name="feed">
   <div class="new-post-container">
-    {{> quickForm buttonContent="Post!" buttonClasses="post-button" collection="Posts" id="insertPostForm" type="insert" class="new-post-form" type="method" meteormethod="posts.insert"}}
+    <form class="add-post">
+      <input id="body-field" name="body" type="text" placeholder="What have you saved today?">
+      <input class="post-button" type="submit" value="Post!" >
+    </form>
   </div>
 
     {{#each posts}}
       <div class="post">
+        <div class="avatar" style="background: url({{avatar 50 currentUser}}); height: 50px; width: 50px;"></div>
         <h3 class="post-text">{{body}}</h3>
         <h4 class="post-info">{{author}} @ {{formatDate createdAt}}</h4>
       </div>

@@ -109,6 +109,15 @@ Template.EditTarget.events({
   }
 });
 
+Template.EditTarget.helpers({
+  targetAmount() {
+    return Targets.find({}).fetch()[0].targetAmount;
+  },
+  targetDate() {
+    return Targets.find({}).fetch()[0].targetDate;
+  }
+});
+
 Date.daysBetween = function( date1, date2 ) {
   //Get 1 day in milliseconds
   var one_day=1000*60*60*24;

@@ -6,9 +6,7 @@
       <button class="delete-target" name="{{ _id }}">Delete Target</button>
       <a href="/edit-target" class="edit-target">Edit Target</a>
       <button type="button" class="show-progress">Show Progress</button>
-
     {{/each}}
-
   {{else}}
     <h2>Enter a target</h2>
     <form class="new-target">
@@ -30,8 +28,29 @@
 <template name="EditTarget">
     <h3>Edit your target</h3>
     <form class="edit-target">
-      <input type="text" name="targetAmount" placeholder="Target amount" required/>
-      <input type="date" name="targetDate" placeholder="Target complete" required/>
+      <input type="text" name="targetAmount" placeholder="Target amount" value="{{ targetAmount }}" required/>
+      <input type="date" name="targetDate" placeholder="Target complete" value="{{ targetDate }}" required/>
       <button type="submit">Submit</button>
     </form>
+</template>
+
+<template name="TargetSummary">
+    <h3>Your target</h3>
+    {{#if targets.count != 0}}
+      <h3>Your target</h3>
+      {{#each targets}}
+        <p>You want to save £{{ targetAmount }} by {{ targetDate }}</p>
+        <button class="delete-target" name="{{ _id }}">Delete Target</button>
+        <a href="/edit-target" class="edit-target">Edit Target</a>
+      {{/each}}
+    {{/if}}
+
+
+
+
+    <p>{{ targetSummary }}</p>
+    <p>{{ monthlyTarget }}</p>
+    <p>{{ weeklyTarget }}</p>
+    <p>{{ dailyTarget }}</p>
+
 </template>
