@@ -17,6 +17,7 @@ if(Meteor.isClient) {// checking for the log in and log out. Taken care of by th
    //this is going to get called when the user is logged out
    FlowRouter.go('home');
  });
+
 }
 
 FlowRouter.route('/', {
@@ -32,6 +33,9 @@ FlowRouter.route('/', {
 FlowRouter.route('/save', {
   name: 'save',
   action() {
+    if(!Meteor.userId()) {
+      FlowRouter.go('home');
+    }
     BlazeLayout.render("mainLayout", {content: 'Save'});
   }
 });
@@ -39,6 +43,9 @@ FlowRouter.route('/save', {
 FlowRouter.route('/feed', {
   name: 'feed',
   action() {
+    if(!Meteor.userId()) {
+      FlowRouter.go('home');
+    }
     BlazeLayout.render("mainLayout", {content: "feed"});
   }
 });
@@ -46,6 +53,9 @@ FlowRouter.route('/feed', {
 FlowRouter.route('/target', {
   name: 'target',
   action() {
+    if(!Meteor.userId()) {
+      FlowRouter.go('home');
+    }
     BlazeLayout.render("mainLayout", {content: 'Target'});
   }
 });
@@ -53,6 +63,9 @@ FlowRouter.route('/target', {
 FlowRouter.route('/edit-target', {
   name: 'edit-target',
   action() {
+    if(!Meteor.userId()) {
+      FlowRouter.go('home');
+    }
     BlazeLayout.render("mainLayout", {content: 'EditTarget'});
   }
 });
@@ -60,6 +73,9 @@ FlowRouter.route('/edit-target', {
 FlowRouter.route('/team', {
   name: 'team',
   action() {
+    if(!Meteor.userId()) {
+      FlowRouter.go('home');
+    }
     BlazeLayout.render("mainLayout", {content: "Team"});
   }
 });
@@ -67,6 +83,9 @@ FlowRouter.route('/team', {
 FlowRouter.route('/login', {
    name: 'login',
    action() {
+     if(Meteor.userId()) {
+       FlowRouter.go('feed');
+     }
    BlazeLayout.render("accountLayout", {content: 'Login'});
   }
 });
@@ -74,6 +93,9 @@ FlowRouter.route('/login', {
 FlowRouter.route('/register', {
   name: 'register',
   action() {
+    if(Meteor.userId()) {
+      FlowRouter.go('feed');
+    }
     BlazeLayout.render('accountLayout', {content: 'Login'});
   }
 });
@@ -81,6 +103,9 @@ FlowRouter.route('/register', {
 FlowRouter.route('/profile', {  // /:_id
   name: 'profile',
   action() {
+    if(!Meteor.userId()) {
+      FlowRouter.go('home');
+    }
     BlazeLayout.render('mainLayout', {content: 'Profile'});
   }
 });
@@ -88,6 +113,9 @@ FlowRouter.route('/profile', {  // /:_id
 FlowRouter.route('/edit-profile', {  // /:_id
   name: 'edit-profile',
   action() {
+    if(!Meteor.userId()) {
+      FlowRouter.go('home');
+    }
     BlazeLayout.render('mainLayout', {content: 'EditProfile'});
   }
 });

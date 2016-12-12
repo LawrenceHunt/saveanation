@@ -41,6 +41,10 @@ Template.Tower.helpers({
 
 Template.Tower.onRendered(function(){
   paper = Raphael("paper", "100%", "100%");
+<<<<<<< HEAD
+=======
+  
+>>>>>>> master
   var t = paper.text(50, 10, "HTML5ROCKS");
 
   var letters = paper.print(50, 50, "HTML5ROCKS", paper.getFont("Vegur"), 40);
