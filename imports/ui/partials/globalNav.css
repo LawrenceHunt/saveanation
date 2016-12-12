@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
+@font-face {
+    font-family: 'square';
+    src: url('fonts/Square.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
 
 .logo {
     max-width: 100%;
@@ -44,6 +50,8 @@
 
 .pure-menu-link,
 .pure-menu-heading {
+    font-family: 'square';
+    font-size: 1.5em;
     display: block;
     text-decoration: none;
     white-space: nowrap;
@@ -61,6 +69,10 @@
 .pure-menu-item a {
   text-decoration: none !important;
   color: inherit;
+  font-family: 'square';
+  color: red;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 2px lightblue; 
 }
 
 .pure-menu-horizontal .pure-menu-list {

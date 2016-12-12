@@ -1,0 +1,9 @@
+#gamecanvas {
+  position: absolute;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: lightblue;
+  display: block;
+  margin: 0 auto;
+}

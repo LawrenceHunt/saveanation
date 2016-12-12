@@ -1,5 +1,5 @@
 import { Template } from 'meteor/templating';
-import { Users } from '../../api/profiles/profiles.js'
+import { Users } from '../../api/profiles/profiles.js';
 
 import './profile.html';
 
@@ -23,7 +23,7 @@ Template.Profile.helpers({
   },
   lastName() {
     const currentUser = Meteor.user();
-    return currentUser.profile.lastName;;
+    return currentUser.profile.lastName;
   },
   emailAddress() {
     return Meteor.user().email;

@@ -119,3 +119,10 @@ FlowRouter.route('/edit-profile', {  // /:_id
     BlazeLayout.render('mainLayout', {content: 'EditProfile'});
   }
 });
+
+FlowRouter.route('/tower', {
+  name: 'tower',
+  action() {
+    BlazeLayout.render('mainLayout', {content: 'Tower'});
+  }
+});
