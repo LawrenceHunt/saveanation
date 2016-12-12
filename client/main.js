@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import '../imports/startup/client';
 import { Users } from '../imports/api/profiles/profiles.js'
-// import '../imports/startup/accounts-config.js';
 
 AccountsTemplates.configure({
+
     // Behavior
     confirmPassword: true,
     enablePasswordChange: true,
@@ -31,6 +31,11 @@ AccountsTemplates.configure({
     // // Privacy Policy and Terms of Use
     // privacyUrl: 'privacy',
     // termsUrl: 'terms-of-use',
+
+    // Hooks
+    postSignUpHook: function() {
+      FlowRouter.go('addprofile');
+    },
 
     // Redirects
     homeRoutePath: '/',
@@ -78,45 +83,3 @@ AccountsTemplates.addField({
        return Meteor.call("userExists", value);
    },
   });
-
-
-  // AccountsTemplates.addField({
-  //   _id: 'firstname',
-  //   displayName: "First Name",
-  //   type: 'text',
-  //   required: true,
-  //   func: function(value){
-  //     if (Meteor.isClient) {
-  //       var self = this;
-  //       Meteor.call("userExists", value, function(err, userExists){
-  //         self.setSuccess();
-  //       });
-  //     }
-  //     return;
-  //   }
-  //   // Server
-  //   return Meteor.call("userExists", value);
-  //   // user.profile.firstName = firstname;
-  // });
-
-  // AccountsTemplates.addField({
-  //     _id: "gender",
-  //     type: "select",
-  //     displayName: "Gender",
-  //     select: [
-  //         {
-  //             text: "Male",
-  //             value: "male",
-  //         },
-  //         {
-  //             text: "Female",
-  //             value: "female",
-  //         },
-  //     ],
-  //     func: function (gender) {
-  //         Users.insert({
-  //             "gender": gender._id,
-  //         });
-  //         console.log("test");
-  //     },
-  // });

@@ -35,6 +35,11 @@ AccountsTemplates.configure({
     // privacyUrl: 'privacy',
     // termsUrl: 'terms-of-use',
 
+    // Hooks
+    postSignUpHook: function() {
+      FlowRouter.go('addprofile');
+    },
+
     // Redirects
     homeRoutePath: '/',
     redirectTimeout: 4000,
@@ -52,15 +57,16 @@ AccountsTemplates.configure({
           forgotPwd: "Recover Your Password"
       },
     },
+
 });
-
-
-
 
 Meteor.startup(() => {
   // code to run on server at startup
 
   Accounts.onCreateUser( ( options, user ) => {
+    // on create user, re-route to addprofile page to update user info
+    // on create user, instantiate an account with a 0 balance
+    // savingsAccounts.balance.amount = 0;
     if (user.emails) {
       user.email = user.emails[0].address;
     } else if(user.services.facebook) {
@@ -68,5 +74,6 @@ Meteor.startup(() => {
     }
     user.md5hash = Gravatar.hash( user.email );
     return user;
+    // set balance to 0
   });
 });
