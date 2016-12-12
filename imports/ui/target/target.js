@@ -36,11 +36,12 @@ Template.Target.helpers({
     const userId = Meteor.userId();
     const account = SavingsAccounts.findOne({createdBy: userId});
     if(account) {
-      return account.balance.toString();
+      return "£" + account.balance.toString();
     }
   },
   stillToSave() {
-
+    const instance = Template.instance();
+    return instance.calculation.get('stillToSave');
   }
 });
 
@@ -50,31 +51,33 @@ Template.Target.events({
     const targetAmount = template.find('.targetAmount').value;
     const formattedTargetAmount = '£' + targetAmount.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     const userId = Meteor.userId();
-    const account = SavingsAccounts.findOne({createdBy: userId}).balance;
+    const currentBalance = SavingsAccounts.findOne({createdBy: userId}).balance;
 
-    const stillToSave = targetAmount - account;
-
+    const stillToSave = targetAmount - currentBalance;
+    const formattedStillToSave = "£" + parseInt(targetAmount - currentBalance);
+    console.log(stillToSave);
     const targetDate = new Date(template.find('.targetDate').value);
     const formattedTargetDate = targetDate.toDateString();
     const today = new Date();
     const daysToSave = Date.daysBetween(today, targetDate);
 
-    const amountPerMonth = Math.round(((targetAmount / daysToSave) * 365) / 12);
-    const amountPerWeek = Math.round((targetAmount / daysToSave) * 7);
-    const amountPerDay = Math.round(targetAmount / daysToSave);
+    const amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
+    const amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
+    const amountPerDay = Math.round(stillToSave / daysToSave);
 
     const targetSummary = "To save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
     const monthlyTarget = "£" + amountPerMonth + " each month.";
     const weeklyTarget = "£" + amountPerWeek + " each week.";
     const dailyTarget = "£" + amountPerDay + " each day.";
 
+    template.calculation.set('stillToSave', stillToSave);
     template.calculation.set('targetSummary', targetSummary);
     template.calculation.set('monthlyTarget', monthlyTarget);
     template.calculation.set('weeklyTarget', weeklyTarget);
     template.calculation.set('dailyTarget', dailyTarget);
   },
-  'click .currentProgress'(event, template) {
-    
+  'click .show-progress'(event, template) {
+
   },
   'submit .new-target'(event) {
     event.preventDefault();

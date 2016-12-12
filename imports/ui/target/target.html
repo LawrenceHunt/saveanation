@@ -5,6 +5,7 @@
       <p>You want to save £{{ targetAmount }} by {{ targetDate }}, {{currentBalance}} saved so far</p>
       <button class="delete-target" name="{{ _id }}">Delete Target</button>
       <a href="/edit-target" class="edit-target">Edit Target</a>
+      <button type="button" class="show-progress">Show Progress</button>
 
     {{/each}}
 
@@ -16,7 +17,7 @@
       <button type="button" class="calculate">Calculate</button>
       <button type="submit">Submit</button>
     </form>
-
+    <p>Your Current Balance is: {{currentBalance}}</p>
     <p>{{ targetSummary }}</p>
     <p>{{ monthlyTarget }}</p>
     <p>{{ weeklyTarget }}</p>
