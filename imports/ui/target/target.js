@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Targets } from '../../api/targets/targets.js';
 import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
-
+import { MomentsJS } from 'meteor/momentjs:moment';
 
 import './target.html';
 
@@ -40,26 +40,47 @@ Template.Target.helpers({
     }
   },
   stillToSave() {
-    const instance = Template.instance();
-    return instance.calculation.get('stillToSave');
-  }
+    const userId = Meteor.userId();
+    var currentBalance = SavingsAccounts.findOne({createdBy: userId}).balance;
+    var currentTarget = Targets.findOne({createdBy: userId}).targetAmount;
+    var stillToSave = currentTarget - currentBalance;
+    // string formatting function here:
+    // return value = formatAsCurrency(stillToSave)
+    return "£" + stillToSave;
+  },
+  percentageOfTotal() {
+    const userId = Meteor.userId();
+    var currentBalance = SavingsAccounts.findOne({createdBy: userId}).balance;
+    var currentTarget = Targets.findOne({createdBy: userId}).targetAmount;
+    var percentage = Math.round((currentBalance/currentTarget) * 100);
+    return percentage;
+  },
+
+  dateRange(days) {
+    var currentDate = new Date();
+    var previousDate = new Date();
+    var pastDate = previousDate.setTime(currentDate.getTime() - (days * 24 * 3600000));
+    console.log(pastDate);
+  },
+
+
 });
 
 Template.Target.events({
   'click .calculate'(event, template) {
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
-    const formattedTargetAmount = '£' + targetAmount.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    var formattedTargetAmount = '£' + targetAmount.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     const userId = Meteor.userId();
-    const currentBalance = SavingsAccounts.findOne({createdBy: userId}).balance;
+    var currentBalance = SavingsAccounts.findOne({createdBy: userId}).balance;
 
-    const stillToSave = targetAmount - currentBalance;
-    const formattedStillToSave = "£" + parseInt(targetAmount - currentBalance);
+    var stillToSave = targetAmount - currentBalance;
+    var formattedStillToSave = "£" + parseInt(targetAmount - currentBalance);
 
-    const targetDate = new Date(template.find('.targetDate').value);
-    const formattedTargetDate = targetDate.toDateString();
-    const today = new Date();
-    const daysToSave = Date.daysBetween(today, targetDate);
+    var targetDate = new Date(template.find('.targetDate').value);
+    var formattedTargetDate = targetDate.toDateString();
+    var today = new Date();
+    var daysToSave = Date.daysBetween(today, targetDate);
 
     const amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
     const amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
