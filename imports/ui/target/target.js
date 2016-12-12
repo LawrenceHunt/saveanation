@@ -55,7 +55,7 @@ Template.Target.events({
 
     const stillToSave = targetAmount - currentBalance;
     const formattedStillToSave = "£" + parseInt(targetAmount - currentBalance);
-    console.log(stillToSave);
+
     const targetDate = new Date(template.find('.targetDate').value);
     const formattedTargetDate = targetDate.toDateString();
     const today = new Date();
@@ -65,7 +65,7 @@ Template.Target.events({
     const amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
     const amountPerDay = Math.round(stillToSave / daysToSave);
 
-    const targetSummary = "To save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
+    const targetSummary = "You need an extra "+ formattedStillToSave + ", to save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
     const monthlyTarget = "£" + amountPerMonth + " each month.";
     const weeklyTarget = "£" + amountPerWeek + " each week.";
     const dailyTarget = "£" + amountPerDay + " each day.";
