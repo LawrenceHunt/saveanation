@@ -2,6 +2,7 @@
   <body>
     <div id="clouds-canvas">
       <img class="skyscraper" src="images/skyscraper.png">
+
       <div class="cloud x1"></div>
       <div class="cloud x2"></div>
       <div class="cloud x3"></div>
@@ -9,10 +10,17 @@
       <div class="cloud x5"></div>
 
       <div id="billboard">
-        {{> atForm}}
+          <div id="carousel">
+            <div>
+                {{> atForm}}
+            </div>
+          </div>
+        <div id="buttons">
+          <button id="signUp">Sign Up</button>
+          <button id="signIn">Sign In</button>
+        </div>
       </div>
 
     </div>
   </body>
-
 </template>
