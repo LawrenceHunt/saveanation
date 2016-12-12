@@ -6,10 +6,9 @@ import './save.html';
 
 Template.Save.onCreated(function transactionsOnCreated(){
   Meteor.subscribe('transactions');
-});
-Template.Save.onCreated(function balanceOnCreated(){
   Meteor.subscribe('savingsAccounts');
 });
+
 
 Template.Save.helpers({
   transactions() {

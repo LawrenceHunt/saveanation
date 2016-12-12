@@ -1,12 +1,15 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Targets } from '../../api/targets/targets.js';
+import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
+
 
 import './target.html';
 
 Template.Target.onCreated(function targetOnCreated() {
   this.calculation = new ReactiveDict();
   Meteor.subscribe('targets');
+  Meteor.subscribe('savingsAccounts');
 });
 
 Template.Target.helpers({
@@ -29,6 +32,17 @@ Template.Target.helpers({
     const instance = Template.instance();
     return instance.calculation.get('monthlyTarget');
   },
+  currentBalance() {
+    const userId = Meteor.userId();
+    const account = SavingsAccounts.findOne({createdBy: userId});
+    if(account) {
+      return "£" + account.balance.toString();
+    }
+  },
+  stillToSave() {
+    const instance = Template.instance();
+    return instance.calculation.get('stillToSave');
+  }
 });
 
 Template.Target.events({
@@ -36,25 +50,34 @@ Template.Target.events({
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
     const formattedTargetAmount = '£' + targetAmount.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    const userId = Meteor.userId();
+    const currentBalance = SavingsAccounts.findOne({createdBy: userId}).balance;
+
+    const stillToSave = targetAmount - currentBalance;
+    const formattedStillToSave = "£" + parseInt(targetAmount - currentBalance);
 
     const targetDate = new Date(template.find('.targetDate').value);
     const formattedTargetDate = targetDate.toDateString();
     const today = new Date();
     const daysToSave = Date.daysBetween(today, targetDate);
 
-    const amountPerMonth = Math.round(((targetAmount / daysToSave) * 365) / 12);
-    const amountPerWeek = Math.round((targetAmount / daysToSave) * 7);
-    const amountPerDay = Math.round(targetAmount / daysToSave);
+    const amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
+    const amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
+    const amountPerDay = Math.round(stillToSave / daysToSave);
 
-    const targetSummary = "To save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
+    const targetSummary = "You need an extra "+ formattedStillToSave + ", to save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
     const monthlyTarget = "£" + amountPerMonth + " each month.";
     const weeklyTarget = "£" + amountPerWeek + " each week.";
     const dailyTarget = "£" + amountPerDay + " each day.";
 
+    template.calculation.set('stillToSave', stillToSave);
     template.calculation.set('targetSummary', targetSummary);
     template.calculation.set('monthlyTarget', monthlyTarget);
     template.calculation.set('weeklyTarget', weeklyTarget);
     template.calculation.set('dailyTarget', dailyTarget);
+  },
+  'click .show-progress'(event, template) {
+
   },
   'submit .new-target'(event) {
     event.preventDefault();
@@ -105,4 +128,4 @@ Date.daysBetween = function( date1, date2 ) {
   var difference_ms = date2_ms - date1_ms;
   // Convert back to days and return
   return Math.round(difference_ms/one_day);
-}
+};
