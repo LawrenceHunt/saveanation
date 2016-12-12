@@ -58,13 +58,12 @@ AccountsTemplates.configure({
 Meteor.startup(() => {
   // code to run on server at startup
   Accounts.onCreateUser( ( options, user ) => {
-    console.log(user);
     if (user.emails) {
-      user.profile.email = user.emails[0].address;
+      user.email = user.emails[0].address;
     } else if(user.services.facebook) {
-      user.profile.email = user.services.facebook.email;
+      user.email = user.services.facebook.email;
     }
-    user.md5hash = Gravatar.hash( user.profile.email );
+    user.md5hash = Gravatar.hash( user.email );
     return user;
   });
 });

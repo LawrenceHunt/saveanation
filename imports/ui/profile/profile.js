@@ -26,7 +26,7 @@ Template.Profile.helpers({
     return currentUser.profile.lastName;;
   },
   emailAddress() {
-    return Meteor.user().profile.email;
+    return Meteor.user().email;
   }
 });
 

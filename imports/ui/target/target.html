@@ -27,8 +27,8 @@
 <template name="EditTarget">
     <h3>Edit your target</h3>
     <form class="edit-target">
-      <input type="text" name="targetAmount" placeholder="Target amount" required/>
-      <input type="date" name="targetDate" placeholder="Target complete" required/>
+      <input type="text" name="targetAmount" placeholder="Target amount" value="{{ targetAmount }}" required/>
+      <input type="date" name="targetDate" placeholder="Target complete" value="{{ targetDate }}" required/>
       <button type="submit">Submit</button>
     </form>
 </template>
@@ -41,9 +41,8 @@
         <p>You want to save £{{ targetAmount }} by {{ targetDate }}</p>
         <button class="delete-target" name="{{ _id }}">Delete Target</button>
         <a href="/edit-target" class="edit-target">Edit Target</a>
-
       {{/each}}
-      {{/if}}
+    {{/if}}
 
 
 
