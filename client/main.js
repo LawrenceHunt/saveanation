@@ -2,11 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import '../imports/startup/client';
 import { Users } from '../imports/api/profiles/profiles.js'
 
-var postSignUp = function() {
-  console.log("hi from client");
-  FlowRouter.go('addprofile');
-}
-
 AccountsTemplates.configure({
 
     // Behavior
@@ -38,6 +33,7 @@ AccountsTemplates.configure({
     // termsUrl: 'terms-of-use',
 
     // Redirects
+    homeRoutePath: '/home',
     redirectTimeout: 4000,
 
     // Texts
