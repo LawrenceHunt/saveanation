@@ -40,9 +40,15 @@ Template.Target.helpers({
     }
   },
   stillToSave() {
-    const instance = Template.instance();
-    return instance.calculation.get('stillToSave');
-  }
+    const userId = Meteor.userId();
+    var currentBalance = SavingsAccounts.findOne({createdBy: userId}).balance;
+    var currentTarget = Targets.findOne({createdBy: userId}).targetAmount;
+    var stillToSave = currentTarget - currentBalance;
+    // string formatting function here:
+    // return value = formatAsCurrency(stillToSave)
+    return "£" + stillToSave;
+  },
+
 });
 
 Template.Target.events({
