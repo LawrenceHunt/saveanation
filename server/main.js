@@ -36,7 +36,7 @@ AccountsTemplates.configure({
     // termsUrl: 'terms-of-use',
 
     // Redirects
-    homeRoutePath: '/',
+    homeRoutePath: '/home',
     redirectTimeout: 4000,
 
     // Texts
@@ -52,18 +52,21 @@ AccountsTemplates.configure({
           forgotPwd: "Recover Your Password"
       },
     },
-});
 
+});
 
 Meteor.startup(() => {
   // code to run on server at startup
+
   Accounts.onCreateUser( ( options, user ) => {
+    user.profile = options.profile;
+    user.profile.username = user.username;
     if (user.emails) {
       user.email = user.emails[0].address;
     } else if(user.services.facebook) {
       user.email = user.services.facebook.email;
     }
-    user.md5hash = Gravatar.hash( user.email );
     return user;
+    // set balance to 0
   });
 });
