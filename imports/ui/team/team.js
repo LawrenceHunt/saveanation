@@ -9,7 +9,7 @@ import './teamMember.html';
 
 Template.Team.onCreated(function() {
   Meteor.subscribe('teams');
-  Meteor.subscribe('userDirectory');
+  Meteor.subscribe('userDirectory', Session.get('randomValue'));
 });
 
 Template.Team.helpers({
@@ -22,15 +22,16 @@ Template.Team.helpers({
     let currentTeam = Teams.findOne({memberIds: currentUserId});
     currentTeamMembers = currentTeam.memberIds;
     //return all team members
-    console.log(Meteor.users.find({_id: {$in: currentTeamMembers}}).fetch())
+    console.log(Meteor.users.find({_id: {$in: currentTeamMembers}}).fetch());
     return Meteor.users.find({_id: {$in: currentTeamMembers}});
     //just another way of doing the above, not using memberIds passed through at template level:
     // return memberIds.map(function(memberId){
     //   return Meteor.users.findOne(memberId);
     // })
-  }
+  },
+});
 
-})
+
 
 Template.Team.events({
   'submit .new-team'(event) {
@@ -48,7 +49,6 @@ Template.Team.events({
     const memberEmail = target.memberEmail.value;
 
     Meteor.call('team.addMember', memberEmail);
-
     // Clear form
     target.memberEmail.value = '';
   },

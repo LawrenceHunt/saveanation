@@ -27,21 +27,41 @@ Teams.attachSchema( TeamSchema );
 
 if(Meteor.isServer) {
 
-  Meteor.publish('teams', function teamsPublication() {
-    let currentUserId = this.userId;
-    return Teams.find({memberIds: currentUserId});
+  Meteor.publishComposite('teams', {
+    find: function() {
+      // Find top ten highest scoring posts
+      return Teams.find({memberIds: this.userId});
+    },
+    children: [
+      {
+        find: function(team) {
+          // Find post author. Even though we only want to return
+          // one record here, we use "find" instead of "findOne"
+          // since this function should return a cursor.
+          return Meteor.users.find(
+            { _id: team.memberIds }
+            // { limit: 1, fields: { profile: 1 } }
+          );
+        }
+      }
+    ]
   });
 
-  Meteor.publish("userDirectory", function () {
-    //getting details of current user's team
-    let currentUserId = this.userId;
-    let currentTeam = Teams.findOne({ createdBy: currentUserId });
-    // get a list of all current team memberIds
-    let ids = currentTeam.memberIds;
-    //return only users that belong to this team
-    return Meteor.users.find({_id: {$in: ids}});
-    //this will need to be changed to return only the pertinent fields for security purposes (eg username, email)
-  });
+  // Meteor.publish('teams', function teamsPublication() {
+  //   let currentUserId = this.userId;
+  //   return Teams.find({memberIds: currentUserId});
+  // });
+  //
+  // Meteor.publish("userDirectory", function () {
+  //   //getting details of current user's team
+  //   let currentUserId = this.userId;
+  //   let currentTeam = Teams.findOne({ createdBy: currentUserId });
+  //   // get a list of all current team memberIds
+  //   let ids = currentTeam.memberIds;
+  //   //return only users that belong to this team
+  //   return Meteor.users.find({_id: {$in: ids}});
+  //   //this will need to be changed to return only the pertinent fields for security purposes (eg username, email)
+  // });
 
   Meteor.methods({
     'team.add'(teamName){
