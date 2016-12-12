@@ -29,6 +29,7 @@ if(Meteor.isServer) {
 
   Meteor.publish('teams', function teamsPublication() {
     var user = Meteor.users.findOne(this.userId);
+    console.log(Teams.find({members: user}).fetch());
     return Teams.find({members: user});
   });
 
@@ -49,11 +50,13 @@ if(Meteor.isServer) {
 
       let currentUser = Meteor.user();
       console.log(currentUser);
-      Teams.insert({
+      let myTeam = Teams.insert({
         teamName,
-        members: [currentUser],
+        members: [],
         createdBy: currentUser._id,
       });
+      console.log(myTeam)
+      Teams.update({_id: myTeam}, { $push: { members: {username: "hello!"} }});
       console.log(Teams.findOne({teamName: teamName}));
     },
     'team.addMember'(newFriendEmail){
