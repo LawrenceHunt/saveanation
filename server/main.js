@@ -6,12 +6,6 @@ import '../imports/api/savingsAccounts/savingsAccounts.js';
 import '../imports/api/teams/teams.js';
 import '../imports/api/profiles/profiles.js';
 
-<<<<<<< HEAD
-Meteor.methods({
-  'user.signup'(username, email, password) {
-    Accounts.createUser({username: username, email: email, password: password});
-  },
-=======
 AccountsTemplates.configure({
     // Behavior
     confirmPassword: true,
@@ -58,7 +52,6 @@ AccountsTemplates.configure({
           forgotPwd: "Recover Your Password"
       },
     },
->>>>>>> e15755581688e14273048aedfd89b39bbb5de4fc
 });
 
 
