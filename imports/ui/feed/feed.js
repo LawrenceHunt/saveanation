@@ -1,6 +1,6 @@
 import { Template } from 'meteor/templating';
 import { Posts } from '../../api/posts/posts.js';
-
+import { Users } from '../../api/profiles/profiles.js'
 import { moment } from 'meteor/momentjs:moment';
 
 import './feed.html';
@@ -19,6 +19,14 @@ Template.feed.helpers({
   formatDate(date) {
     return moment(date).format('h:mma on DD-MMM-YY');
   },
+  avatar(author) {
+    var singleUser = Users.findOne({"profile.username": author});
+    var avatar = 0;
+    if(singleUser){
+      avatar = singleUser.profile.avatar;
+    }
+    return avatar;
+  }
 });
 
 Template.feed.events({
