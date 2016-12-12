@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Targets } from '../../api/targets/targets.js';
 import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
-
+import { MomentsJS } from 'meteor/momentjs:moment';
 
 import './target.html';
 
@@ -54,7 +54,15 @@ Template.Target.helpers({
     var currentTarget = Targets.findOne({createdBy: userId}).targetAmount;
     var percentage = Math.round((currentBalance/currentTarget) * 100);
     return percentage;
-  }
+  },
+
+  dateRange(days) {
+    var currentDate = new Date();
+    var previousDate = new Date();
+    var pastDate = previousDate.setTime(currentDate.getTime() - (days * 24 * 3600000));
+    console.log(pastDate);
+  },
+
 
 });
 
