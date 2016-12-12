@@ -21,7 +21,7 @@ TeamSchema = new SimpleSchema({
       return new Date();
     }
   }
-})
+});
 
 Teams.attachSchema( TeamSchema );
 
@@ -35,7 +35,7 @@ if(Meteor.isServer) {
   Meteor.publish("userDirectory", function () {
     //getting details of current user's team
     let currentUserId = this.userId;
-    let currentTeam = Teams.findOne({ createdBy: currentUserId })
+    let currentTeam = Teams.findOne({ createdBy: currentUserId });
     // get a list of all current team memberIds
     let ids = currentTeam.memberIds;
     //return only users that belong to this team
@@ -63,12 +63,12 @@ if(Meteor.isServer) {
       // more info here http://docs.meteor.com/api/passwords.html#Accounts-sendEnrollmentEmail
 
       let currentUserId = this.userId;
-      let currentTeam = Teams.findOne({ createdBy: currentUserId })
+      let currentTeam = Teams.findOne({ createdBy: currentUserId });
 
       Teams.update(
         { _id: currentTeam._id },
         { $push: { memberIds: newFriendId } }
-      )
+      );
     },
   });
 }
