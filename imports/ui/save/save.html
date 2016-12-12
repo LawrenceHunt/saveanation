@@ -1,0 +1,21 @@
+<template name="Save">
+  <body>
+    <form class="add-deposit">
+      <input name="amount" type="number">
+      <input name="text" type="textarea" placeholder="dodged a coffee">
+      <input type="submit">
+    </form>
+    {{#if noAccount}}
+    <button value="create account" id="createAccount">Create</button>
+    {{/if}}
+    <h1 id="balance">Your balance: </h1>
+    {{balance}}
+
+    <h1>Your saving activity so far:</h1>
+    <ul id="transactions">
+    {{#each transactions}}
+      <li>{{ amount }} / {{ text }} / {{createdAt}}</li>
+    {{/each}}
+    </ul>
+  </body>
+</template>

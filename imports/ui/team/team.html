@@ -1,0 +1,28 @@
+<template name="Team">
+
+  {{#if teams.count != 0}}
+    {{#each teams}}
+      <h2>{{ teamName }}</h2>
+      <p>{{ members.length }} members</p>
+
+      <ul>
+        {{#if Template.subscriptionsReady}}
+          {{#each members }}
+            {{> teamMember }}
+          {{/each}}
+        {{else}}
+          <p>Loading...</p>
+        {{/if}}
+      </ul>
+
+      <p>Team was created on {{ createdAt }} by {{ createdBy }} </p>
+      <button class="delete-team" name="{{ _id }}">Delete Team</button>
+      <a href="/edit-team" class="edit-team">Edit Team</a>
+
+      {{> addTeamMemberForm }}
+    {{/each}}
+
+  {{else}}
+    {{> addNewTeamForm }}
+  {{/if}}
+</template>

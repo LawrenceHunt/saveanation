@@ -1,0 +1,58 @@
+<template name="homeLayout">
+  <body>
+    <div id="clouds-canvas">
+      <img class="skyscraper" src="images/skyscraper.png">
+
+      <div class="cloud x1"></div>
+      <div class="cloud x2"></div>
+      <div class="cloud x3"></div>
+      <div class="cloud x4"></div>
+      <div class="cloud x5"></div>
+
+      <div id="billboard">
+        {{> carousel}}
+        <div id="buttons">
+          <button id="signUp">Sign Up</button>
+          <button id="signIn">Sign In</button>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</template>
+
+<template name="carousel">
+  <div id="carousel">
+    <div>
+      <img class="logo-big" src="images/Logo.png">
+      <h2>Save with your friends - and get on the property ladder together!</h2>
+
+    </div>
+    <div>
+      <h2>Here's how it works</h2>
+      <p>Connect your account to the friends you want to save with, and set a saving target.</p>
+      <img class="carousel-image" src="images/tour1.png">
+
+    </div>
+    <div>
+      <h2>Impulse saving</h2>
+      <p>Use the app to save where you can.</p>
+      <p> Dodged that second pint? One tap and the money goes into your account instead, visible to your team.</p>
+      <img class="carousel-image" src="images/tour2.png">
+    </div>
+    <div>
+      <h2>Keep each other motivated!</h2>
+      <p>With team chat and virtual rewards to spend on your team tower, smash your weekly targets and watch the dream take shape.</p>
+        <img class="carousel-image" src="images/tour3.png">
+
+    </div>
+    <div>
+      <h2>Buy your dream home!</h2>
+      <p>Together or on your own - there's no obligation here.</p>
+      <p>The app just encourages you to save by doing it together!</p>
+      <img class="carousel-image" src="images/tour5.png">
+
+
+    </div>
+  </div>
+</template>

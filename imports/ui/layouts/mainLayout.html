@@ -1,0 +1,14 @@
+<template name="mainLayout">
+  <body>
+    <header>
+      {{#if currentUser}}
+        {{>globalNav}}
+      {{else}}
+        {{> loginButtons}}
+      {{/if}}
+    </header>
+    <main>
+      {{>Template.dynamic template=content}}
+    </main>
+  </body>
+</template>
