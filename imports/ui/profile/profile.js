@@ -8,23 +8,39 @@ Template.Profile.onCreated(function userOnCreated(){
 });
 
 Template.Profile.helpers({
-  users() {
-    return Users.find({});
-  },
   userName() {
-    const currentUser = Users.find().fetch();
-    return currentUser[0].username;
+    return Meteor.user().username;
   },
   fullName() {
-    const currentUser = Users.find().fetch();
-    var firstName = currentUser[0].profile.firstName;
-    var lastName = currentUser[0].profile.lastName;
+    const currentUser = Meteor.user();
+    var firstName = currentUser.profile.firstName;
+    var lastName = currentUser.profile.lastName;
     return firstName + " " + lastName;
   },
+  firstName() {
+    const currentUser = Meteor.user();
+    return currentUser.profile.firstName;
+  },
+  lastName() {
+    const currentUser = Meteor.user();
+    return currentUser.profile.lastName;;
+  },
   emailAddress() {
-    const currentUser = Users.find().fetch();
-    var email = currentUser[0].email;
-    return email;
+    return Meteor.user().profile.email;
+  }
+});
+
+Template.EditProfile.helpers({
+  userName() {
+    return Meteor.user().username;
+  },
+  firstName() {
+    const currentUser = Meteor.user();
+    return currentUser.profile.firstName;
+  },
+  lastName() {
+    const currentUser = Meteor.user();
+    return currentUser.profile.lastName;;
   }
 });
 
