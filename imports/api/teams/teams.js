@@ -70,5 +70,10 @@ if(Meteor.isServer) {
         { $push: { memberIds: newFriendId } }
       );
     },
+    'team.destroy'(teamId) {
+      check(teamId, String);
+
+      Teams.remove(teamId);
+    },
   });
 }

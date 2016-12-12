@@ -43,7 +43,7 @@ Template.Team.events({
     target.teamName.value = '';
   },
   'submit .new-team-member'(event) {
-    event.preventDefault();
+    // event.preventDefault();
     const target = event.target;
     const memberEmail = target.memberEmail.value;
 
@@ -52,6 +52,13 @@ Template.Team.events({
     // Clear form
     target.memberEmail.value = '';
   },
+  'click .delete-team'(event) {
+    event.preventDefault();
+    
+    const target = event.target;
+    const teamId = target.name;
+    Meteor.call('team.destroy', teamId)
+  }
 });
 
 // This is a function to allow you to console.log things client side from spacebar functions
