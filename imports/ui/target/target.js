@@ -6,6 +6,7 @@ import { MomentsJS } from 'meteor/momentjs:moment';
 import { Transactions } from '../../api/transactions/transactions.js';
 
 import './target.html';
+import './target.css';
 
 Template.Target.onCreated(function targetOnCreated() {
   this.calculation = new ReactiveDict();
