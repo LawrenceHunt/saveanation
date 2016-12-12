@@ -29,7 +29,7 @@ if(Meteor.isServer) {
 
       expect(Teams.find().count()).to.equal(1);
       expect(ourTeam.teamName).to.equal(teamName);
-      expect(ourTeam.memberIds).to.include(userId);
+      expect(ourTeam.members).to.include(bill);
     });
     //not resetting database: using above team
     it('can add a team member', function(){
@@ -43,7 +43,7 @@ if(Meteor.isServer) {
 
       let rick = Accounts.findUserByEmail("myfriend@friends.com");
       let ourTeamUpdated = Teams.findOne()
-      expect(ourTeamUpdated.memberIds).to.include(rick._id);
+      expect(ourTeamUpdated.members).to.include(rick);
     });
   });
 }

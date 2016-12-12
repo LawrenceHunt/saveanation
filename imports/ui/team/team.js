@@ -16,19 +16,19 @@ Template.Team.helpers({
   teams() {
     return Teams.find({});
   },
-  teamMemberObject(memberIds) {
-    //find current user and team
-    let currentUserId = Meteor.userId();
-    let currentTeam = Teams.findOne({memberIds: currentUserId});
-    currentTeamMembers = currentTeam.memberIds;
-    //return all team members
-    console.log(Meteor.users.find({_id: {$in: currentTeamMembers}}).fetch())
-    return Meteor.users.find({_id: {$in: currentTeamMembers}});
-    //just another way of doing the above, not using memberIds passed through at template level:
-    // return memberIds.map(function(memberId){
-    //   return Meteor.users.findOne(memberId);
-    // })
-  }
+  // teamMemberObject(memberIds) {
+  //   //find current user and team
+  //   let currentUserId = Meteor.userId();
+  //   let currentTeam = Teams.findOne({memberIds: currentUserId});
+  //   currentTeamMembers = currentTeam.memberIds;
+  //   //return all team members
+  //   console.log(Meteor.users.find({_id: {$in: currentTeamMembers}}).fetch())
+  //   return Meteor.users.find({_id: {$in: currentTeamMembers}});
+  //   //just another way of doing the above, not using memberIds passed through at template level:
+  //   // return memberIds.map(function(memberId){
+  //   //   return Meteor.users.findOne(memberId);
+  //   // })
+  // }
 
 })
 

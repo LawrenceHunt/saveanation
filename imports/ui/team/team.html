@@ -3,11 +3,11 @@
   {{#if teams.count != 0}}
     {{#each teams}}
       <h2>{{ teamName }}</h2>
-      <p>{{ memberIds.length }} members</p>
+      <p>{{ members.length }} members</p>
 
       <ul>
         {{#if Template.subscriptionsReady}}
-          {{#each teamMemberObject memberIds }}
+          {{#each members }}
             {{> teamMember }}
           {{/each}}
         {{else}}

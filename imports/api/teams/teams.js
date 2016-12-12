@@ -9,8 +9,8 @@ TeamSchema = new SimpleSchema({
   teamName: {
     type: String,
   },
-  memberIds: {
-    type: [String],
+  members: {
+    type: [Object],
   },
   createdBy: {
     type: String,
@@ -28,36 +28,37 @@ Teams.attachSchema( TeamSchema );
 if(Meteor.isServer) {
 
   Meteor.publish('teams', function teamsPublication() {
-    let currentUserId = this.userId;
-    return Teams.find({memberIds: currentUserId});
+    var user = Meteor.users.findOne(this.userId);
+    return Teams.find({members: { $in: user }});
   });
 
-  Meteor.publish("userDirectory", function () {
-    //getting details of current user's team
-    let currentUserId = this.userId;
-    let currentTeam = Teams.findOne({ createdBy: currentUserId });
-    // get a list of all current team memberIds
-    let ids = currentTeam.memberIds;
-    //return only users that belong to this team
-    return Meteor.users.find({_id: {$in: ids}});
-    //this will need to be changed to return only the pertinent fields for security purposes (eg username, email)
-  });
+  // Meteor.publish("userDirectory", function () {
+  //   //getting details of current user's team
+  //   let currentUserId = this.userId;
+  //   let currentTeam = Teams.findOne({ createdBy: currentUserId });
+  //   // get a list of all current team members
+  //   let ids = currentTeam.members;
+  //   //return only users that belong to this team
+  //   return Meteor.users.find({_id: {$in: ids}});
+  //   //this will need to be changed to return only the pertinent fields for security purposes (eg username, email)
+  // });
 
   Meteor.methods({
     'team.add'(teamName){
       check(teamName, String);
 
-      var currentUserId = this.userId;
+      let currentUser = Meteor.user();
       Teams.insert({
         teamName,
-        memberIds: [currentUserId],
+        members: [currentUser],
         createdBy: currentUserId,
       });
     },
     'team.addMember'(newFriendEmail){
       check(newFriendEmail, String);
       let newFriendId = Accounts.createUser({email: newFriendEmail, username: newFriendEmail});
-
+      let newFriend = Meteor.users.find(newFriendId)
+      console.log(newFriend)
       // we can add the below function here to send an enrollment email:
       // Accounts.sendEnrollmentEmail(newFriendId)
       // more info here http://docs.meteor.com/api/passwords.html#Accounts-sendEnrollmentEmail
@@ -67,7 +68,7 @@ if(Meteor.isServer) {
 
       Teams.update(
         { _id: currentTeam._id },
-        { $push: { memberIds: newFriendId } }
+        { $push: { members: newFriend } }
       );
     },
   });
