@@ -1,5 +1,42 @@
 <template name="Profile">
   <body>
-    <h2>User Profile</h2>
+
+    <div class="post">
+      <div class="avatar" style="background: url({{avatar 100 currentUser}}); height: 100px; width: 100px;"></div>
+      <p>Hello {{fullName}}</p>
+
+      <div class="post-text">
+        <p>Username:</p>
+      </div>
+      <div class="post-info">
+        <p>{{ userName }}</p>
+      </div>
+      <div class="post-text">
+        <p>Email:</p>
+      </div>
+      <div class="post-info">
+        <p>{{emailAddress}} </p>
+      </div>
+      <p><a href="/edit-profile">Edit</a> your profile</p>
+    </div>
   </body>
+</template>
+
+
+<template name="EditProfile">
+  <h3>Edit your profile</h3>
+  <form class="edit-profile">
+    <div>
+      <input class="" type="text" placeholder="Username" name="userName" id="username" value="{{ userName }}"/>
+    </div>
+    <div>
+      <input class="" type="text" placeholder="First Name" name="firstName" id="first-name" value="{{ firstName }}"/>
+    </div>
+    <div>
+      <input class="" type="text" placeholder="Last Name" name="lastName" id="last-name" value="{{ lastName }}" />
+    </div>
+    <div>
+      <button class="ui blue large button" id="update-button" type="submit">Update</button>
+    </div>
+  </form>
 </template>
