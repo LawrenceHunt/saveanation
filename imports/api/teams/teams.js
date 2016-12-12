@@ -27,11 +27,38 @@ Teams.attachSchema( TeamSchema );
 
 if(Meteor.isServer) {
 
-  Meteor.publish('teams', function teamsPublication() {
-    var user = Meteor.users.findOne(this.userId);
-    console.log(Teams.find({members: user}).fetch());
-    return Teams.find({members: user});
+
+  // Meteor.publish('teams', function teamsPublication() {
+  //   var user = Meteor.users.findOne(this.userId);
+  //   console.log(Teams.find({members: user}).fetch());
+  //   return Teams.find({members: user});
+  // });
+
+  Meteor.publishComposite('teams', {
+    find: function() {
+      // Find top ten highest scoring posts
+      return Teams.find({memberIds: this.userId});
+    },
+    children: [
+      {
+        find: function(team) {
+          // Find post author. Even though we only want to return
+          // one record here, we use "find" instead of "findOne"
+          // since this function should return a cursor.
+          return Meteor.users.find(
+            { _id: team.memberIds }
+            // { limit: 1, fields: { profile: 1 } }
+          );
+        }
+      }
+    ]
   });
+
+  // Meteor.publish('teams', function teamsPublication() {
+  //   let currentUserId = this.userId;
+  //   return Teams.find({memberIds: currentUserId});
+  // });
+  //
 
   // Meteor.publish("userDirectory", function () {
   //   //getting details of current user's team
@@ -39,6 +66,7 @@ if(Meteor.isServer) {
   //   let currentTeam = Teams.findOne({ createdBy: currentUserId });
   //   // get a list of all current team members
   //   let ids = currentTeam.members;
+
   //   //return only users that belong to this team
   //   return Meteor.users.find({_id: {$in: ids}});
   //   //this will need to be changed to return only the pertinent fields for security purposes (eg username, email)
@@ -55,7 +83,7 @@ if(Meteor.isServer) {
         members: [],
         createdBy: currentUser._id,
       });
-      console.log(myTeam)
+      console.log(myTeam);
       Teams.update({_id: myTeam}, { $push: { members: {username: "hello!"} }});
       console.log(Teams.findOne({teamName: teamName}));
     },
