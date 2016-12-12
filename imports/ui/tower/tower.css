@@ -1,9 +1,37 @@
-#gamecanvas {
+@font-face {
+    font-family: 'square';
+    src: url('fonts/Square.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#game-canvas {
   position: absolute;
-  margin: auto;
-  width: 100%;
+  width: 80%;
   height: 100%;
   background: lightblue;
   display: block;
   margin: 0 auto;
 }
+/*
+#items {
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  background: black;
+  right: 0;
+  text-align: center;
+}
+
+#items #currency h2 {
+  font-family: 'square';
+  font-size: 1.5em;
+  color: white;
+}
+
+#items li {
+  list-style: none;
+  font-family: 'square';
+  font-size: 1.5em;
+  color: white;
+}*/
