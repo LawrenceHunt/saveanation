@@ -2,6 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import '../imports/startup/client';
 import { Users } from '../imports/api/profiles/profiles.js'
 
+var postSignUp = function() {
+  console.log("hi from client");
+  FlowRouter.go('addprofile');
+}
+
 AccountsTemplates.configure({
 
     // Behavior
@@ -32,13 +37,7 @@ AccountsTemplates.configure({
     // privacyUrl: 'privacy',
     // termsUrl: 'terms-of-use',
 
-    // Hooks
-    postSignUpHook: function() {
-      FlowRouter.go('addprofile');
-    },
-
     // Redirects
-    homeRoutePath: '/',
     redirectTimeout: 4000,
 
     // Texts
@@ -82,4 +81,34 @@ AccountsTemplates.addField({
        // Server
        return Meteor.call("userExists", value);
    },
+  });
+
+  AccountsTemplates.addField({
+      _id: 'firstName',
+      type: 'text',
+      displayName: "First Name",
+      required: true
+  });
+
+  AccountsTemplates.addField({
+      _id: 'lastName',
+      type: 'text',
+      displayName: "Last Name",
+      required: true
+  });
+
+  AccountsTemplates.addField({
+      _id: "avatar",
+      type: "select",
+      displayName: "Avatar",
+      select: [
+          {
+              text: "CoolDudeBro",
+              value: "1",
+          },
+          {
+              text: "AwesomeWomanLady",
+              value: "2",
+          },
+      ],
   });

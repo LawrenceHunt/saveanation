@@ -35,13 +35,8 @@ AccountsTemplates.configure({
     // privacyUrl: 'privacy',
     // termsUrl: 'terms-of-use',
 
-    // Hooks
-    postSignUpHook: function() {
-      FlowRouter.go('addprofile');
-    },
-
     // Redirects
-    homeRoutePath: '/',
+    homeRoutePath: '/home',
     redirectTimeout: 4000,
 
     // Texts
