@@ -29,7 +29,7 @@ if(Meteor.isServer) {
 
   Meteor.publish('teams', function teamsPublication() {
     var user = Meteor.users.findOne(this.userId);
-    return Teams.find({members: { $in: user }});
+    return Teams.find({members: user});
   });
 
   // Meteor.publish("userDirectory", function () {
@@ -48,17 +48,19 @@ if(Meteor.isServer) {
       check(teamName, String);
 
       let currentUser = Meteor.user();
+      console.log(currentUser);
       Teams.insert({
         teamName,
         members: [currentUser],
-        createdBy: currentUserId,
+        createdBy: currentUser._id,
       });
+      console.log(Teams.findOne({teamName: teamName}));
     },
     'team.addMember'(newFriendEmail){
       check(newFriendEmail, String);
       let newFriendId = Accounts.createUser({email: newFriendEmail, username: newFriendEmail});
-      let newFriend = Meteor.users.find(newFriendId)
-      console.log(newFriend)
+      let newFriend = Meteor.users.find(newFriendId);
+      console.log(newFriend);
       // we can add the below function here to send an enrollment email:
       // Accounts.sendEnrollmentEmail(newFriendId)
       // more info here http://docs.meteor.com/api/passwords.html#Accounts-sendEnrollmentEmail
