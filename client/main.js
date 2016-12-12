@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import '../imports/startup/client';
 import { Users } from '../imports/api/profiles/profiles.js'
+import '../imports/ui/account/avatarSelectTemplate.html';
 
 AccountsTemplates.configure({
 
@@ -57,7 +58,8 @@ Accounts.ui.config({
     facebook: ['email']  }
 });
 
-AccountsTemplates.addField({
+AccountsTemplates.addFields([
+  {
    _id: 'username',
    type: 'text',
    required: true,
@@ -76,35 +78,50 @@ AccountsTemplates.addField({
        }
        // Server
        return Meteor.call("userExists", value);
-   },
-  });
-
-  AccountsTemplates.addField({
+   }
+  },
+  {
       _id: 'firstName',
       type: 'text',
       displayName: "First Name",
       required: true
-  });
-
-  AccountsTemplates.addField({
+  },
+  {
       _id: 'lastName',
       type: 'text',
       displayName: "Last Name",
       required: true
-  });
-
-  AccountsTemplates.addField({
+  },
+  {
       _id: "avatar",
       type: "select",
       displayName: "Avatar",
       select: [
           {
-              text: "CoolDudeBro",
+              text: "Frances",
               value: "1",
           },
           {
-              text: "AwesomeWomanLady",
+              text: "Lawrence",
               value: "2",
           },
-      ],
-  });
+          {
+              text: "Jen",
+              value: "3",
+          },
+          {
+              text: "Andy",
+              value: "4",
+          },
+          {
+              text: "Michael",
+              value: "5",
+          },
+          {
+              text: "Stevie",
+              value: "6",
+          }],
+      required: true,
+      template: "avatarSelectTemplate"
+    }
+    ]);

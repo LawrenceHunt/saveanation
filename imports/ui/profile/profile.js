@@ -27,6 +27,9 @@ Template.Profile.helpers({
   },
   emailAddress() {
     return Meteor.user().email;
+  },
+  avatar() {
+    return Meteor.user().profile.avatar;
   }
 });
 
@@ -44,19 +47,6 @@ Template.EditProfile.helpers({
   }
 });
 
-// Gravatar helper
-Template.registerHelper( 'avatar', function( avatarSize, user ) {
-  if ( user && user.md5hash ) {
-    var md5hash = user.md5hash;
-  } else if ( this.md5hash ) {
-    var md5hash = this.md5hash;
-  }
-
-  md5hash = md5hash || "3eda6fcd3204ef285fa52176c28c4d3e"; // Equivalent to Gravatar.hash( 'none@none.com' );
-  return Gravatar.imageUrl( md5hash, { secure: true, size: avatarSize, d: 'mm', rating: 'pg' } );
-});
-
-
 Template.EditProfile.events({
   'submit .edit-profile'(event) {
     event.preventDefault();
@@ -65,7 +55,6 @@ Template.EditProfile.events({
     const updateFirstName = profile.firstName.value;
     const updateLastName = profile.lastName.value;
     Meteor.call('profiles.edit', updateUsername, updateFirstName, updateLastName);
-    // route back to /profile
     FlowRouter.go('profile');
   }
 });
@@ -77,7 +66,6 @@ Template.AddProfile.events({
     const firstName = profile.firstName.value;
     const lastName = profile.lastName.value;
     Meteor.call('profiles.add', firstName, lastName);
-    // route back to /profile
     FlowRouter.go('profile');
   }
 });

@@ -59,15 +59,12 @@ Meteor.startup(() => {
   // code to run on server at startup
 
   Accounts.onCreateUser( ( options, user ) => {
-    // on create user, re-route to addprofile page to update user info
-    // on create user, instantiate an account with a 0 balance
-    // savingsAccounts.balance.amount = 0;
+    user.profile = options.profile;
     if (user.emails) {
       user.email = user.emails[0].address;
     } else if(user.services.facebook) {
       user.email = user.services.facebook.email;
     }
-    user.md5hash = Gravatar.hash( user.email );
     return user;
     // set balance to 0
   });
