@@ -3,6 +3,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { Targets } from '../../api/targets/targets.js';
 import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
 import { MomentsJS } from 'meteor/momentjs:moment';
+import { Transactions } from '../../api/transactions/transactions.js';
 
 import './target.html';
 
@@ -10,6 +11,7 @@ Template.Target.onCreated(function targetOnCreated() {
   this.calculation = new ReactiveDict();
   Meteor.subscribe('targets');
   Meteor.subscribe('savingsAccounts');
+  Meteor.subscribe('transactions');
 });
 
 Template.Target.helpers({
@@ -56,13 +58,31 @@ Template.Target.helpers({
     return percentage;
   },
 
-  dateRange(days) {
-    var currentDate = new Date();
-    var previousDate = new Date();
-    var pastDate = previousDate.setTime(currentDate.getTime() - (days * 24 * 3600000));
-    console.log(pastDate);
+  setPreviousDate(date,number,period) {
+    var startingDate = date;
+    var previousDate = startingDate.subtract(number,period);
+    return previousDate;
   },
 
+  transactionsInRange() {
+    const userId = Meteor.userId();
+    var currentDate = moment(new Date());
+    var previousDate = Template.Target.__helpers.get('setPreviousDate').call(this,currentDate,7,"days");
+    var transactionsInRange = Transactions.find( {owner: userId} ).fetch();
+    // var transactionsInRange = Transactions.find( {$and: [ {owner: userId}, {createdAt: {$lt: currentDate, $gte: previousDate} } ] } ).fetch();
+    console.log(transactionsInRange);
+
+    return transactionsInRange;
+  },
+
+  transactionsValue(){
+    var transactions = Template.Target.__helpers.get('transactionsInRange').call();
+    var total = 0;
+    for (var transaction in transactions) {
+      total += transaction.amount;
+    }
+    return total;
+  }
 
 });
 
@@ -82,14 +102,14 @@ Template.Target.events({
     var today = new Date();
     var daysToSave = Date.daysBetween(today, targetDate);
 
-    const amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
-    const amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
-    const amountPerDay = Math.round(stillToSave / daysToSave);
+    var amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
+    var amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
+    var amountPerDay = Math.round(stillToSave / daysToSave);
 
-    const targetSummary = "You need an extra "+ formattedStillToSave + ", to save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
-    const monthlyTarget = "£" + amountPerMonth + " each month.";
-    const weeklyTarget = "£" + amountPerWeek + " each week.";
-    const dailyTarget = "£" + amountPerDay + " each day.";
+    var targetSummary = "You need an extra "+ formattedStillToSave + ", to save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
+    var monthlyTarget = "£" + amountPerMonth + " each month.";
+    var weeklyTarget = "£" + amountPerWeek + " each week.";
+    var dailyTarget = "£" + amountPerDay + " each day.";
 
     template.calculation.set('stillToSave', stillToSave);
     template.calculation.set('targetSummary', targetSummary);
@@ -103,8 +123,8 @@ Template.Target.events({
   'submit .new-target'(event) {
     event.preventDefault();
     const target = event.target;
-    const targetAmount = parseInt(target.targetAmount.value);
-    const targetDate = new Date(target.targetDate.value);
+    var targetAmount = parseInt(target.targetAmount.value);
+    var targetDate = new Date(target.targetDate.value);
     Meteor.call('targets.add', targetAmount, targetDate);
 
     // Clear form

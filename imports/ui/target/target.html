@@ -1,4 +1,6 @@
 <template name="Target">
+  {{transactionsValue}}
+  {{transactionsInRange}}
   {{#if targets.count != 0}}
     {{#each targets}}
       <h3> Total Saved: {{currentBalance}}</h3>
