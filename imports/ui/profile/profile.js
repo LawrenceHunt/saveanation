@@ -54,18 +54,8 @@ Template.EditProfile.events({
     const updateUsername = profile.userName.value;
     const updateFirstName = profile.firstName.value;
     const updateLastName = profile.lastName.value;
-    Meteor.call('profiles.edit', updateUsername, updateFirstName, updateLastName);
-    FlowRouter.go('profile');
-  }
-});
-
-Template.AddProfile.events({
-  'submit .add-profile'(event) {
-    event.preventDefault();
-    const profile = event.target;
-    const firstName = profile.firstName.value;
-    const lastName = profile.lastName.value;
-    Meteor.call('profiles.add', firstName, lastName);
+    const updateAvatar = profile.avatar.value;
+    Meteor.call('profiles.edit', updateUsername, updateFirstName, updateLastName, updateAvatar);
     FlowRouter.go('profile');
   }
 });

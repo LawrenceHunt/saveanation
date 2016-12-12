@@ -60,6 +60,7 @@ Meteor.startup(() => {
 
   Accounts.onCreateUser( ( options, user ) => {
     user.profile = options.profile;
+    user.profile.username = user.username;
     if (user.emails) {
       user.email = user.emails[0].address;
     } else if(user.services.facebook) {

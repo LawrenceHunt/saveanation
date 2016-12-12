@@ -22,21 +22,6 @@
   </body>
 </template>
 
-<template name="AddProfile">
-  <h3>Add profile</h3>
-  <form class="add-profile">
-    <div>
-      <input class="" type="text" placeholder="First Name" name="firstName" id="first-name" value="{{ firstName }}"/>
-    </div>
-    <div>
-      <input class="" type="text" placeholder="Last Name" name="lastName" id="last-name" value="{{ lastName }}" />
-    </div>
-    <div>
-      <button class="ui blue large button" id="add-button" type="submit">Add</button>
-    </div>
-  </form>
-</template>
-
 
 <template name="EditProfile">
   <h3>Edit your profile</h3>
@@ -49,6 +34,22 @@
     </div>
     <div>
       <input class="" type="text" placeholder="Last Name" name="lastName" id="last-name" value="{{ lastName }}" />
+    </div>
+    <div>
+      <select id="avatar" name="avatar">
+
+        <option value="1">Frances</option>
+
+        <option value="2">Lawrence</option>
+
+        <option value="3">Jen</option>
+
+        <option value="4">Andy</option>
+
+        <option value="5">Michael</option>
+
+        <option value="6">Stevie</option>
+      </select>
     </div>
     <div>
       <button class="ui blue large button" id="update-button" type="submit">Update</button>
