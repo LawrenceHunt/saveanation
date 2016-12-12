@@ -10,9 +10,6 @@ PostSchema = new SimpleSchema({
   },
   author: {
     type: String,
-    // autoValue: function() {
-    //   return Meteor.user().username;
-    // },
   },
   createdAt: {
     type: Date,

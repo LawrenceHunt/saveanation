@@ -13,6 +13,7 @@ Template.feed.onCreated(function feedOnCreated() {
 Template.feed.helpers({
   posts() {
     var user = Meteor.user();
+    // change {author: "Swinston"} to find from author's of own team
     return Posts.find( { $or: [{author: user.username}, {author: "Swinston"}] }, { sort: { createdAt: -1}});
   },
   formatDate(date) {
