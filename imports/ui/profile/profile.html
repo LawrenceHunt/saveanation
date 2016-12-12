@@ -2,7 +2,7 @@
   <body>
 
     <div class="post">
-      <div class="avatar" style="background: url({{avatar 100 currentUser}}); height: 100px; width: 100px;"></div>
+      <img src="images/avatars/{{avatar}}.jpg" height=160px width=160px>
       <p>Hello {{fullName}}</p>
 
       <div class="post-text">
@@ -34,6 +34,22 @@
     </div>
     <div>
       <input class="" type="text" placeholder="Last Name" name="lastName" id="last-name" value="{{ lastName }}" />
+    </div>
+    <div>
+      <select id="avatar" name="avatar">
+
+        <option value="1">Frances</option>
+
+        <option value="2">Lawrence</option>
+
+        <option value="3">Jen</option>
+
+        <option value="4">Andy</option>
+
+        <option value="5">Michael</option>
+
+        <option value="6">Stevie</option>
+      </select>
     </div>
     <div>
       <button class="ui blue large button" id="update-button" type="submit">Update</button>
