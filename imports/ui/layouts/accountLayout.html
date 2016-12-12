@@ -1,10 +1,18 @@
 <template name="accountLayout">
   <body>
-    <header>
+    <div id="clouds-canvas">
+      <img class="skyscraper" src="images/skyscraper.png">
+      <div class="cloud x1"></div>
+      <div class="cloud x2"></div>
+      <div class="cloud x3"></div>
+      <div class="cloud x4"></div>
+      <div class="cloud x5"></div>
 
-    </header>
-    <main>
-      {{> atForm}}
-    </main>
+      <div id="billboard">
+        {{> atForm}}
+      </div>
+
+    </div>
   </body>
+
 </template>
