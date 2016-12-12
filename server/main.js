@@ -55,8 +55,11 @@ AccountsTemplates.configure({
 });
 
 
+
+
 Meteor.startup(() => {
   // code to run on server at startup
+
   Accounts.onCreateUser( ( options, user ) => {
     if (user.emails) {
       user.email = user.emails[0].address;

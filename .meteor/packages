@@ -22,6 +22,7 @@ zimme:active-route
 kadira:blaze-layout
 aldeed:collection2
 aldeed:autoform
+aldeed:simple-schema
 meteortoys:allthings
 accounts-base
 accounts-password
