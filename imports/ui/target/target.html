@@ -1,14 +1,30 @@
 <template name="Target">
+  <div class="target-area">
+    <h1>Target</h1>
   {{#if targets.count != 0}}
     {{#each targets}}
-      <h3> Total Saved: {{currentBalance}}</h3>
-      <h3> Left to Save: {{stillToSave}}</h3>
-      <h3> Total Progress: {{percentageOfTotal}}% <span class="progress-statement">- Well Done!</span></h3>
-      <p>You want to save £{{ targetAmount }} by {{ targetDate }}, {{currentBalance}} saved to date</p>
+
+      <h2>You have saved:</h2>
+      <p class="current-balance">{{currentBalance}}</p>
+      <div class="styled-select slate">
+        <select name="date-range">
+          <option value="overall">overall</option>
+          <option value="month">this month</option>
+          <option value="week">this week</option>
+          <option value="day">today</option>
+        </select>
+      </div>
+      <h2>which is {{percentageOfTotal}}% of your overall target of </h2>
+      <p class="goal">£{{ targetAmount }}</p>
+      <p>by {{ targetDate }}</p>
+
+      <!-- <h3> You still need to save: {{stillToSave}}</h3> -->
+      <!-- <a href="/edit-target" class="edit-target">Edit Target</a> -->
+      <!-- We'll need to make edit work using a button, for styling consistency -->
+      <button class="edit-target" name="{{ _id }}">Edit Target</button>
       <button class="delete-target" name="{{ _id }}">Delete Target</button>
-      <a href="/edit-target" class="edit-target">Edit Target</a>
-      <button type="button" class="show-progress">Show Progress</button>
     {{/each}}
+
   {{else}}
     <h2>Enter a target</h2>
     <form class="new-target">
@@ -24,6 +40,7 @@
     <p>{{ dailyTarget }}</p>
 
   {{/if}}
+</div>
 </template>
 
 

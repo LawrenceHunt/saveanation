@@ -5,6 +5,7 @@ import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
 import { MomentsJS } from 'meteor/momentjs:moment';
 
 import './target.html';
+import './target.css';
 
 Template.Target.onCreated(function targetOnCreated() {
   this.calculation = new ReactiveDict();
