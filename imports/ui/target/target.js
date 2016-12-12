@@ -60,27 +60,26 @@ Template.Target.helpers({
   },
 
   setPreviousDate(date,number,period) {
-    var startingDate = date;
+    var startingDate = moment(date);
     var previousDate = startingDate.subtract(number,period);
-    return previousDate;
+    return previousDate.toDate();
   },
 
   transactionsInRange() {
     const userId = Meteor.userId();
-    var currentDate = moment(new Date());
+    var currentDate = new Date();
     var previousDate = Template.Target.__helpers.get('setPreviousDate').call(this,currentDate,7,"days");
-    var transactionsInRange = Transactions.find( {owner: userId} ).fetch();
-    // var transactionsInRange = Transactions.find( {$and: [ {owner: userId}, {createdAt: {$lt: currentDate, $gte: previousDate} } ] } ).fetch();
+    // var transactionsInRange = Transactions.find( {owner: userId} ).fetch();
+    var transactionsInRange = Transactions.find( {$and: [ {owner: userId}, {createdAt: {$lt: currentDate, $gte: previousDate} } ] } ).fetch();
     console.log(transactionsInRange);
-
     return transactionsInRange;
   },
 
   transactionsValue(){
     var transactions = Template.Target.__helpers.get('transactionsInRange').call();
     var total = 0;
-    for (var transaction in transactions) {
-      total += transaction.amount;
+    for (var i = 0; i < transactions.length; i++) {
+      total += transactions[i].amount;
     }
     return total;
   }
