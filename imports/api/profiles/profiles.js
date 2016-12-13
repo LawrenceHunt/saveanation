@@ -21,7 +21,6 @@ Meteor.methods({
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    console.log(Meteor.users.find({"profile.username": userName}));
     if(Meteor.users.findOne({"profile.username": userName})) {
       alert("This name is already taken");
       throw new Error("username already taken");
