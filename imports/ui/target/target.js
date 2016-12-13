@@ -42,22 +42,9 @@ Template.Target.helpers({
     return targetDate;
   },
 
-  targetAmount(dateOption) {
-    if (dateOption == "days") {
-      console.log(amountPerDay());
-      return amountPerDay();
-    }
-    else if(dateOption == "weeks") {
-      console.log(amountPerWeek());
-      return amountPerWeek();
-    }
-    else if(dateOption == "months") {
-      console.log(amountPerMonth());
-      return amountPerMonth();
-    }
-    else {
-      return targetAmount();
-    }
+  targetAmount() {
+    let dateOption = Session.get('dateOption')
+    return accounting.formatMoney(calculateTargetAmountByTimeRange(dateOption), "£ ", 0);
   },
   targetSummary() {
     const instance = Template.instance();
@@ -80,9 +67,10 @@ Template.Target.helpers({
       return accounting.formatMoney(currentBalance(), "£ ", 0);
     }
   },
-
   percentageOfTotal(balance = currentBalance(), target = targetAmount()) {
-    var percentage = Math.round((balance/target) * 100);
+    let dateOption = Session.get('dateOption')
+    let totalTransactions = transactionsValue(dateOption) || currentBalance();
+    percentage = Math.round(totalTransactions / calculateTargetAmountByTimeRange(dateOption) * 100)
     return percentage;
   },
   totalInDegrees() {
@@ -145,7 +133,7 @@ Template.Target.events({
     event.preventDefault();
     const dateRange = event.target;
     var dateOption = dateRange.value;
-    Template.Target.__helpers.get('targetAmount').call(this,dateOption);
+    Session.set('dateOption', dateOption);
     var transactionsTotal = transactionsValue(dateOption);
     // var targetDate = moment(Template.Target.__helpers.get('targetDate').call());
   },
@@ -217,7 +205,7 @@ function targetDate() {
 
 
 function stillToSave() {
-  return  targetAmount() - currentBalance();
+  return targetAmount() - currentBalance();
 }
 
 function daysToSave() {
@@ -252,4 +240,22 @@ function amountPerWeek() {
 
 function amountPerMonth() {
   return Math.round(((stillToSave() / daysToSave()) * 365) / 12);
+}
+
+function calculateTargetAmountByTimeRange(dateOption) {
+  if (dateOption == "days") {
+    console.log(amountPerDay());
+    return amountPerDay();
+  }
+  else if(dateOption == "weeks") {
+    console.log(amountPerWeek());
+    return amountPerWeek();
+  }
+  else if(dateOption == "months") {
+    console.log(amountPerMonth());
+    return amountPerMonth();
+  }
+  else {
+    return targetAmount();
+  }
 }
