@@ -14,7 +14,7 @@ Template.feed.helpers({
   posts() {
     var user = Meteor.user();
     // change {author: "Swinston"} to find from author's of own team
-    return Posts.find( { $or: [{author: user.profile.username}, {author: "Swinston"}] }, { sort: { createdAt: -1}});
+    return Posts.find( {}, { sort: { createdAt: -1}});
   },
   formatDate(date) {
     return moment(date).format('h:mma on DD-MMM-YY');
