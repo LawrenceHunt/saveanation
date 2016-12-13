@@ -73,7 +73,7 @@ html
 *, *:before, *:after
     box-sizing: inherit
 
-body
+.main-body
     background light-grey
     padding: 70px 0 150px
 
@@ -138,10 +138,10 @@ p
         margin-top 40px
         padding-left $side-nav-large
 
-.new-recipe
+.new-post
     margin-bottom 20px
 
-.new-recipe-container
+.new-post-container
     position relative
     background #FFF
     padding 20px
@@ -319,7 +319,7 @@ input, select, textarea
             &:hover, &.active
                 border-left 10px solid black
 
-.recipe
+.post
     background #FFF
     padding 0 20px 20px
     margin-bottom 20px
@@ -382,10 +382,10 @@ input, select, textarea
 
 
 .menu-item
-    @extend .recipe
+    @extend .post
 
 .shopping-list
-    @extend .recipe
+    @extend .post
     padding 50px 5%
     list-style none
     li
