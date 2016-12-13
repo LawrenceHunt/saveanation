@@ -80,30 +80,28 @@ function createKitchen() {
   kitchen.src="game/kitchen.png";
   kitchen.className = 'kitchen';
 
-  // $(function() {
-  //     $( ".kitchen" ).draggable();
-  // });
+  var blockId;
+  Meteor.call('blocks.add', 'kitchen', 0, 0, function(error, result){
+    blockId = result;
+  });
+
+  // Testing that it only creates the block once
+  // var numberBlocksinDB = Blocks.find().count();
+  // console.log("outside the drag function: " + numberBlocksinDB);
 
   $(function() {
     $('.kitchen').draggable( {
-      // drag: function() {
-      //   var offset = $(this).offset();
-      //   var xPos = offset.left;
-      //   var yPos = offset.top;
-      //   // console.log('x: ' + xPos + 'y: ' + yPos);
-      //   // $(this).text('x: ' + xPos + 'y: ' + yPos);
-      // },
       stop: function(){
         var finalOffset = $(this).offset();
         var finalxPos = finalOffset.left;
         var finalyPos = finalOffset.top;
-
-        Meteor.call('blocks.add', 'kitchen', finalxPos, finalyPos);
+        Meteor.call('blocks.edit', blockId, 'kitchen', finalxPos, finalyPos);
+        // Testing that it doesn't create another block on drag
+        // var newNumberBlocksinDB = Blocks.find().count();
+        // console.log("inside the drag function: " + newNumberBlocksinDB);
       },
     });
   });
-
-  Meteor.call('blocks.add', 'kitchen', xPos, yPos);
 }
 
 function createLivingRoom() {
@@ -113,30 +111,21 @@ function createLivingRoom() {
   livingRoom.src='game/livingRoom.png';
   livingRoom.className = 'living-room';
 
-  // $(function() {
-  //     $( ".living-room" ).draggable();
-  // });
+  var blockId;
+  Meteor.call('blocks.add', 'living-room', 0, 0, function(error, result){
+    blockId = result;
+  });
 
   $(function() {
     $('.living-room').draggable( {
-      // drag: function() {
-      //   var offset = $(this).offset();
-      //   var xPos = offset.left;
-      //   var yPos = offset.top;
-      //   // console.log('x: ' + xPos + 'y: ' + yPos);
-      //   // $(this).text('x: ' + xPos + 'y: ' + yPos);
-      // },
       stop: function(){
         var finalOffset = $(this).offset();
         var finalxPos = finalOffset.left;
         var finalyPos = finalOffset.top;
-
-        Meteor.call('blocks.add', 'living-room', finalxPos, finalyPos);
+        Meteor.call('blocks.edit', blockId, 'living-room', finalxPos, finalyPos);
       },
     });
   });
-
-
 }
 
 Template.Tower.events({
