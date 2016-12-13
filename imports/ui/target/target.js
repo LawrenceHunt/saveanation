@@ -146,8 +146,7 @@ Template.Target.events({
     var dateOption = dateRange.value;
     var transactionsTotal = Template.Target.__helpers.get('transactionsValue').call(this, dateOption);
     console.log(transactionsTotal);
-    var targetDate = moment(Template.Target.__helpers.get('targetDate').call());
-    console.log(targetDate.toDate());
+    // var targetDate = moment(Template.Target.__helpers.get('targetDate').call());
   },
   'submit .new-target'(event) {
     event.preventDefault();
