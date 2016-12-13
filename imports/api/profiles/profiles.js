@@ -14,15 +14,20 @@ if(Meteor.isServer) {
 }
 
 Meteor.methods({
-  'profiles.edit'(firstName, lastName, avatar) {
-    // check(userName, String);
+  'profiles.edit'(userName, firstName, lastName, avatar) {
+    check(userName, String);
     check(firstName, String);
     check(lastName, String);
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
+    console.log(Meteor.users.find({"profile.username": userName}));
+    if(Meteor.users.findOne({"profile.username": userName})) {
+      alert("This name is already taken");
+      throw new Error("username already taken");
+    }
     Meteor.users.update(this.userId, {$set: {
-          profile: { firstName: firstName, lastName: lastName, avatar: avatar }
+          profile: { username: userName, firstName: firstName, lastName: lastName, avatar: avatar }
         }
       });
   }
