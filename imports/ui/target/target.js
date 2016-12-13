@@ -91,16 +91,16 @@ Template.Target.helpers({
     return previousDate.toDate();
   },
 
-  transactionsInRange() {
+  transactionsInRange(dateOption) {
     const userId = Meteor.userId();
     var currentDate = new Date();
-    var previousDate = Template.Target.__helpers.get('setPreviousDate').call(this,currentDate,1,"days");
+    var previousDate = Template.Target.__helpers.get('setPreviousDate').call(this,currentDate,1,dateOption);
     var transactionsInRange = Transactions.find( {$and: [ {owner: userId}, {createdAt: {$lt: currentDate, $gte: previousDate} } ] } ).fetch();
     return transactionsInRange;
   },
 
-  transactionsValue(){
-    var transactions = Template.Target.__helpers.get('transactionsInRange').call();
+  transactionsValue(dateOption){
+    var transactions = Template.Target.__helpers.get('transactionsInRange').call(this, dateOption);
     var total = 0;
     for (var i = 0; i < transactions.length; i++) {
       total += transactions[i].amount;
@@ -140,8 +140,14 @@ Template.Target.events({
     template.calculation.set('weeklyTarget', weeklyTarget);
     template.calculation.set('dailyTarget', dailyTarget);
   },
-  'change .show-progress'(event, template) {
-
+  'change .date-range'(event) {
+    event.preventDefault();
+    const dateRange = event.target;
+    var dateOption = dateRange.value;
+    var transactionsTotal = Template.Target.__helpers.get('transactionsValue').call(this, dateOption);
+    console.log(transactionsTotal);
+    var targetDate = moment(Template.Target.__helpers.get('targetDate').call());
+    console.log(targetDate.toDate());
   },
   'submit .new-target'(event) {
     event.preventDefault();
