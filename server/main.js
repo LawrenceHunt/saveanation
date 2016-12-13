@@ -63,9 +63,7 @@ Meteor.startup(() => {
     user.profile.username = user.username;
     if (user.emails) {
       user.email = user.emails[0].address;
-    } else if(user.services.facebook) {
-      user.email = user.services.facebook.email;
-    }
+    } 
     return user;
     // set balance to 0
   });
