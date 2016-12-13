@@ -9,9 +9,8 @@
 
 #buttons {
 	position:absolute;
-	bottom: -10%;
-	right: 30%;
-
+	bottom: -5%;
+	right: -30%;
 }
 
 img.logo-big {
@@ -38,15 +37,14 @@ img.carousel-image {
 	background-color: red;
 	border-radius: 10px;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-	display:inline;
 }
 
 #billboard {
 	width: 40%;
-	height: 55%;
+	height: 60%;
 	position: absolute;
 	text-align: center;
-	top: 5%;
+	top: 15%;
 	right: 35%;
 }
 
