@@ -16,6 +16,14 @@ Template.Target.onCreated(function targetOnCreated() {
   Meteor.subscribe('transactions');
 });
 
+Template.registerHelper('formatMoney', function(amount) {
+    return accounting.formatMoney(amount, "£", 0);
+});
+
+Template.registerHelper('formatDate', function(date) {
+    return moment(date).format("ddd Do MMM YYYY");
+});
+
 Template.Target.helpers({
   //ACTUAL SPACEBAR HELPERS FROM THE UI:
   //targets returns all Target objects
@@ -33,18 +41,21 @@ Template.Target.helpers({
   targetId() {
     const userId = Meteor.userId();
     const target = Targets.findOne({createdBy: userId});
-    return target._id
+    return target._id;
   },
   targetDate() {
     const userId = Meteor.userId();
     const target = Targets.findOne({createdBy: userId});
-    const targetDate = target.targetDate.toDateString();
+    const targetDate = moment(target.targetDate);
     return targetDate;
   },
-
   targetAmount() {
-    let dateOption = Session.get('dateOption')
-    return accounting.formatMoney(calculateTargetAmountByTimeRange(dateOption), "£ ", 0);
+    let dateOption = Session.get('dateOption');
+    return calculateTargetAmountByTimeRange(dateOption);
+  },
+  stillToSave() {
+    const instance = Template.instance();
+    return instance.calculation.get('stillToSave');
   },
   targetSummary() {
     const instance = Template.instance();
@@ -62,30 +73,39 @@ Template.Target.helpers({
     const instance = Template.instance();
     return instance.calculation.get('monthlyTarget');
   },
+  tempTargetDate() {
+    const instance = Template.instance();
+    return moment(instance.calculation.get('tempTargetDate'));
+    // return moment(tempDate);
+  },
+  tempTargetAmount() {
+    const instance = Template.instance();
+    return instance.calculation.get('tempTargetAmount');
+  },
   currentBalance() {
     if(account()) {
-      return accounting.formatMoney(currentBalance(), "£ ", 0);
+      return currentBalance();
     }
   },
   percentageOfTotal(balance = currentBalance(), target = targetAmount()) {
-    let dateOption = Session.get('dateOption')
+    let dateOption = Session.get('dateOption');
     let totalTransactions = transactionsValue(dateOption) || currentBalance();
-    percentage = Math.round(totalTransactions / calculateTargetAmountByTimeRange(dateOption) * 100)
+    let percentage = Math.round(totalTransactions / calculateTargetAmountByTimeRange(dateOption) * 100);
     return percentage;
   },
   totalInDegrees() {
-    var total = Template.Target.__helpers.get('percentageOfTotal').call();
-    var totalInDegrees = ((total * 2.4) - 120).toString() + 'deg';
+    let total = Template.Target.__helpers.get('percentageOfTotal').call();
+    let totalInDegrees = ((total * 2.4) - 120).toString() + 'deg';
     return totalInDegrees;
   },
   degreesAbove() {
-    var total = Template.Target.__helpers.get('percentageOfTotal').call();
-    var degreesAbove = ((total * 2.4) - 120 + 6).toString() + 'deg';
+    let total = Template.Target.__helpers.get('percentageOfTotal').call();
+    let degreesAbove = ((total * 2.4) - 120 + 6).toString() + 'deg';
     return degreesAbove;
   },
   degreesBelow() {
-    var total = Template.Target.__helpers.get('percentageOfTotal').call();
-    var degreesBelow = ((total * 2.4) - 120 - 6).toString() + 'deg';
+    let total = Template.Target.__helpers.get('percentageOfTotal').call();
+    let degreesBelow = ((total * 2.4) - 120 - 6).toString() + 'deg';
     return degreesBelow;
   },
 });
@@ -100,57 +120,49 @@ Template.Target.events({
     // 5) setting Sessions
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
-    var formattedTargetAmount = '£' + targetAmount.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-    const userId = Meteor.userId();
-    var currentBalance = SavingsAccounts.findOne({createdBy: userId}).balance;
+    let stillToSave = targetAmount - currentBalance();
 
-    var stillToSave = targetAmount - currentBalance;
-    var formattedStillToSave = "£" + parseInt(targetAmount - currentBalance);
+    let targetDate = new Date(template.find('.targetDate').value);
+    let targetDateMoment = moment(targetDate);
+    let today = moment(new Date());
+    let daysToSave = targetDateMoment.diff(today, 'days');
 
-    var targetDate = new Date(template.find('.targetDate').value);
-    var formattedTargetDate = targetDate.toDateString();
-    var targetDateMoment = moment(targetDate);
-    var today = moment(new Date());
-    var daysToSave = targetDateMoment.diff(today, 'days');
+    let amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
+    let amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
+    let amountPerDay = Math.round(stillToSave / daysToSave);
 
-
-    var amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
-    var amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
-    var amountPerDay = Math.round(stillToSave / daysToSave);
-
-    var targetSummary = "You need an extra "+ formattedStillToSave + ", to save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
-    var monthlyTarget = "£" + amountPerMonth + " each month.";
-    var weeklyTarget = "£" + amountPerWeek + " each week.";
-    var dailyTarget = "£" + amountPerDay + " each day.";
-
+    // let targetSummary = "You need an extra "+ formattedStillToSave + ", to save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
+    // let monthlyTarget = "£" + amountPerMonth + " each month.";
+    // let weeklyTarget = "£" + amountPerWeek + " each week.";
+    // let dailyTarget = "£" + amountPerDay + " each day.";
+    template.calculation.set('tempTargetAmount', targetAmount);
     template.calculation.set('stillToSave', stillToSave);
-    template.calculation.set('targetSummary', targetSummary);
-    template.calculation.set('monthlyTarget', monthlyTarget);
-    template.calculation.set('weeklyTarget', weeklyTarget);
-    template.calculation.set('dailyTarget', dailyTarget);
+    template.calculation.set('tempTargetDate', targetDate);
+    template.calculation.set('monthlyTarget', amountPerMonth);
+    template.calculation.set('weeklyTarget', amountPerWeek);
+    template.calculation.set('dailyTarget', amountPerDay);
   },
   'change .date-range'(event) {
     event.preventDefault();
     const dateRange = event.target;
-    var dateOption = dateRange.value;
+    let dateOption = dateRange.value;
     Session.set('dateOption', dateOption);
-    var transactionsTotal = transactionsValue(dateOption);
-    // var targetDate = moment(Template.Target.__helpers.get('targetDate').call());
+    let transactionsTotal = transactionsValue(dateOption);
+    // let targetDate = moment(Template.Target.__helpers.get('targetDate').call());
   },
   'submit .new-target'(event) {
     event.preventDefault();
     const target = event.target;
-    var targetAmount = parseInt(target.targetAmount.value);
-    var targetDate = new Date(target.targetDate.value);
+    let targetAmount = parseInt(target.targetAmount.value);
+    let targetDate = new Date(target.targetDate.value);
     Meteor.call('targets.add', targetAmount, targetDate);
-
     // Clear form
     target.targetAmount.value = '';
     target.targetDate.value = '';
   },
   'click .delete-target'(event) {
     const target = event.target;
-    var targetId = target.name;
+    let targetId = target.name;
     Meteor.call('targets.remove', targetId);
   }
 });
@@ -177,23 +189,22 @@ Template.EditTarget.helpers({
 });
 
 function setPreviousDate(date,number,period) {
-  var startingDate = moment(date);
-  var previousDate = startingDate.subtract(number,period);
+  let startingDate = moment(date);
+  let previousDate = startingDate.subtract(number,period);
   return previousDate.toDate();
 }
 
 function transactionsInRange(dateOption) {
-  const userId = Meteor.userId();
-  var currentDate = new Date();
-  var previousDate = setPreviousDate(currentDate,1,dateOption);
-  var transactionsInRange = Transactions.find( {$and: [ {owner: userId}, {createdAt: {$lt: currentDate, $gte: previousDate} } ] } ).fetch();
+  let currentDate = new Date();
+  let previousDate = setPreviousDate(currentDate,1,dateOption);
+  let transactionsInRange = Transactions.find( {$and: [ {owner: currentUserId()}, {createdAt: {$lt: currentDate, $gte: previousDate} } ] } ).fetch();
   return transactionsInRange;
 }
 
 function transactionsValue(dateOption){
-  var transactions = transactionsInRange(dateOption);
-  var total = 0;
-  for (var i = 0; i < transactions.length; i++) {
+  let transactions = transactionsInRange(dateOption);
+  let total = 0;
+  for (let i = 0; i < transactions.length; i++) {
     total += transactions[i].amount;
   }
   return total;
@@ -209,8 +220,8 @@ function stillToSave() {
 }
 
 function daysToSave() {
-  var today = moment(new Date());
-  var targetDateMoment = moment(targetDate());
+  let today = moment(new Date());
+  let targetDateMoment = moment(targetDate());
   return targetDateMoment.diff(today, 'days');
 }
 
