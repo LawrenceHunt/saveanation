@@ -20,6 +20,23 @@
   margin: 0 auto;
 }
 
+#currency {
+  padding-top: 10px;
+  background: darkblue;
+}
+
+#currency li {
+  display: inline-block;
+  padding: 3px;
+  margin: auto;
+}
+
+#currency #amount {
+  font-family: 'square';
+  font-size: 3em;
+  color: white;
+}
+
 #items {
   position: absolute;
   width: 20%;
@@ -27,6 +44,13 @@
   background: black;
   right: 0;
   text-align: center;
+  overflow: scroll;
+}
+
+#items h2 {
+  font-family: 'square';
+  font-size: 1.5em;
+  color: white;
 }
 
 #items #currency h2 {
@@ -38,8 +62,8 @@
 #items li {
   list-style: none;
   font-family: 'square';
-  font-size: 1.5em;
-  color: white;
+  font-size: 1.2em;
+  color: yellow;
 }
 
 #brick-generate {
@@ -68,12 +92,12 @@
 
 .kitchen {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
 }
 
 .living-room {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
 }

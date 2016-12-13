@@ -71,36 +71,50 @@ Template.Tower.onRendered(function(){
 });
 
 
-function createKitchen() {
-  var canvas = document.getElementById('game-canvas');
-  var kitchen = document.createElement('img');
-  canvas.appendChild(kitchen);
-  kitchen.src="game/kitchen.png";
-  kitchen.className = 'kitchen';
+// function createKitchen() {
+//   var canvas = document.getElementById('game-canvas');
+//   var kitchen = document.createElement('img');
+//   canvas.appendChild(kitchen);
+//   kitchen.src="game/kitchen.png";
+//   kitchen.className = 'kitchen';
+//
+//   $(function() {
+//       $( ".kitchen" ).draggable();
+//   });
+// }
+//
+// function createLivingRoom() {
+//   var canvas = document.getElementById('game-canvas');
+//   var livingRoom = document.createElement('img');
+//   canvas.appendChild(livingRoom);
+//   livingRoom.src='game/livingRoom.png';
+//   livingRoom.className = 'living-room';
+//
+//   $(function() {
+//       $( ".living-room" ).draggable();
+//   });
+// }
 
+function createSprite(src, className) {
+  var canvas = document.getElementById('game-canvas');
+  var element = document.createElement('img');
+  canvas.appendChild(element);
+  element.src=src;
+  element.className = className;
   $(function() {
-      $( ".kitchen" ).draggable();
+      $( '.kitchen').draggable();
+      $('.living-room').draggable();
   });
 }
-
-function createLivingRoom() {
-  var canvas = document.getElementById('game-canvas');
-  var livingRoom = document.createElement('img');
-  canvas.appendChild(livingRoom);
-  livingRoom.src='game/livingRoom.png';
-  livingRoom.className = 'living-room';
-
-  $(function() {
-      $( ".living-room" ).draggable();
-  });
-}
-
 
 Template.Tower.events({
   'click #kitchen-generate': function(event){
-    createKitchen();
+    createSprite('game/kitchen/kitchen-empty.png', 'kitchen');
   },
   'click #living-room-generate': function(event){
-    createLivingRoom();
+    createSprite('game/livingRoom/living-room-empty.png', 'living-room');
   },
+  'click #bedroom-generate': function(event){
+    createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  }
 });
