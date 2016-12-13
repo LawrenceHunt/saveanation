@@ -10,31 +10,6 @@ import './tower.css';
 import './tower.html';
 
 
-// when user first connects
-// Template.Tower.onCreated(function(){
-//
-// });
-//
-// Template.Tower.helpers({
-//
-// });
-// BASIC DRAWING METHODS
-// var updateTowerCanvas = function(gamecanvas) {
-//   Tracker.autorun(function(){
-//     let ctx = gamecanvas.getContext('2d');
-//     ctx.fillStyle = "rgb(45,45,13)";
-// 	  ctx.fillRect(0,0,20,20);
-//   });
-// };
-//
-//
-// // initiate the canvas
-// Template.Tower.onRendered(function() {
-//   let gamecanvas = this.find('#gamecanvas'); // get canvas from dom
-//   updateTowerCanvas(gamecanvas);
-// });
-//
-
 
 // // RAPHAEL METHODS
 // Template.Tower.onRendered(function(){
@@ -69,32 +44,7 @@ import './tower.html';
 Template.Tower.onRendered(function(){
 
 });
-
-
-// function createKitchen() {
-//   var canvas = document.getElementById('game-canvas');
-//   var kitchen = document.createElement('img');
-//   canvas.appendChild(kitchen);
-//   kitchen.src="game/kitchen.png";
-//   kitchen.className = 'kitchen';
-//
-//   $(function() {
-//       $( ".kitchen" ).draggable();
-//   });
-// }
-//
-// function createLivingRoom() {
-//   var canvas = document.getElementById('game-canvas');
-//   var livingRoom = document.createElement('img');
-//   canvas.appendChild(livingRoom);
-//   livingRoom.src='game/livingRoom.png';
-//   livingRoom.className = 'living-room';
-//
-//   $(function() {
-//       $( ".living-room" ).draggable();
-//   });
-// }
-
+// General generate element method
 function createSprite(src, className) {
   var canvas = document.getElementById('game-canvas');
   var element = document.createElement('img');
@@ -108,13 +58,32 @@ function createSprite(src, className) {
 }
 
 Template.Tower.events({
+  // Generate Kitchen elements
   'click #kitchen-generate': function(event){
     createSprite('game/kitchen/kitchen-empty.png', 'kitchen');
   },
+  // 'click #kitchen-chair-1-generate': function(event){
+  //   createSprite('kitchen-chair-1-generate', 'kitchen-chair-1');
+  // },
+  // 'click #kitchen-coffee-generate': function(event){
+  //   createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
+  // },
+  // 'click #kitchen-coffee-generate': function(event){
+  //   createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
+  // },
+  // Generate Living Room elements
   'click #living-room-generate': function(event){
     createSprite('game/livingRoom/living-room-empty.png', 'living-room');
   },
+// Generate Bedroom elements
   'click #bedroom-generate': function(event){
     createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
-  }
+  },
+  // 'click #bedroom-generate': function(event){
+  //   createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  // },
+  // 'click #bedroom-generate': function(event){
+  //   createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  // },
+
 });
