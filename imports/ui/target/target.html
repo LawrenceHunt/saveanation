@@ -63,9 +63,7 @@
         <p>which you're aiming to save by {{ formatDate targetDate }}.</p>
 
         <!-- <h3> You still need to save: {{stillToSave}}</h3> -->
-        <!-- <a href="/edit-target" class="edit-target">Edit Target</a> -->
-        <!-- We'll need to make edit work using a button, for styling consistency -->
-        <button class="edit-target" name="{{ targetId }}">Edit Target</button>
+        <button class="go-to-edit-target" name="{{ targetId }}">Edit Target</button>
         <button class="delete-target" name="{{ targetId }}">Delete Target</button>
 
     {{else}}
@@ -106,7 +104,8 @@
       {{/each}}
     {{/if}}
 
-    <!-- <p>{{ targetSummary }}</p> -->
+    <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
+    <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
     <p>{{ formatMoney monthlyTarget }}</p>
     <p>{{ formatMoney weeklyTarget }}</p>
     <p>{{ formatMoney dailyTarget }}</p>

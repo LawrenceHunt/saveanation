@@ -25,16 +25,6 @@ Template.registerHelper('formatDate', function(date) {
 });
 
 Template.Target.helpers({
-  //ACTUAL SPACEBAR HELPERS FROM THE UI:
-  //targets returns all Target objects
-  //currentBalance returns User's current Balance
-  //percentageOfTotal returns percentage of balance over targetDate
-  //targetAmount returns your Target
-  //targetDate returns your Target date
-  // targetId returns Target id
-  //targetSummary
-  // all the degrees ones in the style
-
   targets() {
     return Targets.find({});
   },
@@ -76,7 +66,6 @@ Template.Target.helpers({
   tempTargetDate() {
     const instance = Template.instance();
     return moment(instance.calculation.get('tempTargetDate'));
-    // return moment(tempDate);
   },
   tempTargetAmount() {
     const instance = Template.instance();
@@ -112,12 +101,6 @@ Template.Target.helpers({
 
 Template.Target.events({
   'click .calculate'(event, template) {
-    // jobs for this event listener:
-    // 1) Formatting views
-    // 2) calculating still to save
-    // 3) calulation amount to save per month, week, day,
-    // 4) calculating targets
-    // 5) setting Sessions
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
     let stillToSave = targetAmount - currentBalance();
@@ -131,10 +114,6 @@ Template.Target.events({
     let amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
     let amountPerDay = Math.round(stillToSave / daysToSave);
 
-    // let targetSummary = "You need an extra "+ formattedStillToSave + ", to save " + formattedTargetAmount + " by " + formattedTargetDate + ", you'll need to save:";
-    // let monthlyTarget = "£" + amountPerMonth + " each month.";
-    // let weeklyTarget = "£" + amountPerWeek + " each week.";
-    // let dailyTarget = "£" + amountPerDay + " each day.";
     template.calculation.set('tempTargetAmount', targetAmount);
     template.calculation.set('stillToSave', stillToSave);
     template.calculation.set('tempTargetDate', targetDate);
@@ -164,6 +143,9 @@ Template.Target.events({
     const target = event.target;
     let targetId = target.name;
     Meteor.call('targets.remove', targetId);
+  },
+  'click .go-to-edit-target'(event) {
+    FlowRouter.go('edit-target');
   }
 });
 
@@ -195,8 +177,14 @@ function setPreviousDate(date,number,period) {
 }
 
 function transactionsInRange(dateOption) {
+  let previousDate;
   let currentDate = new Date();
-  let previousDate = setPreviousDate(currentDate,1,dateOption);
+  if (dateOption == "days") {
+    previousDate = moment(currentDate).startOf('day').toDate();
+  }
+  else {
+    previousDate = setPreviousDate(currentDate,1,dateOption);
+  }
   let transactionsInRange = Transactions.find( {$and: [ {owner: currentUserId()}, {createdAt: {$lt: currentDate, $gte: previousDate} } ] } ).fetch();
   return transactionsInRange;
 }
@@ -246,24 +234,31 @@ function amountPerDay() {
 }
 
 function amountPerWeek() {
-  return Math.round((stillToSave() / daysToSave()) * 7);
+  if (daysToSave() < 7) {
+    return Math.round(stillToSave());
+  }
+  else {
+    return Math.round((stillToSave() / daysToSave()) * 7);
+  }
 }
 
 function amountPerMonth() {
-  return Math.round(((stillToSave() / daysToSave()) * 365) / 12);
+  if (daysToSave() < 30) {
+    return Math.round(stillToSave());
+  }
+  else {
+    return Math.round(((stillToSave() / daysToSave()) * 365) / 12);
+  }
 }
 
 function calculateTargetAmountByTimeRange(dateOption) {
   if (dateOption == "days") {
-    console.log(amountPerDay());
     return amountPerDay();
   }
   else if(dateOption == "weeks") {
-    console.log(amountPerWeek());
     return amountPerWeek();
   }
   else if(dateOption == "months") {
-    console.log(amountPerMonth());
     return amountPerMonth();
   }
   else {
