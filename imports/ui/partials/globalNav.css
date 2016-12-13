@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+/*@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 @font-face {
     font-family: 'square';
@@ -15,10 +15,10 @@
 .small-logo {
   height:60px;
 }
-
+*/
 
 /*csslint adjoining-classes: false, box-model:false*/
-.pure-menu {
+/*.pure-menu {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -72,7 +72,7 @@
   font-family: 'square';
   color: red;
   font-size: 1.5em;
-  text-shadow: 1px 1px 2px lightblue; 
+  text-shadow: 1px 1px 2px lightblue;
 }
 
 .pure-menu-horizontal .pure-menu-list {
@@ -139,4 +139,4 @@
 .pure-menu-selected .pure-menu-link,
 .pure-menu-selected .pure-menu-link:visited {
     color: #000;
-}
+}*/
