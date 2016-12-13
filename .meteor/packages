@@ -27,7 +27,6 @@ meteortoys:allthings
 accounts-base
 accounts-password
 accounts-ui
-accounts-facebook
 random
 service-configuration
 fortawesome:fontawesome
