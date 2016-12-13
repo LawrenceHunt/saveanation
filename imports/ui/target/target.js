@@ -115,7 +115,7 @@ Template.Target.events({
     template.calculation.set('weeklyTarget', weeklyTarget);
     template.calculation.set('dailyTarget', dailyTarget);
   },
-  'click .show-progress'(event, template) {
+  'change .show-progress'(event, template) {
 
   },
   'submit .new-target'(event) {
