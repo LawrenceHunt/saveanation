@@ -1,5 +1,5 @@
 .current-balance {
-  font-size: 500%;
+  font-size: 400%;
   font-weight: bold;
   margin: 0;
 }
@@ -15,7 +15,6 @@
   max-width: 600px;
   margin: auto;
   height: auto;
-  font-family: 'Montserrat', sans-serif;
   text-align: center;
   background-color: #fff;
   border: 5px solid red;
@@ -35,12 +34,13 @@
    margin: auto;
    margin-top: 20px;
    margin-bottom: 20px;
+
 }
 
 .styled-select select {
    background: transparent;
    border: none;
-   font-size: 14px;
+   font-size: 20px;
    height: 29px;
    padding: 5px; /* If you add too much padding here, the options won't show in IE */
    width: 268px;
@@ -54,7 +54,7 @@
 
 .styled-select.slate select {
    border: 1px solid #ccc;
-   font-size: 16px;
+   font-size: 20px;
    height: 34px;
    width: 268px;
 }
@@ -122,4 +122,164 @@ select#soflow-color {
    -moz-border-radius: 20px;
    border-radius: 20px;
    padding-left: 15px;
+}
+
+/* -------CSS Tachometer https://codepen.io/ilhantekir/pen/igyEe --------- */
+
+.container {
+  margin: 40px auto;
+  width: 320px;
+}
+
+#tachometer{
+  background:#171717;
+  width:320px;
+  height:320px;
+  box-shadow: inset 0px 0px 9px 3px rgba(0, 0, 0, 1);
+  border: 5px solid #171717;
+  border-radius: 100%;
+  display: block;
+  position: relative;
+}
+
+.ii {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  z-index: 2;
+
+}
+.ii div {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  padding:4px;
+  box-sizing: border-box;
+}
+.ii div b {
+  position: absolute;
+  display: block;
+  left: 50%;
+  width: 5px;
+  height: 20px;
+  background: #FFF;
+  margin: 0 -5px 0;
+
+}
+.ii div:nth-child(2n+1) b {
+  width: 10px;
+  height: 35px;
+  margin: 0 -5px 0;
+}
+
+.ii div:nth-child(1) {
+  transform: rotate(240deg);
+}
+.ii div:nth-child(2) {
+  transform: rotate(255deg);
+}
+.ii div:nth-child(3) {
+  transform: rotate(270deg);
+}
+.ii div:nth-child(4) {
+  transform: rotate(285deg);
+}
+.ii div:nth-child(5) {
+  transform: rotate(300deg);
+}
+.ii div:nth-child(6) {
+  transform: rotate(315deg);
+}
+.ii div:nth-child(7) {
+  transform: rotate(330deg);
+}
+.ii div:nth-child(8) {
+  transform: rotate(345deg);
+}
+.ii div:nth-child(9) {
+  transform: rotate(0deg);/*---*/
+}
+.ii div:nth-child(10) {
+  transform: rotate(15deg);
+}
+.ii div:nth-child(11) {
+  transform: rotate(30deg);
+}
+.ii div:nth-child(12) {
+  transform: rotate(45deg);
+}
+.ii div:nth-child(13) {
+  transform: rotate(60deg);
+}
+.ii div:nth-child(14) {
+  transform: rotate(75deg);
+}
+.ii div:nth-child(15) {
+  transform: rotate(90deg);
+}
+.ii div:nth-child(16) {
+  transform: rotate(105deg);
+}
+.ii div:nth-child(17) {
+  transform: rotate(120deg);
+}
+
+[class^="num_"] {
+    color:#FFF;
+    display: block;
+    position: absolute;
+    width: 10px;
+    font-size:40px;
+    text-align: center;
+    text-decoration:none;
+
+}
+
+.num_1 {transform: rotate(120deg); top:20px;}
+.num_2 {transform: rotate(90deg); top:13px; left:5px}
+.num_3 {transform: rotate(60deg); top:21px;}
+.num_4 {transform: rotate(30deg); top:25px;}
+.num_5 {transform: rotate(0deg);  top:30px;left:-8px}
+.num_6 {transform: rotate(330deg); top:35px;left:-10px}
+.num_7 {transform: rotate(300deg); top:35px;left:-7px;}
+.num_8 {transform: rotate(270deg);top:30px;}
+.num_9 {transform: rotate(240deg);top:30px;left:8px}
+
+.line {
+    background: #F14134;
+    background-image: linear-gradient(to bottom, #F14134, #343536);
+    height: 0;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    width: 0;
+    transform-origin: 50% 100%;
+    margin: -145px -8px 0;
+    padding: 145px 8px 0;
+    z-index:2;
+    border-radius: 50% 50% 0 0;
+}
+
+.pin {
+    width: 50px;
+    height: 50px;
+    left:50%;
+    top:50%;
+    margin: -25px 0 0 -25px;
+    background-color: #343536;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.5);
+    background-image: linear-gradient(to bottom, #F14134, #343536);
+    z-index: 4;
+}
+
+.inner {
+    width: 30px;
+    height: 30px;
+    margin: 10px auto 0;
+    background-color: #343536;
+    border-radius: 100%;
+    box-shadow: inset 0 8px 15px 0 rgba(167, 23, 10, 0.4);
+    position: relative;
 }

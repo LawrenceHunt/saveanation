@@ -2,8 +2,9 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Targets } from '../../api/targets/targets.js';
 import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
-import { MomentsJS } from 'meteor/momentjs:moment';
 import { Transactions } from '../../api/transactions/transactions.js';
+import { MomentsJS } from 'meteor/momentjs:moment';
+import { Accounting } from 'meteor/lepozepo:accounting';
 
 import './target.html';
 import './target.css';
@@ -18,6 +19,17 @@ Template.Target.onCreated(function targetOnCreated() {
 Template.Target.helpers({
   targets() {
     return Targets.find({});
+  },
+  targetDate() {
+    const userId = Meteor.userId();
+    const target = Targets.findOne({createdBy: userId});
+    const targetDate = target.targetDate.toDateString();
+    return targetDate;
+  },
+  targetAmount() {
+    const userId = Meteor.userId();
+    const target = Targets.findOne({createdBy: userId});
+    return accounting.formatMoney(target.targetAmount, "£ ", 0);
   },
   targetSummary() {
     const instance = Template.instance();
@@ -39,7 +51,7 @@ Template.Target.helpers({
     const userId = Meteor.userId();
     const account = SavingsAccounts.findOne({createdBy: userId});
     if(account) {
-      return "£" + account.balance.toString();
+      return accounting.formatMoney(account.balance, "£ ", 0);
     }
   },
   stillToSave() {
@@ -58,7 +70,21 @@ Template.Target.helpers({
     var percentage = Math.round((currentBalance/currentTarget) * 100);
     return percentage;
   },
-
+  totalInDegrees() {
+    var total = Template.Target.__helpers.get('percentageOfTotal').call();
+    var totalInDegrees = ((total * 2.4) - 120).toString() + 'deg';
+    return totalInDegrees;
+  },
+  degreesAbove() {
+    var total = Template.Target.__helpers.get('percentageOfTotal').call();
+    var degreesAbove = ((total * 2.4) - 120 + 6).toString() + 'deg';
+    return degreesAbove;
+  },
+  degreesBelow() {
+    var total = Template.Target.__helpers.get('percentageOfTotal').call();
+    var degreesBelow = ((total * 2.4) - 120 - 6).toString() + 'deg';
+    return degreesBelow;
+  },
   setPreviousDate(date,number,period) {
     var startingDate = moment(date);
     var previousDate = startingDate.subtract(number,period);
@@ -80,8 +106,7 @@ Template.Target.helpers({
       total += transactions[i].amount;
     }
     return total;
-  }
-
+  },
 });
 
 Template.Target.events({
@@ -131,7 +156,7 @@ Template.Target.events({
   },
   'click .delete-target'(event) {
     const target = event.target;
-    targetId = target.name;
+    var targetId = target.name;
     Meteor.call('targets.remove', targetId);
   }
 });
