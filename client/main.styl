@@ -83,10 +83,11 @@ header
     padding 20px
     fixed top left
     width 100%
-    height 70px
+    height auto
     z-index: z.header
     shadow-level(2)
     clearfix()
+    display inline-block
     h1
         margin 0
         font-size 1.6em
@@ -99,6 +100,18 @@ header
 
 p
     color #333
+
+.header-container
+    ul
+      list-style none
+      float right
+      li
+        display inline-block
+
+    a
+      color #FFF
+      text-decoration none
+
 
 .page-title
     text-transform uppercase
@@ -389,6 +402,10 @@ input, select, textarea
         left auto
         a
             color dark-purp
+
+.small-logo
+    max-width 100px
+    display inline-block
 
 .logo
     max-width 80px

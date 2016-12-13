@@ -1,18 +1,14 @@
 <template name="Header">
-  <header>
-    <div>
+  <header class="header">
+    <div class="header-container">
       <a href="#">
-        <div class="small-logo">
-          <img class="logo" src='images/Logo.png' />
-        </div>
+          <img class="logo" src='images/logo-red.png' />
       </a>
+        <ul>
+          <li><a href="/team">Team Profile</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a class="logout" href="/">Log Out</a></li>
+        </ul>
     </div>
-    <nav class="">
-      <ul>
-        <li><a href="/team">Team Profile</a></li>
-        <li><a href="/profile">Profile</a></li>
-        <li><a class="logout" href="/">Log Out</a></li>
-      </ul>
-    </nav>
   </header>
 </template>
