@@ -5,6 +5,7 @@ import '../imports/api/transactions/transactions.js';
 import '../imports/api/savingsAccounts/savingsAccounts.js';
 import '../imports/api/teams/teams.js';
 import '../imports/api/profiles/profiles.js';
+import '../imports/api/tower/tower.js';
 
 AccountsTemplates.configure({
     // Behavior
