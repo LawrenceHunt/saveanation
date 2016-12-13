@@ -9,6 +9,9 @@ import {jQueryUI} from 'meteor/mizzao:jquery-ui';
 import './tower.css';
 import './tower.html';
 
+Template.Tower.onCreated(function towerOnCreated() {
+  Meteor.subscribe('blocks');
+});
 
 // when user first connects
 // Template.Tower.onCreated(function(){
@@ -70,7 +73,6 @@ Template.Tower.onRendered(function(){
 
 });
 
-
 function createKitchen() {
   var canvas = document.getElementById('game-canvas');
   var kitchen = document.createElement('img');
@@ -78,9 +80,30 @@ function createKitchen() {
   kitchen.src="game/kitchen.png";
   kitchen.className = 'kitchen';
 
+  // $(function() {
+  //     $( ".kitchen" ).draggable();
+  // });
+
   $(function() {
-      $( ".kitchen" ).draggable();
+    $('.kitchen').draggable( {
+      // drag: function() {
+      //   var offset = $(this).offset();
+      //   var xPos = offset.left;
+      //   var yPos = offset.top;
+      //   // console.log('x: ' + xPos + 'y: ' + yPos);
+      //   // $(this).text('x: ' + xPos + 'y: ' + yPos);
+      // },
+      stop: function(){
+        var finalOffset = $(this).offset();
+        var finalxPos = finalOffset.left;
+        var finalyPos = finalOffset.top;
+
+        Meteor.call('blocks.add', 'kitchen', finalxPos, finalyPos);
+      },
+    });
   });
+
+  Meteor.call('blocks.add', 'kitchen', xPos, yPos);
 }
 
 function createLivingRoom() {
@@ -90,11 +113,31 @@ function createLivingRoom() {
   livingRoom.src='game/livingRoom.png';
   livingRoom.className = 'living-room';
 
-  $(function() {
-      $( ".living-room" ).draggable();
-  });
-}
+  // $(function() {
+  //     $( ".living-room" ).draggable();
+  // });
 
+  $(function() {
+    $('.living-room').draggable( {
+      // drag: function() {
+      //   var offset = $(this).offset();
+      //   var xPos = offset.left;
+      //   var yPos = offset.top;
+      //   // console.log('x: ' + xPos + 'y: ' + yPos);
+      //   // $(this).text('x: ' + xPos + 'y: ' + yPos);
+      // },
+      stop: function(){
+        var finalOffset = $(this).offset();
+        var finalxPos = finalOffset.left;
+        var finalyPos = finalOffset.top;
+
+        Meteor.call('blocks.add', 'living-room', finalxPos, finalyPos);
+      },
+    });
+  });
+
+
+}
 
 Template.Tower.events({
   'click #kitchen-generate': function(event){
