@@ -14,15 +14,15 @@ if(Meteor.isServer) {
 }
 
 Meteor.methods({
-  'profiles.edit'(userName, firstName, lastName, avatar) {
-    check(userName, String);
+  'profiles.edit'(firstName, lastName, avatar) {
+    // check(userName, String);
     check(firstName, String);
     check(lastName, String);
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
     Meteor.users.update(this.userId, {$set: {
-          profile: { username: userName, firstName: firstName, lastName: lastName, avatar: avatar }
+          profile: { firstName: firstName, lastName: lastName, avatar: avatar }
         }
       });
   }
