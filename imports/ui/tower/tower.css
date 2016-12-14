@@ -13,9 +13,14 @@
 
 #game-canvas {
   position: absolute;
+  left: 10%;
+  top: 0;
   width: 80%;
   height: 100%;
-  background: lightblue;
+  bottom: 0;
+  background-image: url('game/misc/background2.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
   display: block;
   margin: 0 auto;
 }
@@ -43,6 +48,7 @@
   height: 100%;
   background: black;
   right: 0;
+  top: 80px;
   text-align: center;
   overflow: scroll;
 }
