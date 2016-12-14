@@ -1,6 +1,8 @@
 import { Template } from 'meteor/templating';
 import { Transactions } from '../../api/transactions/transactions.js';
 import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
+import { MomentsJS } from 'meteor/momentjs:moment';
+import { Accounting } from 'meteor/lepozepo:accounting';
 
 import './save.html';
 
@@ -39,7 +41,7 @@ Template.Save.events({
     const amount = parseInt(target.amount.value);
     const text = target.text.value;
     Meteor.call('transactions.add', amount, text, 'deposit');
-
+    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"));
     // Clear form
     target.text.value = '';
   },
