@@ -135,6 +135,8 @@ Template.Target.events({
     let targetAmount = parseInt(target.targetAmount.value);
     let targetDate = new Date(target.targetDate.value);
     Meteor.call('targets.add', targetAmount, targetDate);
+    // Create Post
+    Meteor.call('post.add', "Set a new target of " + accounting.formatMoney(targetAmount, "£", 0)+ " to achieve by " + moment(targetDate).format("ddd Do MMM YYYY"));
     // Clear form
     target.targetAmount.value = '';
     target.targetDate.value = '';
@@ -143,6 +145,7 @@ Template.Target.events({
     const target = event.target;
     let targetId = target.name;
     Meteor.call('targets.remove', targetId);
+    Meteor.call('post.add', "Deleted a target, is this a cry for help?!");
   },
   'click .go-to-edit-target'(event) {
     FlowRouter.go('edit-target');
@@ -156,6 +159,7 @@ Template.EditTarget.events({
     const targetAmount = parseInt(target.targetAmount.value);
     const targetDate = new Date(target.targetDate.value);
     Meteor.call('targets.edit', targetAmount, targetDate);
+    Meteor.call('post.add', "Had a change of heart, now aiming for " + accounting.formatMoney(targetAmount, "£", 0)+ " by " + moment(targetDate).format("ddd Do MMM YYYY"));
     // route back to /target
     FlowRouter.go('target');
   }
