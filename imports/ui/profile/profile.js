@@ -27,11 +27,18 @@ Template.Profile.helpers({
   },
   emailAddress() {
     const currentUser = Meteor.user();
-    return currentUser.profile.email;
+    return currentUser.email;
   },
   avatar() {
     const currentUser = Meteor.user();
     return currentUser.profile.avatar;
+  }
+});
+
+Template.Profile.events({
+  'click #edit-profile'(event) {
+    event.preventDefault();
+    BlazeLayout.render("mainLayout", {content: 'EditProfile'});
   }
 });
 

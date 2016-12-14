@@ -1,18 +1,24 @@
 <template name="feed">
-  <div class="new-post-container">
+  <div class="main-area">
+    <h1>Newsfeed</h1>
     <form class="add-post">
-      <input id="body-field" name="body" type="text" placeholder="What have you saved today?">
-      <input class="post-button" type="submit" value="Post!" >
+      <input id="body-field" name="body" type="text" placeholder="What's on your mind?">
+      <button class="post-button">Post!</button>
     </form>
-  </div>
 
     {{#each posts}}
       <div class="post">
-        <img src="images/avatars/{{avatar author}}.jpg" height=50px width=50px>
-        <h3 class="post-text">{{body}}</h3>
-        <h4 class="fun-bits">{{trumpBits}}</h4>
-        <h5 class="post-info">{{author}} @ {{formatDate createdAt}}</h5>
+        <img class="post-avatar" src="images/avatars/{{avatar author}}.jpg">
+        <p class="post-author">{{author}}<br>
+          <span class="post-date">{{formatDate createdAt}}</span>
+        </p>
+        <p class="post-text">
+          {{#emoji}}
+            {{body}}
+          {{/emoji}}
+        </p>
+        <p class="fun-bits">{{trumpBits}}</p>
       </div>
     {{/each}}
-
+  </div>
 </template>

@@ -66,7 +66,7 @@ social = {
 }
 
 $side-nav = 100px
-$side-nav-large = 200px
+$side-nav-large = 165px
 
 html
     box-sizing: border-box
@@ -76,7 +76,6 @@ html
 
 .main-body
     background clouds
-    padding: 70px 0 150px
 
 header
     color #FFF
@@ -108,11 +107,11 @@ p
       float right
       li
         display inline-block
+        padding 10px
 
     a
       color #FFF
       text-decoration none
-
 
 .page-title
     text-transform uppercase
@@ -129,14 +128,17 @@ p
         margin 0
 
 .main-layout
-    lost-center 90%
+    background-size cover
+    background-repeat repeat
+    background-attachment fixed
+    background-image url("images/pixel_landscape.jpg")
+    lost-center 100%
     margin-top 20px
     +above($med)
-        lost-center 90%
+        lost-center 100%
         padding-left $side-nav
     +above($large)
-        lost-center 80%
-        margin-top 40px
+        lost-center 100%
         padding-left $side-nav-large
 
 .new-post
@@ -162,12 +164,12 @@ p
 .btn, button
     display inline-block
     cursor pointer
-    background purp
+    background #FF5536
     color #FFF
     text-decoration none
     text-transform uppercase
     padding 5px 15px
-    border solid 3px purp
+    border solid 3px #FF5536
     border-radius 2px
     font-weight 800
     shadow-level(1)
@@ -177,8 +179,8 @@ p
         border-color @background
         shadow-level(2)
     &.btn-primary
-        background teal
-        border-color teal
+        background #FF5536
+        border-color #FF5536
         color dark-purp
         &:hover
             background @background - 40
@@ -273,11 +275,13 @@ input, select, textarea
     vertical-align middle
 
 .side-nav
+    font-family 'square'
+    font-size 120%
     fixed bottom left
     height 100px
     width 100%
     overflow hidden
-    background #7f8c8d
+    background #444
     color #FFF
     z-index: z.header
     shadow-level(2)
@@ -295,7 +299,7 @@ input, select, textarea
         text-align center
         trans()
         &:hover, &.active
-            background maroon
+            background #FF5536
     i
         display block
         font-size 2em
@@ -310,7 +314,7 @@ input, select, textarea
             display block
         shadow-level(-1)
         a
-            padding 20px 10px
+            padding 20px 20px
             &:hover, &.active
                 border-left 4px solid black
     +above($large)
@@ -318,12 +322,14 @@ input, select, textarea
         a
             padding 20px 20px
             &:hover, &.active
-                border-left 10px solid black
+                border-left 10px solid white
 
 .post
+    text-align left
     background #FFF
-    padding 0 20px 20px
-    margin-bottom 20px
+    padding 20px
+    margin-top 30px
+    border-radius 3px
     position relative
     z-index 1
     shadow-level(1)
@@ -333,14 +339,17 @@ input, select, textarea
     &.in-menu
         background teal
         color #FFF
-        h3
-            border-bottom: rgba(255,255,255, 0.6) solid 3px
-    h3
-        font-size: 1.5em;
-        opacity: 0.3;
-        border-bottom: rgba(0,0,0, 0.3) solid 3px
-        margin-top 0
-        margin-bottom 10px
+    .post-avatar
+        height 50px
+        width 50px
+        float left
+        margin-right 20px
+    .post-text
+        font-size 1.3em
+        display inline
+    .post-date
+        font-size 0.9em
+        opacity 0.5
     button
         margin-top 20px
     .fa-trash, .fa-pencil

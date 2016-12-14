@@ -11,18 +11,18 @@
   margin-bottom: 20px;
 }
 
-.target-area {
+/*.target-area {
   max-width: 600px;
   margin: auto;
   height: auto;
   text-align: center;
   background-color: #fff;
-  border: 5px solid red;
+  border: 5px solid #666;
   border-radius: 10px;
   padding: 30px;
-  margin-top: 30px;
+  margin-top: 100px;
   margin-bottom: 10px;
-}
+}*/
 
 /* -------------------- Select Box Styles: bavotasan.com Method (with special adaptations by ericrasch.com) */
 /* -------------------- Source: http://bavotasan.com/2011/style-select-box-using-only-css/ */
