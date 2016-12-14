@@ -35,6 +35,13 @@ Template.Profile.helpers({
   }
 });
 
+Template.Profile.events({
+  'click #edit-profile'(event) {
+    event.preventDefault();
+    BlazeLayout.render("mainLayout", {content: 'EditProfile'});
+  }
+});
+
 Template.EditProfile.helpers({
   userName() {
     return Meteor.user().profile.username;

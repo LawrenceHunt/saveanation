@@ -1,5 +1,7 @@
 <template name="Team">
 
+  <div class="main-area">
+    <h1>Your team</h1>
   {{#if teams.count != 0}}
     {{#each teams}}
       <h2>{{ teamName }}</h2>
@@ -25,4 +27,6 @@
   {{else}}
     {{> addNewTeamForm }}
   {{/if}}
+
+  </div>
 </template>

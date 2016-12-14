@@ -3,6 +3,7 @@ import { Transactions } from '../../api/transactions/transactions.js';
 import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
 
 import './save.html';
+import './save.css';
 
 Template.Save.onCreated(function transactionsOnCreated(){
   Meteor.subscribe('transactions');
@@ -14,6 +15,11 @@ Template.Save.helpers({
   transactions() {
     var userId = Meteor.userId();
     return Transactions.find({owner: userId}, { sort: {createdAt: -1 } });
+  },
+  test() {
+    var transactions = accounting.formatColumn([123.5, 3456.49, 777888.99, 12345678, -5432], "£");
+    console.log(transactions);
+    return transactions;
   },
   balance() {
     var userId = Meteor.userId();
@@ -29,7 +35,13 @@ Template.Save.helpers({
     } else {
       return true;
     }
-  }
+  },
+  formatDate(dateTime) {
+    return moment(dateTime).format('D MMM YYYY');
+  },
+  formatMoney(amount) {
+    return accounting.formatMoney(amount, "£", 2, ",", ".");
+  },
 });
 
 Template.Save.events({
