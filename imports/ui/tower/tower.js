@@ -13,31 +13,6 @@ Template.Tower.onCreated(function towerOnCreated() {
   Meteor.subscribe('blocks');
 });
 
-// when user first connects
-// Template.Tower.onCreated(function(){
-//
-// });
-//
-// Template.Tower.helpers({
-//
-// });
-// BASIC DRAWING METHODS
-// var updateTowerCanvas = function(gamecanvas) {
-//   Tracker.autorun(function(){
-//     let ctx = gamecanvas.getContext('2d');
-//     ctx.fillStyle = "rgb(45,45,13)";
-// 	  ctx.fillRect(0,0,20,20);
-//   });
-// };
-//
-//
-// // initiate the canvas
-// Template.Tower.onRendered(function() {
-//   let gamecanvas = this.find('#gamecanvas'); // get canvas from dom
-//   updateTowerCanvas(gamecanvas);
-// });
-//
-
 
 // // RAPHAEL METHODS
 // Template.Tower.onRendered(function(){
@@ -72,6 +47,19 @@ Template.Tower.onCreated(function towerOnCreated() {
 Template.Tower.onRendered(function(){
 
 });
+
+// General generate element method
+function createSprite(src, className) {
+  var canvas = document.getElementById('game-canvas');
+  var element = document.createElement('img');
+  canvas.appendChild(element);
+  element.src=src;
+  element.className = className;
+  $(function() {
+      $( '.kitchen').draggable();
+      $('.living-room').draggable();
+  });
+}
 
 function createKitchen() {
   var canvas = document.getElementById('game-canvas');
@@ -129,10 +117,32 @@ function createLivingRoom() {
 }
 
 Template.Tower.events({
+  // Generate Kitchen elements
   'click #kitchen-generate': function(event){
-    createKitchen();
+    createSprite('game/kitchen/kitchen-empty.png', 'kitchen');
   },
+  // 'click #kitchen-chair-1-generate': function(event){
+  //   createSprite('kitchen-chair-1-generate', 'kitchen-chair-1');
+  // },
+  // 'click #kitchen-coffee-generate': function(event){
+  //   createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
+  // },
+  // 'click #kitchen-coffee-generate': function(event){
+  //   createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
+  // },
+  // Generate Living Room elements
   'click #living-room-generate': function(event){
-    createLivingRoom();
+    createSprite('game/livingRoom/living-room-empty.png', 'living-room');
   },
+// Generate Bedroom elements
+  'click #bedroom-generate': function(event){
+    createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  },
+  // 'click #bedroom-generate': function(event){
+  //   createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  // },
+  // 'click #bedroom-generate': function(event){
+  //   createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  // },
+
 });
