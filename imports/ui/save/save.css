@@ -1,0 +1,29 @@
+.transaction_title {
+  padding-top: 30px;
+}
+
+.transactionTableDiv {
+  overflow-x:auto;
+}
+
+.transactions {
+  border: 0;
+  width: 100%;
+  font-weight: normal;
+}
+
+.transactions th {
+  background-color: #ddd;
+}
+
+.transactions th, td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.monies {
+  text-align: right;
+}
+
+tr:nth-child(even) {background-color: #f5f5f5}

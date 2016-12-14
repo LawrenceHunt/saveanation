@@ -1,21 +1,37 @@
 <template name="Save">
-  <body>
+  <div class="main-area">
+    <h1>Save</h1>
+    <h2>How much do you want to save?</h2>
     <form class="add-deposit">
-      <input name="amount" type="number">
-      <input name="text" type="textarea" placeholder="dodged a coffee">
-      <input type="submit">
+      <input name="amount" type="number" placeholder="10.00">
+      <input name="text" type="textarea" placeholder="Made lunch at home">
+      <button type="submit">Transfer the monies</button>
     </form>
     {{#if noAccount}}
     <button value="create account" id="createAccount">Create</button>
     {{/if}}
-    <h1 id="balance">Your balance: </h1>
-    {{balance}}
 
-    <h1>Your saving activity so far:</h1>
-    <ul id="transactions">
-    {{#each transactions}}
-      <li>{{ amount }} / {{ text }} / {{createdAt}}</li>
-    {{/each}}
-    </ul>
-  </body>
+    <h2 class="transaction_title">Transaction history</h2>
+    <div class="transactionTableDiv">
+      <table class="transactions">
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+        {{#each transactions}}
+        <tr>
+          <td>{{ formatDate createdAt }}</td>
+          <td>{{ text }}</td>
+          <td class="monies">{{ formatMoney amount }}</td>
+        </tr>
+        {{/each}}
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="monies">{{ formatMoney balance }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </template>

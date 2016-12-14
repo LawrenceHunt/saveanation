@@ -1,45 +1,43 @@
 <template name="Profile">
-  <body>
-
-    <div class="post">
-      <img src="images/avatars/{{avatar}}.jpg" height=160px width=160px>
-      <p>Hello {{fullName}}</p>
-
-      <div class="post-text">
-        <p>Username:</p>
-      </div>
-      <div class="post-info">
-        <p>{{ userName }}</p>
-      </div>
-      <div class="post-text">
-        <p>Email:</p>
-      </div>
-      <div class="post-info">
-        <p>{{emailAddress}} </p>
-      </div>
-      <p><a href="/edit-profile">Edit</a> your profile</p>
+  <div class="main-area">
+    <h1>Your profile</h1>
+    <img src="images/avatars/{{avatar}}.jpg" height="160px" width="160px">
+    <div class="post-text">
+      Username
+      <p class="post-info">{{userName}}</p>
     </div>
-  </body>
+    <div class="post-text">
+      Full name
+      <p class="post-info">{{fullName}}</p>
+    </div>
+    <div class="post-text">
+      Email
+      <p class="post-info">{{emailAddress}}</p>
+    </div>
+    <button id="edit-profile">Edit your profile</button>
+    <!-- <p><a href="/edit-profile">Edit your profile</a></p> -->
+  </div>
 </template>
 
-
 <template name="EditProfile">
-  <h3>Edit your profile</h3>
-  <form class="edit-profile">
-    <div>
-      <img src="images/avatars/{{avatar}}.jpg" height=100px width=100px>
-    </div>
-    <div>
-      <input class="" type="text" placeholder="Username" name="userName" id="username" value="{{ userName }}"/>
-    </div>
-    <div>
-      <input class="" type="text" placeholder="First Name" name="firstName" id="first-name" value="{{ firstName }}"/>
-    </div>
-    <div>
-      <input class="" type="text" placeholder="Last Name" name="lastName" id="last-name" value="{{ lastName }}" />
-    </div>
-    <div>
-      <button class="ui blue large button" id="update-button" type="submit">Update</button>
-    </div>
-  </form>
+  <div class="main-area">
+    <h1>Edit your profile</h1>
+    <form class="edit-profile">
+      <div>
+        <img src="images/avatars/{{avatar}}.jpg" height=100px width=100px>
+      </div>
+      <div>
+        <input class="" type="text" placeholder="Username" name="userName" id="username" value="{{ userName }}"/>
+      </div>
+      <div>
+        <input class="" type="text" placeholder="First Name" name="firstName" id="first-name" value="{{ firstName }}"/>
+      </div>
+      <div>
+        <input class="" type="text" placeholder="Last Name" name="lastName" id="last-name" value="{{ lastName }}" />
+      </div>
+      <div>
+        <button class="ui blue large button" id="update-button" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
 </template>
