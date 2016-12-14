@@ -13,6 +13,8 @@
 
 #game-canvas {
   position: absolute;
+  left: 10%;
+  top: 0;
   width: 80%;
   height: 100%;
   background: lightblue;
