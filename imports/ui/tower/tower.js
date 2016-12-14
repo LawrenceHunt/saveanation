@@ -124,7 +124,7 @@ Template.Tower.events({
   'click #bedroom-1-generate': function(event){
     createSprite('game/bedRoom1/bedroom-empty.png', 'bedroom-1');
   },
-  'click #bedroom-1-generate': function(event){
+  'click #bedroom-1-bed-generate': function(event){
     createSprite('game/bedRoom1/bed.png', 'bedroom-1-bed');
   },
   'click #bedroom-1-rug-generate': function(event){
