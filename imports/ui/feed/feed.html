@@ -12,8 +12,11 @@
         <p class="post-author">{{author}}<br>
           <span class="post-date">{{formatDate createdAt}}</span>
         </p>
-        <p class="post-text">{{body}}</p>
-
+        <p class="post-text">
+          {{#emoji}}
+            {{body}}
+          {{/emoji}}
+        </p>
       </div>
     {{/each}}
   </div>
