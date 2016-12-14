@@ -27,7 +27,7 @@ Template.Tower.onCreated(function towerOnCreated() {
 // };
 //
 // var createTetromino = function(paper) {
-//   var tetronimo = paper.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
+  // var tetronimo = paper.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
 //    tetronimo.attr({fill: '#9cf', stroke: '#ddd', 'stroke-width': 5});
 // };
 //
@@ -55,81 +55,43 @@ function createSprite(src, className) {
   canvas.appendChild(element);
   element.src=src;
   element.className = className;
-  $(function() {
-      $( '.kitchen').draggable();
-      $('.living-room').draggable();
-  });
-}
 
-function createKitchen() {
-  var canvas = document.getElementById('game-canvas');
-  var kitchen = document.createElement('img');
-  canvas.appendChild(kitchen);
-  kitchen.src="game/kitchen.png";
-  kitchen.className = 'kitchen';
-
+  // Creates Block in Mongo DB
   var blockId;
   Meteor.call('blocks.add', 'kitchen', 0, 0, function(error, result){
     blockId = result;
   });
 
-  // Testing that it only creates the block once
-  // var numberBlocksinDB = Blocks.find().count();
-  // console.log("outside the drag function: " + numberBlocksinDB);
-
-  $(function() {
-    $('.kitchen').draggable( {
-      stop: function(){
-        var finalOffset = $(this).offset();
-        var finalxPos = finalOffset.left;
-        var finalyPos = finalOffset.top;
-        Meteor.call('blocks.edit', blockId, 'kitchen', finalxPos, finalyPos);
-        // Testing that it doesn't create another block on drag
-        // var newNumberBlocksinDB = Blocks.find().count();
-        // console.log("inside the drag function: " + newNumberBlocksinDB);
-      },
-    });
-  });
-}
-
-function createLivingRoom() {
-  var canvas = document.getElementById('game-canvas');
-  var livingRoom = document.createElement('img');
-  canvas.appendChild(livingRoom);
-  livingRoom.src='game/livingRoom.png';
-  livingRoom.className = 'living-room';
-
-  var blockId;
-  Meteor.call('blocks.add', 'living-room', 0, 0, function(error, result){
-    blockId = result;
+  var classNameWithDot = '.'+className;
+  $(classNameWithDot).draggable( {
+    stop: function(){
+      var finalOffset = $(this).offset();
+      var finalxPos = finalOffset.left;
+      var finalyPos = finalOffset.top;
+      Meteor.call('blocks.edit', blockId, 'kitchen', finalxPos, finalyPos);
+      // Testing that it doesn't create another block on drag
+      // var newNumberBlocksinDB = Blocks.find().count();
+      // console.log("inside the drag function: " + newNumberBlocksinDB);
+    },
   });
 
-  $(function() {
-    $('.living-room').draggable( {
-      stop: function(){
-        var finalOffset = $(this).offset();
-        var finalxPos = finalOffset.left;
-        var finalyPos = finalOffset.top;
-        Meteor.call('blocks.edit', blockId, 'living-room', finalxPos, finalyPos);
-      },
-    });
-  });
 }
 
 Template.Tower.events({
   // Generate Kitchen elements
   'click #kitchen-generate': function(event){
+    // createKitchen();
     createSprite('game/kitchen/kitchen-empty.png', 'kitchen');
   },
-  // 'click #kitchen-chair-1-generate': function(event){
-  //   createSprite('kitchen-chair-1-generate', 'kitchen-chair-1');
-  // },
-  // 'click #kitchen-coffee-generate': function(event){
-  //   createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
-  // },
-  // 'click #kitchen-coffee-generate': function(event){
-  //   createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
-  // },
+  'click #kitchen-chair-1-generate': function(event){
+    createSprite('game/kitchen/kitchen-chair-1.png', 'kitchen-chair-1');
+  },
+  'click #kitchen-coffee-generate': function(event){
+    createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
+  },
+  'click #kitchen-coffee-generate': function(event){
+    createSprite('game/kitchen/kitchen-fridge.png', 'kitchen-fridge');
+  },
   // Generate Living Room elements
   'click #living-room-generate': function(event){
     createSprite('game/livingRoom/living-room-empty.png', 'living-room');
@@ -138,11 +100,11 @@ Template.Tower.events({
   'click #bedroom-generate': function(event){
     createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
   },
-  // 'click #bedroom-generate': function(event){
-  //   createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
-  // },
-  // 'click #bedroom-generate': function(event){
-  //   createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
-  // },
+  'click #bedroom-generate': function(event){
+    createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  },
+  'click #bedroom-generate': function(event){
+    createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  },
 
 });
