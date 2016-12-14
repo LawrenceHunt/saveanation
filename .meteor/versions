@@ -54,6 +54,7 @@ jquery@1.11.10
 kadira:blaze-layout@2.3.0
 kadira:flow-router@2.12.1
 launch-screen@1.0.12
+lepozepo:accounting@1.0.0
 less@2.7.6
 livedata@1.0.18
 localstorage@1.0.12
@@ -109,6 +110,7 @@ reactive-dict@1.1.8
 reactive-var@1.0.11
 reload@1.1.11
 retry@1.0.9
+reywood:publish-composite@1.4.2
 routepolicy@1.0.12
 service-configuration@1.0.11
 session@1.1.7

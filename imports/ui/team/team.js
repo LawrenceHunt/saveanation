@@ -16,19 +16,21 @@ Template.Team.helpers({
   teams() {
     return Teams.find({});
   },
-  teamMemberObject(memberIds) {
-    //find current user and team
-    let currentUserId = Meteor.userId();
-    let currentTeam = Teams.findOne({memberIds: currentUserId});
-    currentTeamMembers = currentTeam.memberIds;
-    //return all team members
-    console.log(Meteor.users.find({_id: {$in: currentTeamMembers}}).fetch());
-    return Meteor.users.find({_id: {$in: currentTeamMembers}});
-    //just another way of doing the above, not using memberIds passed through at template level:
-    // return memberIds.map(function(memberId){
-    //   return Meteor.users.findOne(memberId);
-    // })
-  }
+
+  teamMemberObject() {
+    //get team member Ids from the session
+    let currentTeamMemberIds;
+    if (Session.get('currentTeamMemberIds')) {
+      currentTeamMemberIds = Session.get('currentTeamMemberIds');
+    } else {
+      let currentUserId = Meteor.userId();
+      let currentTeam = Teams.findOne({memberIds: currentUserId});
+      let currentTeamMemberIds = currentTeam.memberIds;
+      Session.set('currentTeamMemberIds', currentTeamMemberIds);
+      currentTeamMemberIds = Session.get('currentTeamMemberIds');
+    }
+    return Meteor.users.find({_id: { $in: currentTeamMemberIds }})
+  },
 
 });
 
@@ -47,11 +49,20 @@ Template.Team.events({
     const target = event.target;
     const memberEmail = target.memberEmail.value;
 
-    Meteor.call('team.addMember', memberEmail);
-
+    let currentTeamMemberIds = Meteor.call('team.addMember', memberEmail);
+    console.log(currentTeamMemberIds)
+    // console.log(currentTeamMemberIds)
+    // Session.set('currentTeamMemberIds', currentTeamMemberIds);
     // Clear form
     target.memberEmail.value = '';
   },
+  'click .delete-team'(event) {
+    event.preventDefault();
+
+    const target = event.target;
+    const teamId = target.name;
+    Meteor.call('team.destroy', teamId)
+  }
 });
 
 // This is a function to allow you to console.log things client side from spacebar functions
