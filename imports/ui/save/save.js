@@ -31,14 +31,6 @@ Template.Save.helpers({
       return account.balance.toString();
     }
   },
-  noAccount() {
-    var userId = Meteor.userId();
-    if(SavingsAccounts.findOne({createdBy: userId}) ){
-      return false;
-    } else {
-      return true;
-    }
-  },
   formatDate(dateTime) {
     return moment(dateTime).format('D MMM YYYY');
   },
@@ -53,13 +45,21 @@ Template.Save.events({
     const target = event.target;
     const amount = parseInt(target.amount.value);
     const text = target.text.value;
+    if (noAccount()) {
+      Meteor.call('savingsAccounts.create');
+    }
     Meteor.call('transactions.add', amount, text, 'deposit');
-    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.trumpBits());
+    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
     // Clear form
     target.text.value = '';
-  },
-  'click #createAccount'(event){
-    event.preventDefault();
-    Meteor.call('savingsAccounts.create');
   }
 });
+
+function noAccount() {
+  var userId = Meteor.userId();
+  if(SavingsAccounts.findOne({createdBy: userId}) ){
+    return false;
+  } else {
+    return true;
+  }
+}

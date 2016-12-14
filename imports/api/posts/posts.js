@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
-import encouragement from './encouragement.js';
+import messages from './encouragement.js';
 export const Posts = new Mongo.Collection('posts');
 
 PostSchema = new SimpleSchema({
@@ -17,7 +17,7 @@ PostSchema = new SimpleSchema({
       return new Date();
     },
   },
-  trumpBits: {
+  encouragement: {
     type: String,
     optional: true
   }
@@ -26,7 +26,7 @@ PostSchema = new SimpleSchema({
 Posts.attachSchema( PostSchema );
 
 Meteor.methods({
-  'post.add'(text, trumpBits = "") {
+  'post.add'(text, encouragement = "") {
     check(text, String);
     // Checks user is logged in
     if(!this.userId) {
@@ -36,7 +36,7 @@ Meteor.methods({
     // Create the post object
     Posts.insert({
       body: text,
-      trumpBits: trumpBits,
+      encouragement: encouragement,
       author: currentUser
     });
   }
@@ -49,9 +49,9 @@ if (Meteor.isServer) {
 }
 
 Meteor.myFunctions = {
-  trumpBits: function() {
-    let json = encouragement;
-    let trumpBits = json.trumpBits;
-    return trumpBits[Math.floor ( Math.random() * trumpBits.length )];
+  encouragement: function() {
+    let json = messages;
+    let encouragement = json.trumpBits;
+    return encouragement[Math.floor ( Math.random() * encouragement.length )];
   }
 };
