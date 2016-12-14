@@ -13,8 +13,7 @@
 
 #game-canvas {
   position: absolute;
-  left: 10%;
-  top: 0;
+  top: 80px;
   width: 80%;
   height: 100%;
   bottom: 0;
@@ -70,30 +69,6 @@
   font-family: 'square';
   font-size: 1.2em;
   color: yellow;
-}
-
-#brick-generate {
-	-moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
-	-webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
-	box-shadow:inset 0px 34px 0px -15px #b54b3a;
-	background-color:#a73f2d;
-	border:1px solid #241d13;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:'square';
-	font-size:15px;
-	font-weight:bold;
-	padding:9px 23px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #7a2a1d;
-}
-#brick-generate {
-	background-color:#b34332;
-}
-#brick-generate {
-	position:relative;
-	top:1px;
 }
 
 span {
