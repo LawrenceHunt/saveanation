@@ -67,6 +67,7 @@ function createSprite(src, className) {
   spanElement.appendChild(element);
   element.src=src;
   element.className = className;
+  element.setAttribute('contextmenu', 'delete-menu')
 
   // Creates Block in Mongo DB
   var blockId;
@@ -98,6 +99,7 @@ function recreateSpriteFromDatabase(elementId, src, className, x, y) {
     element.src=src;
     element.className = className;
     element.id = elementId;
+    element.setAttribute('contextmenu', 'delete-menu')
     $(element).offset({ top: y, left: x });
     var blockId = elementId;
 
@@ -172,9 +174,14 @@ Template.Tower.events({
   'click #bedroom-1-tv-generate': function(event){
     createSprite('game/bedRoom1/tv.png', 'bedroom-1-tv');
   },
-  'contextmenu .ui-draggable': function(event) {
-   event.preventDefault();
-   
+  'dblclick .ui-draggable': function(event) {
+    event.preventDefault();
+    alert("Are you sure you want to delete this item?")
+    let target = event.target;
+    elementId = target.id;
+    Meteor.call('blocks.delete', elementId);
+    var element = document.getElementById(elementId);
+    element.remove();
  }
 
 });
