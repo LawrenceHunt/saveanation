@@ -45,7 +45,12 @@ Template.Tower.onCreated(function towerOnCreated() {
 
 // IMAGE ASSET METHODS
 Template.Tower.onRendered(function(){
-
+  imgBlocks = returnBlocks().fetch();
+  if (imgBlocks.length > 0) {
+    console.log(imgBlocks[0])
+    recreateSpriteFromDatabase(imgBlocks[0]._id, imgBlocks[0].src, imgBlocks[0].className, imgBlocks[0].xPos, imgBlocks[0].yPos)
+    recreateSpriteFromDatabase(imgBlocks[1]._id, imgBlocks[1].src, imgBlocks[1].className, imgBlocks[1].xPos, imgBlocks[1].yPos)
+  }
 });
 
 // General generate element method
@@ -60,9 +65,10 @@ function createSprite(src, className) {
 
   // Creates Block in Mongo DB
   var blockId;
-  Meteor.call('blocks.add', 'kitchen', 0, 0, function(error, result){
+  Meteor.call('blocks.add', 'kitchen', src, 0, 0, function(error, result){
     blockId = result;
   });
+  console.log("JUST CREATING :(")
 
   var classNameWithDot = '.'+className;
   $(classNameWithDot).draggable( {
@@ -77,6 +83,36 @@ function createSprite(src, className) {
     },
   });
 
+}
+
+function recreateSpriteFromDatabase(elementId, src, className, x, y) {
+  $( document ).ready(function() {
+
+    var canvas = document.getElementById('game-canvas');
+    var spanElement = document.createElement('span')
+    var element = document.createElement('img');
+    canvas.appendChild(spanElement);
+    spanElement.appendChild(element)
+    element.src=src;
+    element.className = className;
+    console.log(y, x)
+    $(element).offset({ top: y, left: x });
+    console.log("RECREATING!!")
+    var blockId = elementId
+
+    var classNameWithDot = '.'+className;
+    $(classNameWithDot).draggable( {
+      stop: function(){
+        var finalOffset = $(this).offset();
+        var finalxPos = finalOffset.left;
+        var finalyPos = finalOffset.top;
+        Meteor.call('blocks.edit', blockId, 'kitchen', finalxPos, finalyPos);
+        // Testing that it doesn't create another block on drag
+        // var newNumberBlocksinDB = Blocks.find().count();
+        // console.log("inside the drag function: " + newNumberBlocksinDB);
+      },
+    });
+  });
 }
 
 Template.Tower.events({
@@ -140,3 +176,12 @@ Template.Tower.events({
   },
 
 });
+
+Template.Tower.helpers({
+
+})
+
+function returnBlocks() {
+  // console.log(Blocks.find().fetch());
+  return Blocks.find();
+}

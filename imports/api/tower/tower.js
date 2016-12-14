@@ -11,7 +11,7 @@ if(Meteor.isServer) {
 }
 
 Meteor.methods({
-  'blocks.add'(blockType, xPos, yPos){
+  'blocks.add'(blockType, src, xPos, yPos){
     check(blockType, String);
     check(xPos, Number);
     check(yPos, Number);
@@ -22,6 +22,7 @@ Meteor.methods({
       blockType,
       xPos,
       yPos,
+      src,
       createdBy: this.userId,
       createdAt: new Date(),
     });
