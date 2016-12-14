@@ -34,25 +34,25 @@ if(Meteor.isServer) {
   //   return Teams.find({memberIds: user});
   // });
 
-  // Meteor.publishComposite('teams', {
-  //   find: function() {
-  //     // Find top ten highest scoring posts
-  //     return Teams.find({memberIds: this.userId});
-  //   },
-  //   children: [
-  //     {
-  //       find: function(team) {
-  //         // Find post author. Even though we only want to return
-  //         // one record here, we use "find" instead of "findOne"
-  //         // since this function should return a cursor.
-  //         return Meteor.users.find(
-  //           { _id: team.memberIds }
-  //           // { limit: 1, fields: { profile: 1 } }
-  //         );
-  //       }
-  //     }
-  //   ]
-  // });
+  Meteor.publishComposite('teams-users', {
+    find: function() {
+      // Find top ten highest scoring posts
+      return Teams.find({memberIds: this.userId});
+    },
+    children: [
+      {
+        find: function(team) {
+          // Find post author. Even though we only want to return
+          // one record here, we use "find" instead of "findOne"
+          // since this function should return a cursor.
+          return Meteor.users.find(
+            { _id: team.memberIds }
+            // { limit: 1, fields: { profile: 1 } }
+          );
+        }
+      }
+    ]
+  });
 
   Meteor.publish('teams', function teamsPublication() {
     let currentUserId = this.userId;

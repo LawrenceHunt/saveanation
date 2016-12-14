@@ -8,8 +8,10 @@ import './addTeamMemberForm.html';
 import './teamMember.html';
 
 Template.Team.onCreated(function() {
-  Meteor.subscribe('teams');
-  Meteor.subscribe('userDirectory');
+  this.teamMembers = new ReactiveDict();
+  Meteor.subscribe('teams-users');
+  // Meteor.subscribe('teams');
+  // Meteor.subscribe('userDirectory');
 });
 
 Template.Team.helpers({
@@ -19,16 +21,24 @@ Template.Team.helpers({
 
   teamMemberObject() {
     //get team member Ids from the session
-    let currentTeamMemberIds;
-    if (Session.get('currentTeamMemberIds')) {
-      currentTeamMemberIds = Session.get('currentTeamMemberIds');
-    } else {
-      let currentUserId = Meteor.userId();
-      let currentTeam = Teams.findOne({memberIds: currentUserId});
-      let currentTeamMemberIds = currentTeam.memberIds;
-      Session.set('currentTeamMemberIds', currentTeamMemberIds);
-      currentTeamMemberIds = Session.get('currentTeamMemberIds');
-    }
+    // const instance = Template.instance();
+    // let currentTeamMemberIds = instance.teamMembers.get('currentTeamMemberIds');
+    // console.log(currentTeamMemberIds)
+    // if (Session.get('currentTeamMemberIds')) {
+    //   currentTeamMemberIds = Session.get('currentTeamMemberIds');
+    // } else {
+    //   let currentUserId = Meteor.userId();
+    //   let currentTeam = Teams.findOne({memberIds: currentUserId});
+    //   let currentTeamMemberIds = currentTeam.memberIds;
+    //   Session.set('currentTeamMemberIds', currentTeamMemberIds);
+    //   currentTeamMemberIds = Session.get('currentTeamMemberIds');
+    // }
+    // console.log(currentTeamMemberIds)
+    let currentUserId = Meteor.userId();
+    let currentTeam = Teams.findOne({memberIds: currentUserId});
+    let currentTeamMemberIds = currentTeam.memberIds;
+    console.log(Meteor.users.find().fetch())
+    console.log(Meteor.users.find({_id: { $in: currentTeamMemberIds }}).fetch())
     return Meteor.users.find({_id: { $in: currentTeamMemberIds }})
   },
 });
@@ -43,15 +53,17 @@ Template.Team.events({
     // Clear form
     target.teamName.value = '';
   },
-  'submit .new-team-member'(event) {
+  'submit .new-team-member'(event, template) {
     event.preventDefault();
     const target = event.target;
     const memberEmail = target.memberEmail.value;
 
-    let currentTeamMemberIds = Meteor.call('team.addMember', memberEmail);
-    console.log(currentTeamMemberIds)
-    // console.log(currentTeamMemberIds)
-    // Session.set('currentTeamMemberIds', currentTeamMemberIds);
+    Meteor.call('team.addMember', memberEmail);
+
+    let currentUserId = Meteor.userId();
+    let currentTeam = Teams.findOne({memberIds: currentUserId});
+    let currentTeamMemberIds = currentTeam.memberIds;
+    template.teamMembers.set('currentTeamMemberIds', currentTeamMemberIds)
     // Clear form
     target.memberEmail.value = '';
   },
