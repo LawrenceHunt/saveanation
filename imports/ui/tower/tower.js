@@ -47,19 +47,20 @@ Template.Tower.onCreated(function towerOnCreated() {
 Template.Tower.onRendered(function(){
   imgBlocks = returnBlocks().fetch();
   if (imgBlocks.length > 0) {
-    console.log(imgBlocks[0])
-    recreateSpriteFromDatabase(imgBlocks[0]._id, imgBlocks[0].src, imgBlocks[0].className, imgBlocks[0].xPos, imgBlocks[0].yPos)
-    recreateSpriteFromDatabase(imgBlocks[1]._id, imgBlocks[1].src, imgBlocks[1].className, imgBlocks[1].xPos, imgBlocks[1].yPos)
+    for(i=0; i< imgBlocks.length; i++){
+      recreateSpriteFromDatabase(imgBlocks[i]._id, imgBlocks[i].src, imgBlocks[i].className, imgBlocks[i].xPos, imgBlocks[i].yPos);
+    }
   }
+
 });
 
 // General generate element method
 function createSprite(src, className) {
   var canvas = document.getElementById('game-canvas');
-  var spanElement = document.createElement('span')
+  var spanElement = document.createElement('span');
   var element = document.createElement('img');
   canvas.appendChild(spanElement);
-  spanElement.appendChild(element)
+  spanElement.appendChild(element);
   element.src=src;
   element.className = className;
 
