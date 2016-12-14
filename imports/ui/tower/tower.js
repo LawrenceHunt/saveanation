@@ -80,7 +80,6 @@ function createSprite(src, className) {
 Template.Tower.events({
   // Generate Kitchen elements
   'click #kitchen-generate': function(event){
-    // createKitchen();
     createSprite('game/kitchen/kitchen-empty.png', 'kitchen');
   },
   'click #kitchen-chair-1-generate': function(event){
@@ -89,22 +88,53 @@ Template.Tower.events({
   'click #kitchen-coffee-generate': function(event){
     createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
   },
-  'click #kitchen-coffee-generate': function(event){
+  'click #kitchen-fridge-generate': function(event){
     createSprite('game/kitchen/kitchen-fridge.png', 'kitchen-fridge');
   },
+  'click #kitchen-oven-generate': function(event){
+    createSprite('game/kitchen/kitchen-oven.png', 'kitchen-oven');
+  },
+
   // Generate Living Room elements
   'click #living-room-generate': function(event){
     createSprite('game/livingRoom/living-room-empty.png', 'living-room');
   },
+  'click #living-room-armchair-1-generate': function(event){
+    createSprite('game/livingRoom/living-room-armchair-1.png', 'living-room-armchair-1');
+  },
+  'click #living-room-armchair-2-generate': function(event){
+    createSprite('game/livingRoom/living-room-armchair-2.png', 'living-room-armchair-2');
+  },
+  'click #living-room-tv-generate': function(event){
+    createSprite('game/livingRoom/living-room-tv.png', 'living-room-tv');
+  },
+  'click #living-room-table-generate': function(event){
+    createSprite('game/livingRoom/living-room-table.png', 'living-room-table');
+  },
+  'click #living-room-lamp-1-generate': function(event){
+    createSprite('game/livingRoom/living-room-lamp-1.png', 'living-room-lamp-1');
+  },
+  'click #living-room-lamp-2-generate': function(event){
+    createSprite('game/livingRoom/living-room-lamp-2.png', 'living-room-lamp-2');
+  },
+  'click #living-room-sound-system-generate': function(event){
+    createSprite('game/livingRoom/living-room-sound-system.png', 'living-room-sound-system');
+  },
 // Generate Bedroom elements
-  'click #bedroom-generate': function(event){
-    createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  'click #bedroom-1-generate': function(event){
+    createSprite('game/bedRoom1/bedroom-empty.png', 'bedroom-1');
   },
-  'click #bedroom-generate': function(event){
-    createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  'click #bedroom-1-generate': function(event){
+    createSprite('game/bedRoom1/bed.png', 'bedroom-1-bed');
   },
-  'click #bedroom-generate': function(event){
-    createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  'click #bedroom-1-rug-generate': function(event){
+    createSprite('game/bedRoom1/rug.png', 'bedroom-1-rug');
+  },
+  'click #bedroom-1-table-generate': function(event){
+    createSprite('game/bedRoom1/table.png', 'bedroom-1-table');
+  },
+  'click #bedroom-1-tv-generate': function(event){
+    createSprite('game/bedRoom1/tv.png', 'bedroom-1-tv');
   },
 
 });
