@@ -47,4 +47,7 @@ Meteor.methods({
       }
     );
   },
+  'blocks.delete'(blockId) {
+    Blocks.remove(blockId);
+  }
 });

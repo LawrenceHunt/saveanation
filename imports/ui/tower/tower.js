@@ -51,8 +51,12 @@ Template.Tower.onRendered(function(){
       recreateSpriteFromDatabase(imgBlocks[i]._id, imgBlocks[i].src, imgBlocks[i].className, imgBlocks[i].xPos, imgBlocks[i].yPos);
     }
   }
-
 });
+
+function returnBlocks() {
+  // console.log(Blocks.find().fetch());
+  return Blocks.find();
+}
 
 // General generate element method
 function createSprite(src, className) {
@@ -63,11 +67,13 @@ function createSprite(src, className) {
   spanElement.appendChild(element);
   element.src=src;
   element.className = className;
+  element.setAttribute('contextmenu', 'delete-menu')
 
   // Creates Block in Mongo DB
   var blockId;
-  Meteor.call('blocks.add', 'kitchen', src, 0, 0, function(error, result){
+  Meteor.call('blocks.add', className, src, 0, 0, function(error, result){
     blockId = result;
+    element.id = blockId;
   });
 
   var classNameWithDot = '.'+className;
@@ -76,27 +82,26 @@ function createSprite(src, className) {
       var finalOffset = $(this).offset();
       var finalxPos = finalOffset.left;
       var finalyPos = finalOffset.top;
-      Meteor.call('blocks.edit', blockId, 'kitchen', finalxPos, finalyPos);
-      // Testing that it doesn't create another block on drag
-      // var newNumberBlocksinDB = Blocks.find().count();
-      // console.log("inside the drag function: " + newNumberBlocksinDB);
+      Meteor.call('blocks.edit', blockId, className, finalxPos, finalyPos);
     },
   });
 
 }
 
 function recreateSpriteFromDatabase(elementId, src, className, x, y) {
-  $( document ).ready(function() {
+  $(document).ready(function() {
 
     var canvas = document.getElementById('game-canvas');
-    var spanElement = document.createElement('span')
+    var spanElement = document.createElement('span');
     var element = document.createElement('img');
     canvas.appendChild(spanElement);
-    spanElement.appendChild(element)
+    spanElement.appendChild(element);
     element.src=src;
     element.className = className;
+    element.id = elementId;
+    element.setAttribute('contextmenu', 'delete-menu')
     $(element).offset({ top: y, left: x });
-    var blockId = elementId
+    var blockId = elementId;
 
     var classNameWithDot = '.'+className;
     $(classNameWithDot).draggable( {
@@ -104,10 +109,7 @@ function recreateSpriteFromDatabase(elementId, src, className, x, y) {
         var finalOffset = $(this).offset();
         var finalxPos = finalOffset.left;
         var finalyPos = finalOffset.top;
-        Meteor.call('blocks.edit', blockId, 'kitchen', finalxPos, finalyPos);
-        // Testing that it doesn't create another block on drag
-        // var newNumberBlocksinDB = Blocks.find().count();
-        // console.log("inside the drag function: " + newNumberBlocksinDB);
+        Meteor.call('blocks.edit', blockId, className, finalxPos, finalyPos);
       },
     });
   });
@@ -172,14 +174,18 @@ Template.Tower.events({
   'click #bedroom-1-tv-generate': function(event){
     createSprite('game/bedRoom1/tv.png', 'bedroom-1-tv');
   },
+  'dblclick .ui-draggable': function(event) {
+    event.preventDefault();
+    alert("Are you sure you want to delete this item?")
+    let target = event.target;
+    elementId = target.id;
+    Meteor.call('blocks.delete', elementId);
+    var element = document.getElementById(elementId);
+    element.remove();
+ }
 
 });
 
 Template.Tower.helpers({
 
-})
-
-function returnBlocks() {
-  // console.log(Blocks.find().fetch());
-  return Blocks.find();
-}
+});

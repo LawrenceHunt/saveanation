@@ -2,8 +2,13 @@
 {{returnBlocks}}
 <div id="game-canvas">
   <!-- <div id="canvas"></div> -->
+<menu type=context id=delete-menu>
+<menuitem onclick="">
+ Pick random name </menuitem>
+<menuitem onclick="">
+ Prefill other fields based on name</menuitem>
+</menu>
 </div>
-
 
 
 <div id="items">
@@ -103,4 +108,12 @@
   </ul>
 </div>
 
+</template>
+
+<template name="ContextMenu">
+  <div id="container">
+    <ul>
+      <li id="delete"><i class="fa fa-times"></i> Delete</li>
+    </ul>
+  </div>
 </template>
