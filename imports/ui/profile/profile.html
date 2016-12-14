@@ -27,6 +27,9 @@
   <h3>Edit your profile</h3>
   <form class="edit-profile">
     <div>
+      <img src="images/avatars/{{avatar}}.jpg" height=100px width=100px>
+    </div>
+    <div>
       <input class="" type="text" placeholder="Username" name="userName" id="username" value="{{ userName }}"/>
     </div>
     <div>
@@ -34,22 +37,6 @@
     </div>
     <div>
       <input class="" type="text" placeholder="Last Name" name="lastName" id="last-name" value="{{ lastName }}" />
-    </div>
-    <div>
-      <select id="avatar" name="avatar">
-
-        <option value="1">Frances</option>
-
-        <option value="2">Lawrence</option>
-
-        <option value="3">Jen</option>
-
-        <option value="4">Andy</option>
-
-        <option value="5">Michael</option>
-
-        <option value="6">Stevie</option>
-      </select>
     </div>
     <div>
       <button class="ui blue large button" id="update-button" type="submit">Update</button>
