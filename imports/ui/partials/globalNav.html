@@ -1,18 +1,15 @@
 <template name="globalNav">
-  <div class="pure-menu pure-menu-horizontal">
-            <a href="#" class="pure-menu-heading pure-menu-link">
-              <div class="small-logo">
-                <img class="logo" src='images/Logo.png'/>
-              </div>
-            </a>
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a href="/feed" class="pure-menu-link">Feed</a></li>
-                <li class="pure-menu-item"><a href="/target" class="pure-menu-link">Target</a></li>
-                <li class="pure-menu-item"><a href="/save" class="pure-menu-link">Save</a></li>
-                <li class="pure-menu-item"><a href="/tower" class="pure-menu-link">Tower</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">More</a></li>
-                <li class="pure-menu-item"><a href="/profile" class="pure-menu-link">Profile</a></li>
-                <li class="pure-menu-item logout"><a href="/">Log Out</a></li>
-            </ul>
-  </div>
+  <nav class="side-nav">
+    <ul>
+      <li>
+        <a href="/save"><i class="fa fa-gbp"></i>Save</a>
+      </li>
+      <li>
+        <a href="/target"><i class="fa fa-tachometer"></i>Target</a>
+      </li>
+      <li>
+        <a href="/tower"><i class="fa fa-home"></i>Tower</a>
+      </li>
+    </ul>
+  </nav>
 </template>
