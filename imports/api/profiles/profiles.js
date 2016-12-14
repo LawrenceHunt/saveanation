@@ -21,6 +21,10 @@ Meteor.methods({
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
+    if(Meteor.users.findOne({"profile.username": userName})) {
+      alert("This name is already taken");
+      throw new Error("username already taken");
+    }
     Meteor.users.update(this.userId, {$set: {
           profile: { username: userName, firstName: firstName, lastName: lastName, avatar: avatar }
         }

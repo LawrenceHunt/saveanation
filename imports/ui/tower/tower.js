@@ -1,41 +1,148 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Blocks } from '../../api/tower/tower.js';
+import { jQuery } from 'meteor/jquery';
+import { $ } from 'meteor/jquery';
+import { Raphael } from 'meteor/agnito:raphael';
+import {jQueryUI} from 'meteor/mizzao:jquery-ui';
 
 import './tower.css';
 import './tower.html';
-//
-// if (Meteor.isClient) {
-//   Template.Tower.helpers({
-//     game (){
-//
-//     }
-//   });
-// }
 
-// when user first connects
-Template.Tower.onCreated(function(){
+Template.Tower.onCreated(function towerOnCreated() {
+  Meteor.subscribe('blocks');
+});
+
+
+// // RAPHAEL METHODS
+// Template.Tower.onRendered(function(){
+//   // var paper = Raphael("canvas", "100%", "100%");
+//   // createBlock();
+//   // createTetromino();
+// });
+//
+//
+// var createBlock = function(paper) {
+//   var circle = paper.circle("50%", "50%", 40);
+// };
+//
+// var createTetromino = function(paper) {
+//   var tetronimo = paper.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
+//    tetronimo.attr({fill: '#9cf', stroke: '#ddd', 'stroke-width': 5});
+// };
+//
+// Template.Tower.events({
+//   'click #brick-item': function(event){
+//     var paper = Raphael("canvas", "100%", "100%");
+//     createBoth(paper);
+//   }
+// });
+//
+// function createBoth(paper){
+//   createTetromino(paper); createBlock(paper);
+// }
+//
+
+// IMAGE ASSET METHODS
+Template.Tower.onRendered(function(){
 
 });
 
-// when the template is added to the DOM
-Template.Tower.onCreated(function() {
-  // let gamecanvas = this.find('#gamecanvas');
-  // let ctx = gamecanvas.getContext("2d");
-  // let x = canvas.width/2;
-  // let y = canvas.height-30;
-  //
-  // function drawTowerCanvas(){
-  //   ctx.beginPath();
-  //   ctx.rect(4, 4, 100, 100);
-  //   ctx.fillStyle = "#fff";
-  //   ctx.fill();
-  //   ctx.closePath();
-  // }
-  //
-  // function drawItemsMenu(){
-  //
-  // }
-  //
-  // drawTowerCanvas();
+// General generate element method
+function createSprite(src, className) {
+  var canvas = document.getElementById('game-canvas');
+  var element = document.createElement('img');
+  canvas.appendChild(element);
+  element.src=src;
+  element.className = className;
+  $(function() {
+      $( '.kitchen').draggable();
+      $('.living-room').draggable();
+  });
+}
+
+function createKitchen() {
+  var canvas = document.getElementById('game-canvas');
+  var kitchen = document.createElement('img');
+  canvas.appendChild(kitchen);
+  kitchen.src="game/kitchen.png";
+  kitchen.className = 'kitchen';
+
+  var blockId;
+  Meteor.call('blocks.add', 'kitchen', 0, 0, function(error, result){
+    blockId = result;
+  });
+
+  // Testing that it only creates the block once
+  // var numberBlocksinDB = Blocks.find().count();
+  // console.log("outside the drag function: " + numberBlocksinDB);
+
+  $(function() {
+    $('.kitchen').draggable( {
+      stop: function(){
+        var finalOffset = $(this).offset();
+        var finalxPos = finalOffset.left;
+        var finalyPos = finalOffset.top;
+        Meteor.call('blocks.edit', blockId, 'kitchen', finalxPos, finalyPos);
+        // Testing that it doesn't create another block on drag
+        // var newNumberBlocksinDB = Blocks.find().count();
+        // console.log("inside the drag function: " + newNumberBlocksinDB);
+      },
+    });
+  });
+}
+
+function createLivingRoom() {
+  var canvas = document.getElementById('game-canvas');
+  var livingRoom = document.createElement('img');
+  canvas.appendChild(livingRoom);
+  livingRoom.src='game/livingRoom.png';
+  livingRoom.className = 'living-room';
+
+  var blockId;
+  Meteor.call('blocks.add', 'living-room', 0, 0, function(error, result){
+    blockId = result;
+  });
+
+  $(function() {
+    $('.living-room').draggable( {
+      stop: function(){
+        var finalOffset = $(this).offset();
+        var finalxPos = finalOffset.left;
+        var finalyPos = finalOffset.top;
+        Meteor.call('blocks.edit', blockId, 'living-room', finalxPos, finalyPos);
+      },
+    });
+  });
+}
+
+Template.Tower.events({
+  // Generate Kitchen elements
+  'click #kitchen-generate': function(event){
+    createSprite('game/kitchen/kitchen-empty.png', 'kitchen');
+  },
+  // 'click #kitchen-chair-1-generate': function(event){
+  //   createSprite('kitchen-chair-1-generate', 'kitchen-chair-1');
+  // },
+  // 'click #kitchen-coffee-generate': function(event){
+  //   createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
+  // },
+  // 'click #kitchen-coffee-generate': function(event){
+  //   createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
+  // },
+  // Generate Living Room elements
+  'click #living-room-generate': function(event){
+    createSprite('game/livingRoom/living-room-empty.png', 'living-room');
+  },
+// Generate Bedroom elements
+  'click #bedroom-generate': function(event){
+    createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  },
+  // 'click #bedroom-generate': function(event){
+  //   createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  // },
+  // 'click #bedroom-generate': function(event){
+  //   createSprite('game/bedRoom1/bedroom-empty.png', 'living-room');
+  // },
+
 });

@@ -1,29 +1,88 @@
 <template name="Target">
-  {{#if targets.count != 0}}
-    <h3>Your target</h3>
-    {{#each targets}}
-      <p>You want to save £{{ targetAmount }} by {{ targetDate }}, {{currentBalance}} saved so far</p>
-      <button class="delete-target" name="{{ _id }}">Delete Target</button>
-      <a href="/edit-target" class="edit-target">Edit Target</a>
-      <button type="button" class="show-progress">Show Progress</button>
-    {{/each}}
-  {{else}}
-    <h2>Enter a target</h2>
-    <form class="new-target">
-      <input type="text" class="targetAmount" name="targetAmount" placeholder="Target amount" required/>
-      <input type="date" class="targetDate" name="targetDate" placeholder="Target complete" required/>
-      <button type="button" class="calculate">Calculate</button>
-      <button type="submit">Submit</button>
-    </form>
-    <p>Your Current Balance is: {{currentBalance}}</p>
-    <p>{{ targetSummary }}</p>
-    <p>{{ monthlyTarget }}</p>
-    <p>{{ weeklyTarget }}</p>
-    <p>{{ dailyTarget }}</p>
 
-  {{/if}}
+  <div class="target-area">
+    <h1>Target</h1>
+    {{#if targets.count != 0}}
+
+        <h2>You have saved:</h2>
+        <p class="current-balance">{{ formatMoney currentBalance }}</p>
+        <div class="styled-select slate">
+          <select name="date-range" class="date-range">
+            <option value="overall">overall</option>
+            <option value="months">this month</option>
+            <option value="weeks">this week</option>
+            <option value="days">today</option>
+          </select>
+        </div>
+
+        <style type="text/css">
+          .line {
+            transform:rotate({{totalInDegrees}});
+            animation: pendulum;
+            animation-iteration-count: 2;
+            animation-duration: 8s;
+          }
+          @keyframes pendulum {
+            0% { transform:rotate(-120deg) }
+            25% { transform:rotate({{degreesAbove}}) }
+            50% { transform:rotate({{degreesBelow}}) }
+            75% { transform:rotate({{totalInDegrees}}) }
+          }
+        </style>
+
+        <div class="container">
+          <div id="tachometer">
+            <div class="ii">
+              <div><b><span class="num_1"></span></b></div>
+              <div><b></b></div>
+              <div><b><span class="num_2"></span></b></div>
+              <div><b></b></div>
+              <div><b><span class="num_3"></span></b></div>
+              <div><b></b></div>
+              <div><b><span class="num_4"></span></b></div>
+              <div><b></b></div>
+              <div><b><span class="num_5"></span></b></div>
+              <div><b></b></div>
+              <div><b><span class="num_6"></span></b></div>
+              <div><b></b></div>
+              <div><b><span class="num_7"></span></b></div>
+              <div><b></b></div>
+              <div><b><span class="num_8"></span></b></div>
+              <div><b></b></div>
+              <div><b><span class="num_9"></span></b></div>
+            </div>
+            <div class="line"></div>
+            <div class="pin">
+              <div class="inner"></div>
+            </div>
+          </div>
+        </div>
+
+        <h2>You have achieved {{percentageOfTotal}}% of your target of </h2>
+        <p class="goal">{{ formatMoney targetAmount }}</p>
+        <p>which you're aiming to save by {{ formatDate targetDate }}.</p>
+
+        <!-- <h3> You still need to save: {{stillToSave}}</h3> -->
+        <button class="go-to-edit-target" name="{{ targetId }}">Edit Target</button>
+        <button class="delete-target" name="{{ targetId }}">Delete Target</button>
+
+    {{else}}
+      <h2>Enter a target</h2>
+      <form class="new-target">
+        <input type="text" class="targetAmount" name="targetAmount" placeholder="Target amount" required/>
+        <input type="date" class="targetDate" name="targetDate" placeholder="Target complete" required/>
+        <button type="button" class="calculate">Calculate</button>
+        <button type="submit">Submit</button>
+      </form>
+      <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
+      <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
+      <p>{{ formatMoney monthlyTarget }} per month</p>
+      <p>{{ formatMoney weeklyTarget }} per week</p>
+      <p>{{ formatMoney dailyTarget }} per day</p>
+
+    {{/if}}
+  </div>
 </template>
-
 
 <template name="EditTarget">
     <h3>Edit your target</h3>
@@ -39,18 +98,16 @@
     {{#if targets.count != 0}}
       <h3>Your target</h3>
       {{#each targets}}
-        <p>You want to save £{{ targetAmount }} by {{ targetDate }}</p>
+        <p>You want to save £{{ formatMoney targetAmount }} by {{ targetDate }}</p>
         <button class="delete-target" name="{{ _id }}">Delete Target</button>
         <a href="/edit-target" class="edit-target">Edit Target</a>
       {{/each}}
     {{/if}}
 
-
-
-
-    <p>{{ targetSummary }}</p>
-    <p>{{ monthlyTarget }}</p>
-    <p>{{ weeklyTarget }}</p>
-    <p>{{ dailyTarget }}</p>
+    <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
+    <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
+    <p>{{ formatMoney monthlyTarget }}</p>
+    <p>{{ formatMoney weeklyTarget }}</p>
+    <p>{{ formatMoney dailyTarget }}</p>
 
 </template>

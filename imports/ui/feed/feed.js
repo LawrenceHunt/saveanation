@@ -12,15 +12,18 @@ Template.feed.onCreated(function feedOnCreated() {
 
 Template.feed.helpers({
   posts() {
-    var user = Meteor.user();
-    // change {author: "Swinston"} to find from author's of own team
-    return Posts.find( { $or: [{author: user.username}, {author: "Swinston"}] }, { sort: { createdAt: -1}});
+    // var user = Meteor.user();
+    // console.log(user);
+    return Posts.find({}, { sort: { createdAt: -1}});
   },
   formatDate(date) {
     return moment(date).format('h:mma on DD-MMM-YY');
   },
+  // Jen to come back to this. Have to wait until posts() helper method above is fixed.
   avatar(author) {
-    var singleUser = Users.findOne({"profile.username": author});
+    var singleUser = Meteor.users.findOne({"profile.username": author});
+    // console.log(author);
+    // console.log(Meteor.users.findOne({"profile.avatar": "5"});
     var avatar = 0;
     if(singleUser){
       avatar = singleUser.profile.avatar;
