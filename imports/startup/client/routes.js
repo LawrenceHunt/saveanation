@@ -110,6 +110,13 @@ FlowRouter.route('/profile', {  // /:_id
   }
 });
 
+FlowRouter.route('/addprofile', {  // /:_id
+  name: 'addprofile',
+  action() {
+    BlazeLayout.render('mainLayout', {content: 'AddProfile'});
+  }
+});
+
 FlowRouter.route('/edit-profile', {  // /:_id
   name: 'edit-profile',
   action() {
@@ -117,5 +124,12 @@ FlowRouter.route('/edit-profile', {  // /:_id
       FlowRouter.go('home');
     }
     BlazeLayout.render('mainLayout', {content: 'EditProfile'});
+  }
+});
+
+FlowRouter.route('/tower', {
+  name: 'tower',
+  action() {
+    BlazeLayout.render('mainLayout', {content: 'Tower'});
   }
 });

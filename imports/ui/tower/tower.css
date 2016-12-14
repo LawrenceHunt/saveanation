@@ -1,0 +1,79 @@
+@font-face {
+    font-family: 'square';
+    src: url('fonts/Square.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#game-canvas {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  background: lightblue;
+  display: block;
+  margin: 0 auto;
+}
+
+#items {
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  background: black;
+  right: 0;
+  text-align: center;
+}
+
+#items #currency h2 {
+  font-family: 'square';
+  font-size: 1.5em;
+  color: white;
+}
+
+#items li {
+  list-style: none;
+  font-family: 'square';
+  font-size: 1.5em;
+  color: white;
+}
+
+#brick-generate {
+	-moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	-webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	background-color:#a73f2d;
+	border:1px solid #241d13;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:'square';
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 23px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #7a2a1d;
+}
+#brick-generate {
+	background-color:#b34332;
+}
+#brick-generate {
+	position:relative;
+	top:1px;
+}
+
+.kitchen {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+}
+
+.living-room {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+}

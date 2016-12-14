@@ -31,6 +31,7 @@ Template.Team.helpers({
     }
     return Meteor.users.find({_id: { $in: currentTeamMemberIds }})
   },
+
 });
 
 Template.Team.events({

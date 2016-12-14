@@ -9,7 +9,7 @@ mobile-experience@1.0.4       # Packages for a great mobile UX
 mongo@1.1.14                   # The database Meteor supports right now
 blaze-html-templates@1.0.4 # Compile .html files into Meteor Blaze views
 reactive-var@1.0.11            # Reactive variable for tracker
-jquery                  # Helpful client-side library
+jquery                        # Helpful client-side library
 tracker@1.1.1                 # Meteor's client-side reactive programming library
 
 standard-minifier-css@1.3.2   # CSS minifier run for production mode
@@ -22,11 +22,11 @@ zimme:active-route
 kadira:blaze-layout
 aldeed:collection2
 aldeed:autoform
+aldeed:simple-schema
 meteortoys:allthings
 accounts-base
 accounts-password
 accounts-ui
-accounts-facebook
 random
 service-configuration
 fortawesome:fontawesome
@@ -47,3 +47,5 @@ useraccounts:unstyled
 jparker:gravatar
 reywood:publish-composite
 lepozepo:accounting
+agnito:raphael
+mizzao:jquery-ui

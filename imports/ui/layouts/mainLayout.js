@@ -7,3 +7,4 @@ import '../save/save.js';
 import '../team/team.js';
 import '../partials/globalNav.js';
 import '../profile/profile.js';
+import '../tower/tower.js';
