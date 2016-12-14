@@ -51,8 +51,10 @@ Template.Tower.onRendered(function(){
 // General generate element method
 function createSprite(src, className) {
   var canvas = document.getElementById('game-canvas');
+  var spanElement = document.createElement('span')
   var element = document.createElement('img');
-  canvas.appendChild(element);
+  canvas.appendChild(spanElement);
+  spanElement.appendChild(element)
   element.src=src;
   element.className = className;
 
