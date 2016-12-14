@@ -31,7 +31,11 @@ Template.Target.helpers({
   targetId() {
     const userId = Meteor.userId();
     const target = Targets.findOne({createdBy: userId});
-    return target._id;
+    var targetId = "";
+    if (target) {
+      targetId = target._id;
+    }
+    return targetId;
   },
   targetDate() {
     const userId = Meteor.userId();
@@ -138,21 +142,19 @@ Template.Target.events({
     // Create Post
     Meteor.call('post.add', "Set a new target of " + accounting.formatMoney(targetAmount, "£", 0)+ " to achieve by " + moment(targetDate).format("ddd Do MMM YYYY"));
     // Clear form
-    target.targetAmount.value = '';
-    target.targetDate.value = '';
+    // target.targetAmount.value = '';
+    // target.targetDate.value = '';
+    console.log("hi");
+    Session.set('addMode', !Session.get('addMode'));
   },
   'click .delete-target'(event) {
+    console.log(event);
     const target = event.target;
     let targetId = target.name;
+    console.log(target);
     Meteor.call('targets.remove', targetId);
     Meteor.call('post.add', "Deleted a target, is this a cry for help?!");
   },
-  'click .go-to-edit-target'(event) {
-    FlowRouter.go('edit-target');
-  }
-});
-
-Template.EditTarget.events({
   'submit .edit-target'(event) {
     event.preventDefault();
     const target = event.target;
@@ -160,17 +162,19 @@ Template.EditTarget.events({
     const targetDate = new Date(target.targetDate.value);
     Meteor.call('targets.edit', targetAmount, targetDate);
     Meteor.call('post.add', "Had a change of heart, now aiming for " + accounting.formatMoney(targetAmount, "£", 0)+ " by " + moment(targetDate).format("ddd Do MMM YYYY"));
-    // route back to /target
-    FlowRouter.go('target');
-  }
-});
-
-Template.EditTarget.helpers({
-  targetAmount() {
-    return Targets.find({}).fetch()[0].targetAmount;
+    Session.set('editMode', !Session.get('editMode'));
   },
-  targetDate() {
-    return Targets.find({}).fetch()[0].targetDate;
+  'click .fa-edit'(event) {
+    Session.set('editMode', !Session.get('editMode'));
+  },
+  'click .fa-trash'(event) {
+    const target = event.target;
+    let targetId = target.id;
+    Meteor.call('targets.remove', targetId);
+    Meteor.call('post.add', "Deleted a target, is this a cry for help?!");
+  },
+  'click .fa-plus'(event) {
+    Session.set('addMode', !Session.get('addMode'));
   }
 });
 
