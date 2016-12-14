@@ -1,6 +1,6 @@
 <template name="Target">
 
-  <div class="target-area">
+  <div class="main-area">
     <h1>Target</h1>
     {{#if targets.count != 0}}
 
@@ -85,16 +85,25 @@
 </template>
 
 <template name="EditTarget">
-    <h3>Edit your target</h3>
+  <div class="main-area">
+    <h1>Edit your target</h1>
     <form class="edit-target">
-      <input type="text" name="targetAmount" placeholder="Target amount" value="{{ targetAmount }}" required/>
-      <input type="date" name="targetDate" placeholder="Target complete" value="{{ targetDate }}" required/>
+      <input type="text" class="targetAmount" name="targetAmount" value="{{ targetAmount }}" required/>
+      <input type="date" class="targetDate" name="targetDate" value="{{ targetDate }}" required/>
+      <button type="button" class="calculate">Calculate</button>
       <button type="submit">Submit</button>
     </form>
+    <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
+    <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
+    <p>{{ formatMoney monthlyTarget }} per month</p>
+    <p>{{ formatMoney weeklyTarget }} per week</p>
+    <p>{{ formatMoney dailyTarget }} per day</p>
+  </div>
 </template>
 
 <template name="TargetSummary">
-    <h3>Your target</h3>
+  <div class="main-area">
+    <h1>Your target</h1>
     {{#if targets.count != 0}}
       <h3>Your target</h3>
       {{#each targets}}
@@ -109,5 +118,5 @@
     <p>{{ formatMoney monthlyTarget }}</p>
     <p>{{ formatMoney weeklyTarget }}</p>
     <p>{{ formatMoney dailyTarget }}</p>
-
+  </div>
 </template>
