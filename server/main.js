@@ -64,8 +64,14 @@ Meteor.startup(() => {
     user.profile.username = user.username;
     if (user.emails) {
       user.email = user.emails[0].address;
-    } 
+    }
     return user;
     // set balance to 0
+  });
+
+  Meteor.publish('emojis', function() {
+  // Here you can choose to publish a subset of all emojis
+  // if you'd like to.
+    return Emojis.find();
   });
 });
