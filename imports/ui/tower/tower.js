@@ -174,6 +174,7 @@ Template.Tower.events({
   },
   'contextmenu .ui-draggable': function(event) {
    event.preventDefault();
+   
  }
 
 });
