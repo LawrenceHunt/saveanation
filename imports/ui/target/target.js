@@ -139,12 +139,7 @@ Template.Target.events({
     let targetAmount = parseInt(target.targetAmount.value);
     let targetDate = new Date(target.targetDate.value);
     Meteor.call('targets.add', targetAmount, targetDate);
-    // Create Post
     Meteor.call('post.add', "Set a new target of " + accounting.formatMoney(targetAmount, "£", 0)+ " to achieve by " + moment(targetDate).format("ddd Do MMM YYYY"));
-    // Clear form
-    // target.targetAmount.value = '';
-    // target.targetDate.value = '';
-    console.log("hi");
     Session.set('addMode', !Session.get('addMode'));
   },
   'click .delete-target'(event) {
