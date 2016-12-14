@@ -145,7 +145,7 @@ Template.Target.events({
     const target = event.target;
     let targetId = target.name;
     Meteor.call('targets.remove', targetId);
-    Meteor.call('post.add', "Deleted a target, make sure they set a new one!");
+    Meteor.call('post.add', "Deleted a target, is this a cry for help?!");
   },
   'click .go-to-edit-target'(event) {
     FlowRouter.go('edit-target');
