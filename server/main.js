@@ -58,7 +58,6 @@ AccountsTemplates.configure({
 
 Meteor.startup(() => {
   // code to run on server at startup
-
   Accounts.onCreateUser( ( options, user ) => {
     user.profile = options.profile;
     user.profile.username = user.username;
@@ -66,12 +65,9 @@ Meteor.startup(() => {
       user.email = user.emails[0].address;
     }
     return user;
-    // set balance to 0
   });
 
   Meteor.publish('emojis', function() {
-  // Here you can choose to publish a subset of all emojis
-  // if you'd like to.
     return Emojis.find();
   });
 });
