@@ -69,7 +69,6 @@ function createSprite(src, className) {
   Meteor.call('blocks.add', 'kitchen', src, 0, 0, function(error, result){
     blockId = result;
   });
-  console.log("JUST CREATING :(")
 
   var classNameWithDot = '.'+className;
   $(classNameWithDot).draggable( {
@@ -96,9 +95,7 @@ function recreateSpriteFromDatabase(elementId, src, className, x, y) {
     spanElement.appendChild(element)
     element.src=src;
     element.className = className;
-    console.log(y, x)
     $(element).offset({ top: y, left: x });
-    console.log("RECREATING!!")
     var blockId = elementId
 
     var classNameWithDot = '.'+className;
