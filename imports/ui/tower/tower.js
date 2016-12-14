@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Blocks } from '../../api/tower/tower.js';
 import { jQuery } from 'meteor/jquery';
-import { $ } from 'meteor/jquery';
 import { Raphael } from 'meteor/agnito:raphael';
 import {jQueryUI} from 'meteor/mizzao:jquery-ui';
 
@@ -12,36 +11,6 @@ import './tower.html';
 Template.Tower.onCreated(function towerOnCreated() {
   Meteor.subscribe('blocks');
 });
-
-
-// // RAPHAEL METHODS
-// Template.Tower.onRendered(function(){
-//   // var paper = Raphael("canvas", "100%", "100%");
-//   // createBlock();
-//   // createTetromino();
-// });
-//
-//
-// var createBlock = function(paper) {
-//   var circle = paper.circle("50%", "50%", 40);
-// };
-//
-// var createTetromino = function(paper) {
-  // var tetronimo = paper.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
-//    tetronimo.attr({fill: '#9cf', stroke: '#ddd', 'stroke-width': 5});
-// };
-//
-// Template.Tower.events({
-//   'click #brick-item': function(event){
-//     var paper = Raphael("canvas", "100%", "100%");
-//     createBoth(paper);
-//   }
-// });
-//
-// function createBoth(paper){
-//   createTetromino(paper); createBlock(paper);
-// }
-//
 
 // IMAGE ASSET METHODS
 Template.Tower.onRendered(function(){
@@ -67,7 +36,7 @@ function createSprite(src, className) {
   spanElement.appendChild(element);
   element.src=src;
   element.className = className;
-  element.setAttribute('contextmenu', 'delete-menu')
+  element.setAttribute('contextmenu', 'delete-menu');
 
   // Creates Block in Mongo DB
   var blockId;
@@ -99,7 +68,7 @@ function recreateSpriteFromDatabase(elementId, src, className, x, y) {
     element.src=src;
     element.className = className;
     element.id = elementId;
-    element.setAttribute('contextmenu', 'delete-menu')
+    element.setAttribute('contextmenu', 'delete-menu');
     $(element).offset({ top: y, left: x });
     var blockId = elementId;
 
@@ -176,7 +145,7 @@ Template.Tower.events({
   },
   'dblclick .ui-draggable': function(event) {
     event.preventDefault();
-    alert("Are you sure you want to delete this item?")
+    alert("Are you sure you want to delete this item?");
     let target = event.target;
     elementId = target.id;
     Meteor.call('blocks.delete', elementId);
