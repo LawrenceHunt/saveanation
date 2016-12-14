@@ -90,14 +90,10 @@
 	top:1px;
 }
 
-.kitchen {
+span {
+  display: inline-block;
   position: absolute;
-  width: 300px;
-  height: 300px;
 }
-
-.living-room {
-  position: absolute;
-  width: 300px;
-  height: 300px;
+span img {
+    width: 45%;
 }
