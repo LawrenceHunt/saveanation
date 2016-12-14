@@ -27,10 +27,11 @@ Template.Profile.helpers({
   },
   emailAddress() {
     const currentUser = Meteor.user();
-    return currentUser.email;
+    return currentUser.profile.email;
   },
   avatar() {
-    return Meteor.user().profile.avatar;
+    const currentUser = Meteor.user();
+    return currentUser.profile.avatar;
   }
 });
 
@@ -45,6 +46,10 @@ Template.EditProfile.helpers({
   lastName() {
     const currentUser = Meteor.user();
     return currentUser.profile.lastName;;
+  },
+  avatar() {
+    const currentUser = Meteor.user();
+    return currentUser.profile.avatar;
   }
 });
 
@@ -55,7 +60,7 @@ Template.EditProfile.events({
     const updateUsername = profile.userName.value;
     const updateFirstName = profile.firstName.value;
     const updateLastName = profile.lastName.value;
-    const updateAvatar = profile.avatar.value;
+    const updateAvatar = Meteor.user().profile.avatar;
     Meteor.call('profiles.edit', updateUsername, updateFirstName, updateLastName, updateAvatar);
     FlowRouter.go('profile');
   }
