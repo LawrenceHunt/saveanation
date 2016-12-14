@@ -52,7 +52,7 @@ Template.EditProfile.helpers({
   },
   lastName() {
     const currentUser = Meteor.user();
-    return currentUser.profile.lastName;;
+    return currentUser.profile.lastName;
   },
   avatar() {
     const currentUser = Meteor.user();
