@@ -9,7 +9,7 @@ Template.Profile.onCreated(function userOnCreated(){
 
 Template.Profile.helpers({
   userName() {
-    return Meteor.user().username;
+    return Meteor.user().profile.username;
   },
   fullName() {
     const currentUser = Meteor.user();
@@ -26,7 +26,8 @@ Template.Profile.helpers({
     return currentUser.profile.lastName;
   },
   emailAddress() {
-    return Meteor.user().email;
+    const currentUser = Meteor.user();
+    return currentUser.email;
   },
   avatar() {
     return Meteor.user().profile.avatar;
@@ -35,7 +36,7 @@ Template.Profile.helpers({
 
 Template.EditProfile.helpers({
   userName() {
-    return Meteor.user().username;
+    return Meteor.user().profile.username;
   },
   firstName() {
     const currentUser = Meteor.user();
