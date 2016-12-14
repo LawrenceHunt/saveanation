@@ -49,7 +49,7 @@ Template.Save.events({
       Meteor.call('savingsAccounts.create');
     }
     Meteor.call('transactions.add', amount, text, 'deposit');
-    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.trumpBits());
+    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
     // Clear form
     target.text.value = '';
   }
