@@ -4,7 +4,6 @@ import { Users } from '../../api/profiles/profiles.js';
 import { moment } from 'meteor/momentjs:moment';
 
 import './feed.html';
-import './feed.css';
 
 Template.feed.onCreated(function feedOnCreated() {
   Meteor.subscribe('posts');

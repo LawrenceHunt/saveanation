@@ -58,13 +58,6 @@ z = {
     highest: 11
 }
 
-social = {
-    twitter: #00aced,
-    facebook: #3b5998,
-    google: #dd4b39,
-    youtube: #bb0000
-}
-
 $side-nav = 100px
 $side-nav-large = 165px
 
@@ -140,6 +133,11 @@ p
     +above($large)
         lost-center 100%
         padding-left $side-nav-large
+
+.main-area
+    margin-top 100px
+    margin-bottom 100px
+    overflow scroll
 
 .new-post
     margin-bottom 20px
@@ -345,11 +343,27 @@ input, select, textarea
         float left
         margin-right 20px
     .post-text
+        margin-top 30px
         font-size 1.3em
-        display inline
+        line-height 1.5
     .post-date
         font-size 0.9em
         opacity 0.5
+    .encouragement
+        padding-top 10px
+        padding-bottom 0px
+        border-top 1px solid #eee
+        display flex
+        align-items center
+    .post-trump
+        height 35px
+        width 35px
+        float left
+    .fun-bits
+        font-weight normal
+        color #555
+        margin-left 20px
+        padding 0
     button
         margin-top 20px
     .fa-trash, fa-edit
@@ -384,6 +398,10 @@ input, select, textarea
         z-index 10
         transform translate3d(0, 0, 0)
 
+.transactions th, td
+  text-align left
+  padding 10px
+  border-bottom 1px solid #ddd
 
 .menu-item
     @extend .post
@@ -423,3 +441,27 @@ input, select, textarea
 .fa-trash
     &:hover
         color red
+
+form.new-target, form.edit-target, form.add-deposit, form.new-team-member, form.edit-profile
+    padding 0 150px
+
+.nav-text
+    position relative
+    right 0
+
+.top-nav-text
+    position relative
+    right -8%
+
+@media only screen and (max-width: 720px)
+    .header
+      height 100px
+    .main-area
+      margin-top 90px
+      padding-top 5px
+    .nav-text, .top-nav-text
+      display none
+    form.new-target, form.edit-target, form.add-deposit, form.new-team-member, form.edit-profile
+      padding 0 10px
+    ul
+      height 60px

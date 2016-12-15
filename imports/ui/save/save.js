@@ -5,6 +5,7 @@ import { MomentsJS } from 'meteor/momentjs:moment';
 import { Accounting } from 'meteor/lepozepo:accounting';
 import { Session } from 'meteor/session';
 import { Posts } from '../../api/posts/posts.js';
+import { CoinBanks } from '../../api/tower/coinBank.js';
 
 import './save.html';
 import './review.html';
@@ -18,6 +19,7 @@ import '../badges/third_saving.html';
 Template.Save.onCreated(function transactionsOnCreated(){
   Meteor.subscribe('transactions');
   Meteor.subscribe('savingsAccounts');
+  Meteor.subscribe('coinBanks');
 });
 
 Template.Save.helpers({
@@ -103,11 +105,14 @@ Template.ReviewSaving.events({
     let amount = Session.get('amount');
     let text = Session.get('text');
     Meteor.call('transactions.add', amount, text, 'deposit');
-    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
+    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, "£", 2, ",", ".") + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
     Session.set('showConfirmMessage', true);
-    Session.set('coinsAwarded', parseInt(amount)*10);
 
+    coinsAwarded = parseInt(amount)*10;
     var userId = Meteor.userId();
+    processCoins(coinsAwarded, userId);
+    Session.set('coinsAwarded', coinsAwarded);
+
     Session.set('transactionsCount', Transactions.find({owner: userId}).count());
     BlazeLayout.render("mainLayout", {content: 'Save'});
   },
@@ -116,6 +121,21 @@ Template.ReviewSaving.events({
   },
 
 });
+
+function processCoins(coinsAwarded, userId){
+  if (noCoinAccount(userId)) {
+    Meteor.call('coinBank.create');
+  }
+  Meteor.call('coinBank.adjustBalance', coinsAwarded, userId);
+}
+
+function noCoinAccount(userId) {
+  if(CoinBanks.findOne({createdBy: userId}) ){
+    return false;
+  } else {
+    return true;
+  }
+}
 
 Template.ConfirmationMessage.helpers({
   savingAmount() {
@@ -134,8 +154,7 @@ Template.ConfirmationMessage.helpers({
     if(Session.get('transactionsCount') == 2) {
       return true;
     }
-  }
-  ,
+  },
   thirdSaving() {
     if(Session.get('transactionsCount') == 3) {
       return true;
