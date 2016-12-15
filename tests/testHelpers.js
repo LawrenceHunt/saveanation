@@ -56,6 +56,14 @@ export function createTeam(browserName, teamName) {
   browserName.click("button#new-team");
 }
 
+export function addTeamMember(browserName, userName, email) {
+  browserName.waitForExist("input.memberUsername",2000);
+  browserName.setValue("input.memberUsername", userName);
+  browserName.setValue("input.memberEmail", email);
+  browserName.click("button#add-team-member");
+  browserName.waitForExist("li:nth-of-type(2)");
+}
+
 export function makeSaving(browserName, amount, text) {
   browserName.waitForExist("a#save-link",2000);
   browserName.click('a#save-link');
