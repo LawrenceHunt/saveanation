@@ -19,7 +19,7 @@ if(Meteor.isServer) {
 
 Meteor.methods({
   'transactions.add'(amount, text, type){
-    check(amount, Number);
+    check(amount, validNumber);
     check(text, String);
     check(type, String);
     // Checks user is logged in - bring back once User ID is in place.
@@ -39,3 +39,7 @@ Meteor.methods({
     Meteor.call('savingsAccounts.adjustBalance', amount, currentUserId);
   }
 });
+
+validNumber = Match.Where(function(num) {
+   return !isNaN(parseFloat(num)) && isFinite(num) && (num !== 0);
+})
