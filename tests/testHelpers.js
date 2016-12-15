@@ -36,8 +36,8 @@ export function cleanDatabase() {
   });
 }
 
-export function getText(browserName, elementId) {
-  var post = browserName.element('div.post');
+export function getText(browserName, element, elementId) {
+  var post = browserName.element(element);
   return post.getText(elementId);
 }
 
