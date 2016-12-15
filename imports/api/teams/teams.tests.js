@@ -63,7 +63,34 @@ if(Meteor.isServer) {
       let ourTeamUpdated = Teams.findOne();
       expect(ourTeamUpdated.memberIds).to.not.include(rick._id);
       expect(ourTeamUpdated.userDetailsForDisplay).to.not.include(rickDisplayDetails);
+    });
 
+    it('can update the team name', function() {
+      let bill = Accounts.findUserByUsername("bill");
+      let userId = bill._id;
+      let ourTeam = Teams.findOne();
+
+      const updateTeamName = Meteor.server.method_handlers['team.updateTeamName'];
+      const invocation = { userId };
+      updateTeamName.apply(invocation, ["Ox"]);
+
+      let ourTeamUpdated = Teams.findOne();
+
+      expect(ourTeamUpdated.teamName).to.not.equal("Gophers");
+      expect(ourTeamUpdated.teamName).to.equal("Ox");
+    });
+
+    it('can remove a team', function() {
+      let bill = Accounts.findUserByUsername("bill");
+      let userId = bill._id;
+      let ourTeam = Teams.findOne();
+
+
+      const removeTeam = Meteor.server.method_handlers['team.destroy'];
+      const invocation = { userId };
+      removeTeam.apply(invocation, [ourTeam._id]);
+
+      expect(Teams.find().count()).to.equal(0);
     });
   });
 }
