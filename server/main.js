@@ -62,10 +62,10 @@ Meteor.startup(() => {
     }
     return user;
   });
-
   Meteor.publish('emojis', function() {
     return Emojis.find();
   });
+
 });
 
 Accounts.emailTemplates.enrollAccount.text = function (user, url) {

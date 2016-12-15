@@ -32,7 +32,6 @@ Posts.attachSchema( PostSchema );
 Meteor.methods({
   'post.add'(text, encouragement = "") {
     check(text, String);
-    // Checks user is logged in
     if(!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
