@@ -1,4 +1,4 @@
-import { Meteor } from 'meteor/meteor';
+ import { Meteor } from 'meteor/meteor';
 import '../imports/startup/client';
 import { Users } from '../imports/api/profiles/profiles.js';
 import '../imports/ui/account/avatarSelectTemplate.html';
@@ -32,10 +32,6 @@ AccountsTemplates.configure({
     positiveValidation: true,
     positiveFeedback: true,
     showValidating: true,
-
-    // // Privacy Policy and Terms of Use
-    // privacyUrl: 'privacy',
-    // termsUrl: 'terms-of-use',
 
     // Redirects
     homeRoutePath: '/home',
