@@ -49,11 +49,22 @@ export function addPost(browserName, text) {
 }
 
 export function makeSaving(browserName, amount, text) {
-  browserName.waitForExist("a#save-link",3000);
+  browserName.waitForExist("a#save-link",2000);
   browserName.click('a#save-link');
   browserName.waitForExist("input#amount-input", 20000);
   browserName.setValue("input#amount-input", amount);
   browserName.setValue("input#text-input", text);
+  browserName.keys("\uE006"); //press ENTER
+  browserName.waitForExist('button.confirm-deposit');
+  browserName.click('button.confirm-deposit');
+  browserName.click("a#feed-link");
+}
+
+export function makeSavingBlank(browserName, amount, text) {
+  browserName.waitForExist("a#save-link",2000);
+  browserName.click('a#save-link');
+  browserName.waitForExist("input#amount-input", 2000);
+  browserName.setValue("input#amount-input", amount);
   browserName.keys("\uE006"); //press ENTER
   browserName.waitForExist('button.confirm-deposit');
   browserName.click('button.confirm-deposit');

@@ -1,4 +1,4 @@
-import { signUp, signIn, signUpAndSignIn, getBrowser, cleanDatabase, addPost, getText, makeSaving } from './testHelpers';
+import { signUp, signIn, signUpAndSignIn, getBrowser, cleanDatabase, addPost, getText, makeSaving, makeSavingBlank } from './testHelpers';
 
 var mainBrowser;
 
@@ -12,9 +12,14 @@ describe('Saving Feed @watch', function () {
 
   describe('Displaying activity', function() {
 
-    it('displays saving activity', function() {
+    it('displays saving activity with custom message', function() {
       makeSaving(mainBrowser, 10, "Because");
       expect(getText(mainBrowser,'p.post-text')).to.equal('Just saved £10: Because');
+    });
+
+    it('displays saving activity without default message', function() {
+      makeSavingBlank(mainBrowser, 10);
+      expect(getText(mainBrowser,'p.post-text')).to.equal("Just saved £10: They didn't say why?!");
     });
 
     it('displays post', function(){
