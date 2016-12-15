@@ -8,6 +8,7 @@ import './team.html';
 import './addNewTeamForm.html';
 import './addTeamMemberForm.html';
 import './teamMember.html';
+import './team.css'
 
 Template.Team.onCreated(function() {
   Meteor.subscribe('teams');
@@ -58,7 +59,7 @@ Template.Team.events({
       Meteor.call('team.destroy', teamId)
     }
   },
-  'click .edit-team'(event, template) {
+  'click .edit-team, click .cancel-edit-mode'(event, template) {
     event.preventDefault();
     template.editMode.set(!template.editMode.get());
   },

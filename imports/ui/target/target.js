@@ -5,6 +5,7 @@ import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
 import { Transactions } from '../../api/transactions/transactions.js';
 import { MomentsJS } from 'meteor/momentjs:moment';
 import { Accounting } from 'meteor/lepozepo:accounting';
+import '../save/save.js';
 
 import './target.html';
 import './target.css';
@@ -138,6 +139,9 @@ Template.Target.events({
     const target = event.target;
     let targetAmount = parseInt(target.targetAmount.value);
     let targetDate = new Date(target.targetDate.value);
+    if (noAccount) {
+      Meteor.call('savingsAccounts.create');
+    }
     Meteor.call('targets.add', targetAmount, targetDate);
     Meteor.call('post.add', "Set a new target of " + accounting.formatMoney(targetAmount, "£", 0)+ " to achieve by " + moment(targetDate).format("ddd Do MMM YYYY"));
     Session.set('addMode', !Session.get('addMode'));

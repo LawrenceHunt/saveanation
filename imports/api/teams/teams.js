@@ -36,10 +36,11 @@ if(Meteor.isServer) {
 
       let currentUserId = this.userId;
       let currentTeam = Teams.findOne({ createdBy: currentUserId });
-      randomAvatarGenerator = Math.floor(Math.random()*7);
+      // could generate a random avatar with code below, or just set it as 0
+      // randomAvatarGenerator = Math.floor(Math.random()*7);
       Teams.update(
         { _id: currentTeam._id },
-        { $push: { userDetailsForDisplay: { _id: newFriendId, username: newFriendUsername, email: newFriendEmail, profile: { avatar : randomAvatarGenerator }},
+        { $push: { userDetailsForDisplay: { _id: newFriendId, username: newFriendUsername, email: newFriendEmail, profile: { avatar : 0 }},
                    memberIds: newFriendId }});
     },
     'team.destroy'(teamId) {
