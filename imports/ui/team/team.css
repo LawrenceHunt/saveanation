@@ -27,3 +27,7 @@ li button {
 .submit-new-team-name input {
   text-align: center;
 }
+
+.fa-edit {
+  padding: 0 15px 0 0;
+}
