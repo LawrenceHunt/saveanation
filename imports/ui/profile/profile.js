@@ -39,20 +39,6 @@ Template.Profile.events({
   'click #edit-profile'(event) {
     event.preventDefault();
     BlazeLayout.render("mainLayout", {content: 'EditProfile'});
-  }
-});
-
-Template.EditProfile.helpers({
-  userName() {
-    return Meteor.user().profile.username;
-  },
-  firstName() {
-    const currentUser = Meteor.user();
-    return currentUser.profile.firstName;
-  },
-  lastName() {
-    const currentUser = Meteor.user();
-    return currentUser.profile.lastName;
   },
   'submit .edit-profile'(event) {
     event.preventDefault();
