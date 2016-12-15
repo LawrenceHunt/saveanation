@@ -1,4 +1,4 @@
-import { signUp, signIn, signUpAndSignIn, getBrowser, cleanDatabase, addPost, getText, makeSaving, makeSavingBlank } from './testHelpers';
+import { signUpAndSignIn, getBrowser, cleanDatabase, addPost, getText, makeSaving, makeSavingBlank } from './testHelpers';
 
 let mainBrowser;
 

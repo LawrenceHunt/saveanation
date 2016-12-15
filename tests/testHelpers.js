@@ -48,6 +48,14 @@ export function addPost(browserName, text) {
   browserName.waitForExist('div.post', 2000);
 }
 
+export function createTeam(browserName, teamName) {
+  browserName.waitForExist("a#team-link",2000);
+  browserName.click("a#team-link");
+  browserName.waitForExist("input.teamName",2000);
+  browserName.setValue("input.teamName", teamName);
+  browserName.click("button#new-team");
+}
+
 export function makeSaving(browserName, amount, text) {
   browserName.waitForExist("a#save-link",2000);
   browserName.click('a#save-link');

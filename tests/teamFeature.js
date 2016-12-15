@@ -1,4 +1,4 @@
-import { cleanDatabase, getBrowser, signUpAndSignIn, signUp, signIn, getText } from './testHelpers';
+import { cleanDatabase, getBrowser, signUpAndSignIn, getText, createTeam } from './testHelpers';
 
 let mainBrowser;
 
@@ -11,12 +11,18 @@ describe("Team @watch", function() {
   });
 
   it("can create a team", function() {
-    mainBrowser.waitForExist("a#team-link",2000);
-    mainBrowser.click("a#team-link");
-    mainBrowser.waitForExist("input.teamName",2000);
-    mainBrowser.setValue("input.teamName", "Team Trump");
-    mainBrowser.click("button#new-team");
+    createTeam(mainBrowser, "Team Trump");
     expect(getText(mainBrowser,'div.main-area', 'h2#team-name')).to.equal("Team Trump");
+  });
+
+  it("can add a team member", function() {
+    createTeam(mainBrowser, "Team Trump");
+    mainBrowser.waitForExist("input.memberUsername",2000);
+    mainBrowser.setValue("input.memberUsername", "Donald");
+    mainBrowser.setValue("input.memberEmail", "donald@trump.com");
+    mainBrowser.click("button#add-team-member");
+    mainBrowser.waitForExist("li:nth-of-type(2)");
+    expect(getText(mainBrowser, "div.main-area","li:nth-of-type(2)")).to.equal("Donald");
   });
 
 
