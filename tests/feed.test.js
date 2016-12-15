@@ -1,17 +1,18 @@
 import { signUp, signIn, signUpAndSignIn, getBrowser, cleanDatabase, addPost, getText } from './testHelpers';
 
-var mainBrowser
+var mainBrowser;
 
-describe('Saving Feed', function () {
+describe('Saving Feed @watch', function () {
 
   beforeEach(function () {
     mainBrowser = getBrowser(0);
-    mainBrowser.url('http://localhost:3000/feed');
+    cleanDatabase();
+    signUpAndSignIn(mainBrowser, "Barron", "barron@trump.usa", "456789", "Barron", "Trump");
   });
 
   describe('Displaying activity', function() {
     it('displays usernames and saving activity', function(){
-      var update = addPost('I have saved loads of money', mainBrowser);
+      addPost(mainBrowser, 'I have saved loads of money');
       expect(getText(mainBrowser)).to.equal('I have saved loads of money');
     });
   });

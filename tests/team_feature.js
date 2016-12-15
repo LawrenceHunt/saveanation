@@ -1,15 +1,15 @@
 import { cleanDatabase, getBrowser, signUpAndSignIn, signUp, signIn } from './testHelpers'
 
-describe("Team @watch", function() {
+describe("Team", function() {
   it("can invite team members", function() {
     cleanDatabase();
     browser.url('http://localhost:3000')
 
     var captainBrowser = getBrowser(0);
-    signUpAndSignIn(captainBrowser, "Captain", "one@hotmail.com", "asddsa");
+    signUpAndSignIn(captainBrowser, "Barron", "barron@trump.usa", "456789", "Barron", "Trump");
 
     var friendBrowser = getBrowser(1);
-    signUpAndSignIn(friendBrowser, "Friend", "two@hotmail.com", "asddsa");
+    signUpAndSignIn(friendBrowser, "Donald", "donald@trump.usa", "789456", "Donald", "Trump");
 
     browser.waitForExist('#login-name-link')
     browser.url('http://localhost:3000/team')
