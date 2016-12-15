@@ -5,71 +5,10 @@ import { Accounts } from 'meteor/accounts-base';
 
 export const Teams = new Mongo.Collection('teams');
 
-TeamSchema = new SimpleSchema({
-  teamName: {
-    type: String,
-  },
-  memberIds: {
-    type: [String],
-  },
-  createdBy: {
-    type: String,
-  },
-  createdAt: {
-    type: Date,
-    autoValue: function() {
-      return new Date();
-    }
-  }
-});
-
-Teams.attachSchema( TeamSchema );
-
 if(Meteor.isServer) {
-
-
-  // Meteor.publish('teams', function teamsPublication() {
-  //   var user = Meteor.users.findOne(this.userId);
-  //   console.log(Teams.find({memberIds: user}).fetch());
-  //   return Teams.find({memberIds: user});
-  // });
-
-  // Meteor.publishComposite('teams', {
-  //   find: function() {
-  //     // Find top ten highest scoring posts
-  //     return Teams.find({memberIds: this.userId});
-  //   },
-  //   children: [
-  //     {
-  //       find: function(team) {
-  //         // Find post author. Even though we only want to return
-  //         // one record here, we use "find" instead of "findOne"
-  //         // since this function should return a cursor.
-  //         return Meteor.users.find(
-  //           { _id: team.memberIds }
-  //           // { limit: 1, fields: { profile: 1 } }
-  //         );
-  //       }
-  //     }
-  //   ]
-  // });
-
   Meteor.publish('teams', function teamsPublication() {
     let currentUserId = this.userId;
     return Teams.find({memberIds: currentUserId});
-  });
-
-
-  Meteor.publish("userDirectory", function () {
-    //getting details of current user's team
-    let currentUserId = this.userId;
-    let currentTeam = Teams.findOne({ createdBy: currentUserId });
-    // get a list of all current team memberIds
-    let ids = currentTeam.memberIds;
-
-    //return only users that belong to this team
-    return Meteor.users.find({_id: {$in: ids}});
-    //this will need to be changed to return only the pertinent fields for security purposes (eg username, email)
   });
 
   Meteor.methods({
@@ -77,33 +16,55 @@ if(Meteor.isServer) {
       check(teamName, String);
 
       let currentUser = Meteor.user();
-      console.log(currentUser);
-      let myTeam = Teams.insert({
+      Teams.insert({
         teamName,
         memberIds: [currentUser._id],
+        userDetailsForDisplay: [{ email: currentUser.emails[0].address,
+                                  username: currentUser.username,
+                                  profile: currentUser.profile}],
         createdBy: currentUser._id,
       });
     },
-    'team.addMember'(newFriendEmail){
+    'team.addMember'(newFriendEmail, newFriendUsername){
       check(newFriendEmail, String);
-      let newFriendId = Accounts.createUser({email: newFriendEmail, username: newFriendEmail});
+      check(newFriendUsername, String);
+      let newFriendId = Accounts.createUser({email: newFriendEmail, username: newFriendUsername, profile: {username: newFriendUsername}});
+      let newFriendUserObject = Meteor.users.findOne(newFriendId)
       // we can add the below function here to send an enrollment email:
-      // Accounts.sendEnrollmentEmail(newFriendId)
+      Accounts.sendEnrollmentEmail(newFriendUserObject, newFriendEmail)
       // more info here http://docs.meteor.com/api/passwords.html#Accounts-sendEnrollmentEmail
 
       let currentUserId = this.userId;
       let currentTeam = Teams.findOne({ createdBy: currentUserId });
-
+      randomAvatarGenerator = Math.floor(Math.random()*7);
       Teams.update(
         { _id: currentTeam._id },
-        { $push: { memberIds: newFriendId } }
-      );
-      return currentTeam.memberIds;
+        { $push: { userDetailsForDisplay: { _id: newFriendId, username: newFriendUsername, email: newFriendEmail, profile: { avatar : randomAvatarGenerator }},
+                   memberIds: newFriendId }});
     },
     'team.destroy'(teamId) {
       check(teamId, String);
 
       Teams.remove(teamId);
+    },
+    'team.removeMember'(userId) {
+      check(userId, String);
+
+      let currentUserId = this.userId;
+      let currentTeam = Teams.findOne({ createdBy: currentUserId });
+      let teamMembers = currentTeam.userDetailsForDisplay;
+
+      Teams.update(currentTeam._id, {$pull: { userDetailsForDisplay: { _id: userId }}});
+      Teams.update(currentTeam._id, {$pull: { memberIds: userId }});
+      // still need to remove iD from array...
+      // Meteor.users.findOne({ email: userEmail })
+    },
+    'team.updateTeamName'(newTeamName) {
+      check(newTeamName, String);
+
+      let currentUserId = this.userId;
+
+      Teams.update({ createdBy: currentUserId }, { $set: { teamName: newTeamName }});
     },
   });
 }

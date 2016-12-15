@@ -3,16 +3,18 @@ import { Transactions } from '../../api/transactions/transactions.js';
 import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
 import { MomentsJS } from 'meteor/momentjs:moment';
 import { Accounting } from 'meteor/lepozepo:accounting';
+import { Session } from 'meteor/session'
 import { Posts } from '../../api/posts/posts.js';
 
 import './save.html';
+import './review.html';
+import './confirmation.html';
 import './save.css';
 
 Template.Save.onCreated(function transactionsOnCreated(){
   Meteor.subscribe('transactions');
   Meteor.subscribe('savingsAccounts');
 });
-
 
 Template.Save.helpers({
   transactions() {
@@ -21,7 +23,6 @@ Template.Save.helpers({
   },
   test() {
     var transactions = accounting.formatColumn([123.5, 3456.49, 777888.99, 12345678, -5432], "£");
-    console.log(transactions);
     return transactions;
   },
   balance() {
@@ -37,21 +38,30 @@ Template.Save.helpers({
   formatMoney(amount) {
     return accounting.formatMoney(amount, "£", 2, ",", ".");
   },
+  savingAmount() {
+    return Session.get('amount');
+  },
+  savingText() {
+    return Session.get('text');
+  },
+  showConfirmMessage() {
+    return Session.get('showConfirmMessage');
+  }
 });
 
 Template.Save.events({
   'submit .add-deposit'(event) {
     event.preventDefault();
     const target = event.target;
-    const amount = parseFloat(target.amount.value);
-    const text = target.text.value;
-    if (noAccount()) {
-      Meteor.call('savingsAccounts.create');
-    }
-    Meteor.call('transactions.add', amount, text, 'deposit');
-    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
-    // Clear form
-    target.text.value = '';
+    Session.set('amount', parseFloat(target.amount.value));
+    Session.set('text', target.text.value);
+    BlazeLayout.render("mainLayout", {content: 'ReviewSaving'});
+  },
+  'click .visit-tower'(event) {
+    clearSessionVars();
+  },
+  'click .dismiss'(event) {
+    clearSessionVars();
   }
 });
 
@@ -63,3 +73,49 @@ function noAccount() {
     return true;
   }
 }
+
+function clearSessionVars() {
+  Session.set('amount', undefined);
+  Session.set('text', undefined);
+  Session.set('showConfirmMessage', false);
+  Session.set('coinsAwarded', undefined);
+}
+
+Template.ReviewSaving.helpers({
+  savingAmount() {
+    var amount = Session.get('amount');
+    return accounting.formatMoney(amount, "£", 2, ",", ".");
+  },
+  savingText() {
+    return Session.get('text');
+  }
+});
+
+Template.ReviewSaving.events({
+  'click .confirm-deposit'(event) {
+    if (noAccount()) {
+      Meteor.call('savingsAccounts.create');
+    }
+    let amount = Session.get('amount');
+    let text = Session.get('text');
+    Meteor.call('transactions.add', amount, text, 'deposit');
+    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
+    Session.set('showConfirmMessage', true);
+    Session.set('coinsAwarded', parseInt(amount)*10);
+    BlazeLayout.render("mainLayout", {content: 'Save'});
+  },
+  'click .reject-deposit'(event) {
+    BlazeLayout.render("mainLayout", {content: 'Save'});
+  },
+
+});
+
+Template.ConfirmationMessage.helpers({
+  savingAmount() {
+    var amount = Session.get('amount');
+    return accounting.formatMoney(amount, "£", 2, ",", ".");
+  },
+  coinsAwarded() {
+    return Session.get('coinsAwarded');
+  }
+});
