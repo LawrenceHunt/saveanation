@@ -37,8 +37,8 @@ export function cleanDatabase() {
 }
 
 export function getText(browserName, element, elementId) {
-  var post = browserName.element(element);
-  return post.getText(elementId);
+  var text = browserName.element(element);
+  return text.getText(elementId);
 }
 
 export function addPost(browserName, text) {
@@ -73,7 +73,7 @@ export function makeSaving(browserName, amount, text) {
   browserName.keys("\uE006"); //press ENTER
   browserName.waitForExist('button.confirm-deposit');
   browserName.click('button.confirm-deposit');
-  browserName.click("a#feed-link");
+
 }
 
 export function makeSavingBlank(browserName, amount, text) {
@@ -84,5 +84,5 @@ export function makeSavingBlank(browserName, amount, text) {
   browserName.keys("\uE006"); //press ENTER
   browserName.waitForExist('button.confirm-deposit');
   browserName.click('button.confirm-deposit');
-  browserName.click("a#feed-link");
+
 }
