@@ -17,10 +17,8 @@ Template.Tower.onCreated(function towerOnCreated() {
 });
 
 // ON RENDER
-Template.Tower.onRendered(function(){
+Template.Tower.onRendered(function(cb){
   populateSprites();
-  checkAccountExists();
-  // Meteor.call('coinBank.create');
 });
 
 // COINBANK METHODS
@@ -48,7 +46,9 @@ function noAccount() {
   }
 }
 
-function addCoins(amount, userId){
+function changeCoins(amount){
+  checkAccountExists();
+  var userId = Meteor.userId();
   Meteor.call('coinBank.adjustBalance', amount, userId);
 }
 
@@ -133,60 +133,79 @@ Template.Tower.events({
   // Generate Kitchen elements
   'click #kitchen-generate': function(event){
     createSprite('game/kitchen/kitchen-empty.png', 'kitchen');
+    changeCoins(-3000);
   },
   'click #kitchen-chair-1-generate': function(event){
     createSprite('game/kitchen/kitchen-chair-1.png', 'kitchen-chair-1');
+    changeCoins(-200);
   },
   'click #kitchen-coffee-generate': function(event){
     createSprite('game/kitchen/kitchen-coffee-maker.png', 'kitchen-coffee');
+    changeCoins(-200);
   },
   'click #kitchen-fridge-generate': function(event){
     createSprite('game/kitchen/kitchen-fridge.png', 'kitchen-fridge');
+    changeCoins(-500);
   },
   'click #kitchen-oven-generate': function(event){
     createSprite('game/kitchen/kitchen-oven.png', 'kitchen-oven');
+    changeCoins(-550);
   },
 
   // Generate Living Room elements
   'click #living-room-generate': function(event){
     createSprite('game/livingRoom/living-room-empty.png', 'living-room');
+    changeCoins(-5000);
   },
   'click #living-room-armchair-1-generate': function(event){
     createSprite('game/livingRoom/living-room-armchair-1.png', 'living-room-armchair-1');
+    changeCoins(-400);
   },
   'click #living-room-armchair-2-generate': function(event){
     createSprite('game/livingRoom/living-room-armchair-2.png', 'living-room-armchair-2');
+    changeCoins(-600);
   },
   'click #living-room-tv-generate': function(event){
     createSprite('game/livingRoom/living-room-tv.png', 'living-room-tv');
+    changeCoins(-500);
   },
   'click #living-room-table-generate': function(event){
     createSprite('game/livingRoom/living-room-table.png', 'living-room-table');
-  },
-  'click #living-room-lamp-1-generate': function(event){
-    createSprite('game/livingRoom/living-room-lamp-1.png', 'living-room-lamp-1');
-  },
-  'click #living-room-lamp-2-generate': function(event){
-    createSprite('game/livingRoom/living-room-lamp-2.png', 'living-room-lamp-2');
+    changeCoins(-100);
   },
   'click #living-room-sound-system-generate': function(event){
     createSprite('game/livingRoom/living-room-sound-system.png', 'living-room-sound-system');
+    changeCoins(-200);
   },
+  'click #living-room-lamp-1-generate': function(event){
+    createSprite('game/livingRoom/living-room-lamp-1.png', 'living-room-lamp-1');
+    changeCoins(-75);
+  },
+  'click #living-room-lamp-2-generate': function(event){
+    createSprite('game/livingRoom/living-room-lamp-2.png', 'living-room-lamp-2');
+    changeCoins(-50);
+  },
+
 // Generate Bedroom elements
   'click #bedroom-1-generate': function(event){
     createSprite('game/bedRoom1/bedroom-empty.png', 'bedroom-1');
+    changeCoins(-4000);
   },
   'click #bedroom-1-bed-generate': function(event){
     createSprite('game/bedRoom1/bed.png', 'bedroom-1-bed');
+    changeCoins(-500);
   },
   'click #bedroom-1-rug-generate': function(event){
     createSprite('game/bedRoom1/rug.png', 'bedroom-1-rug');
+    changeCoins(-150);
   },
   'click #bedroom-1-table-generate': function(event){
     createSprite('game/bedRoom1/table.png', 'bedroom-1-table');
+    changeCoins(-200);
   },
   'click #bedroom-1-tv-generate': function(event){
     createSprite('game/bedRoom1/tv.png', 'bedroom-1-tv');
+    changeCoins(-300);
   },
   'dblclick .ui-draggable': function(event) {
     event.preventDefault();
