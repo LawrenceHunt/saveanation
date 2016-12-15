@@ -36,7 +36,7 @@ Template.Tower.helpers({
     }
   },
   spriteElements() {
-    return Blocks.find()
+    return Blocks.find();
   },
   renderSpriteElements(id, src, className, xPos, yPos) {
     recreateSpriteFromDatabase(id, src, className, xPos, yPos);
@@ -44,12 +44,12 @@ Template.Tower.helpers({
 });
 
 function checkAccountExists(){
-  if (noAccount()) {
+  if (noCoinAccount()) {
     Meteor.call('coinBank.create');
   }
 }
 
-function noAccount() {
+function noCoinAccount() {
   var userId = Meteor.userId();
   if(CoinBanks.findOne({createdBy: userId}) ){
     return false;
