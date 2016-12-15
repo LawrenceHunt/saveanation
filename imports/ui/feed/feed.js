@@ -8,22 +8,26 @@ import './feed.css';
 
 Template.feed.onCreated(function feedOnCreated() {
   Meteor.subscribe('posts');
+  Meteor.subscribe('users');
 });
 
 Template.feed.helpers({
   posts() {
-    // var user = Meteor.user();
-    // console.log(user);
     return Posts.find({}, { sort: { createdAt: -1}});
   },
   formatDate(date) {
     return moment(date).format('h:mma on DD-MMM-YY');
   },
-  // Jen to come back to this. Have to wait until posts() helper method above is fixed.
-  avatar(author) {
-    var singleUser = Meteor.users.findOne({"profile.username": author});
-    // console.log(author);
-    // console.log(Meteor.users.findOne({"profile.avatar": "5"});
+  author_name(author_id){
+      var singleUser = Users.findOne({"_id": author_id});
+      var name = "Unknown";
+      if(singleUser){
+        name = singleUser.profile.username;
+      }
+      return name;
+  },
+  avatar(author_id) {
+    var singleUser = Users.findOne({"_id": author_id});
     var avatar = 0;
     if(singleUser){
       avatar = singleUser.profile.avatar;

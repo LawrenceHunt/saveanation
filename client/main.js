@@ -98,8 +98,11 @@ AccountsTemplates.addFields([
   },
   {
       _id: 'avatar',
+      type: 'hidden'
+    },
+  {
+      _id: 'selectImage',
       type: 'text',
-      required: true,
       template: "avatarList"
     }
     ]);
