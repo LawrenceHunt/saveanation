@@ -54,7 +54,6 @@ AccountsTemplates.configure({
 
 Meteor.startup(() => {
   Accounts.onCreateUser( ( options, user ) => {
-    console.log(options);
     user.profile = options.profile;
     user.profile.username = user.username;
     if (user.emails) {

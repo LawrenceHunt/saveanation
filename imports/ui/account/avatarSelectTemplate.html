@@ -11,8 +11,11 @@
   <p>Select Your Character</p>
   <script>
     setAvatar = function(id) {
-      // document.getElementById(id).style.border = "2px solid black";
-      console.log(id);
+      if(document.getElementById(id).style.border == "none") {
+        document.getElementById(id).style.border = "2px solid black";
+      } else {
+        document.getElementById(id).style.border = "none";
+      }
       document.getElementById("at-field-avatar").value = id;
     }
   </script>
