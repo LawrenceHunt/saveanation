@@ -64,6 +64,7 @@ function changeCoins(amount){
 
 function populateSprites(){
   imgBlocks = returnBlocks().fetch();
+  console.log(imgBlocks);
   if (imgBlocks.length > 0) {
     for(i=0; i< imgBlocks.length; i++){
       recreateSpriteFromDatabase(imgBlocks[i]._id, imgBlocks[i].src, imgBlocks[i].className, imgBlocks[i].xPos, imgBlocks[i].yPos);
