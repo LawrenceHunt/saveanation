@@ -13,7 +13,7 @@
 
 #game-canvas {
   position: absolute;
-  top: 100px;
+  top: 95px;
   width: 80%;
   height: 100%;
   bottom: 0;
@@ -47,7 +47,7 @@
   height: 100%;
   background: black;
   right: 0;
-  top: 85px;
+  top: 96px;
   text-align: center;
   overflow: scroll;
   padding-bottom: 10px;

@@ -17,17 +17,23 @@ Template.Tower.onCreated(function towerOnCreated() {
 });
 
 // ON RENDER
-Template.Tower.onRendered(function(cb){
+Template.Tower.onRendered(function(){
   populateSprites();
+  // var user = Meteor.user();
+  // var userId = user._id;
+  // console.log(CoinBanks.find({createdBy: userId }));
 });
 
 // COINBANK METHODS
-
 Template.Tower.helpers({
   balance() {
     var userId = Meteor.userId();
-    coinBank = CoinBanks.findOne({createdBy: userId});
-    return coinBank.balance;
+    if (!CoinBanks.findOne({createdBy: userId})) {
+      return 5000;
+    } else {
+      coinBank = CoinBanks.findOne({createdBy: userId});
+      return coinBank.balance;
+    }
   }
 });
 
