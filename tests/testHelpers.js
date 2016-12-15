@@ -36,9 +36,9 @@ export function cleanDatabase() {
   });
 }
 
-export function getText(browserName) {
+export function getText(browserName, elementId) {
   var post = browserName.element('div.post');
-  return post.getText('p.post-text');
+  return post.getText(elementId);
 }
 
 export function addPost(browserName, text) {
@@ -46,4 +46,14 @@ export function addPost(browserName, text) {
   browserName.setValue('input#body-field', text);
   browserName.keys("\uE006"); //press ENTER
   browserName.waitForExist('div.post', 2000);
+}
+
+export function makeSaving(browserName, amount, text) {
+  browserName.click('#save-link');
+  // browserName.url("localhost:3000/save");
+  browserName.waitForExist("input#amount-input", 2000);
+  browserName.setValue("input#amount-input", amount);
+  browserName.setValue("input#text-input", text);
+  browserName.keys("\uE006"); //press ENTER
+  browserName.click("#feed-link");
 }
