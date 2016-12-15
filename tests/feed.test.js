@@ -14,12 +14,12 @@ describe('Saving Feed @watch', function () {
 
     it('displays saving activity with custom message', function() {
       makeSaving(mainBrowser, 10, "Because");
-      expect(getText(mainBrowser,'p.post-text')).to.equal('Just saved £10: Because');
+      expect(getText(mainBrowser,'p.post-text')).to.equal('Just saved £10.00: Because');
     });
 
     it('displays saving activity without default message', function() {
       makeSavingBlank(mainBrowser, 10);
-      expect(getText(mainBrowser,'p.post-text')).to.equal("Just saved £10: They didn't say why?!");
+      expect(getText(mainBrowser,'p.post-text')).to.equal("Just saved £10.00: They didn't say why?!");
     });
 
     it('displays post', function(){
@@ -31,6 +31,18 @@ describe('Saving Feed @watch', function () {
       addPost(mainBrowser, 'I have saved loads of money');
       expect(getText(mainBrowser,'.post-author')).to.contain('Barron');
     });
+
+    // it('displays new target', function(){
+    //   mainBrowser.waitForExist("a#target-link",2000);
+    //   mainBrowser.click('a#target-link');
+    //   mainBrowser.waitForExist("input.targetAmount", 2000);
+    //   mainBrowser.setValue("input.targetAmount", 2000);
+    //   mainBrowser.moveToObject("input.targetDate").SendKeys("31122016");
+    //   mainBrowser.waitForExist('button.submit-target');
+    //   mainBrowser.click('button.submit-target');
+    //   mainBrowser.click("a#feed-link");
+    //   expect(getText(mainBrowser,'p.post-text')).to.contain('Set a new Target of £2,000');
+    // });
 
   });
 });
