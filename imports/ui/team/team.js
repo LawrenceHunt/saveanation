@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Teams } from '../../api/teams/teams.js';
+import { MomentsJS } from 'meteor/momentjs:moment';
+import '../account/avatarSelectTemplate.html';
 
 import './team.html';
 import './addNewTeamForm.html';
@@ -9,29 +11,20 @@ import './teamMember.html';
 
 Template.Team.onCreated(function() {
   Meteor.subscribe('teams');
-  Meteor.subscribe('userDirectory');
+  this.editMode = new ReactiveVar(false);
+});
+
+Template.registerHelper('formatDate', function(date) {
+    return moment(date).format("ddd Do MMM YYYY");
 });
 
 Template.Team.helpers({
   teams() {
     return Teams.find({});
   },
-
-  teamMemberObject() {
-    //get team member Ids from the session
-    let currentTeamMemberIds;
-    if (Session.get('currentTeamMemberIds')) {
-      currentTeamMemberIds = Session.get('currentTeamMemberIds');
-    } else {
-      let currentUserId = Meteor.userId();
-      let currentTeam = Teams.findOne({memberIds: currentUserId});
-      let currentTeamMemberIds = currentTeam.memberIds;
-      Session.set('currentTeamMemberIds', currentTeamMemberIds);
-      currentTeamMemberIds = Session.get('currentTeamMemberIds');
-    }
-    return Meteor.users.find({_id: { $in: currentTeamMemberIds }})
-  },
-
+  editMode: function() {
+    return Template.instance().editMode.get();
+  }
 });
 
 Template.Team.events({
@@ -46,23 +39,44 @@ Template.Team.events({
   },
   'submit .new-team-member'(event) {
     event.preventDefault();
-    const target = event.target;
-    const memberEmail = target.memberEmail.value;
+    let target = event.target;
+    let memberEmail = target.memberEmail.value;
+    let memberUsername = target.memberUsername.value;
 
-    let currentTeamMemberIds = Meteor.call('team.addMember', memberEmail);
-    console.log(currentTeamMemberIds)
-    // console.log(currentTeamMemberIds)
-    // Session.set('currentTeamMemberIds', currentTeamMemberIds);
+    Meteor.call('team.addMember', memberEmail, memberUsername);
+    currentUserId = Meteor.userId();
     // Clear form
     target.memberEmail.value = '';
+    target.memberUsername.value = '';
   },
   'click .delete-team'(event) {
     event.preventDefault();
 
     const target = event.target;
     const teamId = target.name;
-    Meteor.call('team.destroy', teamId)
-  }
+    if (confirm("Are you sure you want to delete this team?")) {
+      Meteor.call('team.destroy', teamId)
+    }
+  },
+  'click .edit-team'(event, template) {
+    event.preventDefault();
+    template.editMode.set(!template.editMode.get());
+  },
+  'click .js-delete-team-member'(event) {
+    event.preventDefault();
+    let target = event.target;
+    let userId = target.id;
+    if (confirm("Are you sure you want to remove this team member?")) {
+      Meteor.call('team.removeMember', userId)
+    }
+  },
+  'submit .js-submit-new-team-name'(event, template) {
+    event.preventDefault();
+    let newTeamName = event.target.newTeamName.value
+    template.editMode.set(!template.editMode.get());
+
+    Meteor.call('team.updateTeamName', newTeamName);
+  },
 });
 
 // This is a function to allow you to console.log things client side from spacebar functions
