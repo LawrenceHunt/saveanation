@@ -44,11 +44,6 @@ Template.Target.helpers({
     const targetDate = moment(target.targetDate);
     return targetDate;
   },
-  // persistedDate() {
-  //   const userId = Meteor.userId();
-  //   const target = Targets.findOne({createdBy: userId});
-  //   // return target.targetDate;
-  // },
   targetAmount() {
     let dateOption = Session.get('dateOption');
     return calculateTargetAmountByTimeRange(dateOption);
@@ -75,11 +70,18 @@ Template.Target.helpers({
   },
   tempTargetDate() {
     const instance = Template.instance();
+    console.log("tempTargetDate is " + instance.calculation.get('tempTargetDate'));
     return moment(instance.calculation.get('tempTargetDate'));
   },
   tempTargetAmount() {
     const instance = Template.instance();
+    console.log("tempTargetAmount is " + instance.calculation.get('tempTargetAmount'));
     return instance.calculation.get('tempTargetAmount');
+  },
+  targetDateForFormPrepopulation() {
+    const userId = Meteor.userId();
+    const targetDate = moment(Targets.findOne({createdBy: userId}).targetDate).format('YYYY-MM-D');
+    return targetDate;
   },
   currentBalance() {
     if(account()) {
@@ -151,7 +153,6 @@ Template.Target.events({
     event.preventDefault();
     let targetAmount = parseFloat(template.calculation.get('tempTargetAmount'));
     let targetDate = template.calculation.get('tempTargetDate');
-
     if (noAccount) {
       Meteor.call('savingsAccounts.create');
     }
@@ -160,18 +161,15 @@ Template.Target.events({
     Session.set('addMode', !Session.get('addMode'));
   },
   'click .delete-target'(event) {
-    console.log(event);
     const target = event.target;
     let targetId = target.name;
-    console.log(target);
     Meteor.call('targets.remove', targetId);
     Meteor.call('post.add', "Deleted a target, is this a cry for help?!");
   },
-  'submit .edit-target'(event) {
+  'click .edit-target-button'(event, template) {
     event.preventDefault();
-    const target = event.target;
-    const targetAmount = parseInt(target.targetAmount.value);
-    const targetDate = new Date(target.targetDate.value);
+    let targetAmount = parseFloat(template.calculation.get('tempTargetAmount'));
+    let targetDate = template.calculation.get('tempTargetDate');
     Meteor.call('targets.edit', targetAmount, targetDate);
     Meteor.call('post.add', "Had a change of heart, now aiming for " + accounting.formatMoney(targetAmount, "£", 0)+ " by " + moment(targetDate).format("ddd Do MMM YYYY"));
     Session.set('editMode', !Session.get('editMode'));
@@ -183,7 +181,7 @@ Template.Target.events({
     const target = event.target;
     let targetId = target.id;
     Meteor.call('targets.remove', targetId);
-    Meteor.call('post.add', "Deleted a target, is this a cry for help?!");
+    Meteor.call('post.add', "Deleted a target. Is this a cry for help?!");
   },
   'click .fa-plus'(event) {
     Session.set('addMode', !Session.get('addMode'));
