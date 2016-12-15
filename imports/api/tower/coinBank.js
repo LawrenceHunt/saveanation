@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Accounts } from 'meteor/accounts-base';
 
 
 export const CoinBanks = new Mongo.Collection('coinBanks');
@@ -8,7 +9,7 @@ export const CoinBanks = new Mongo.Collection('coinBanks');
 if(Meteor.isServer) {
   Meteor.publish('coinBanks', function coinBanksPublication() {
     return CoinBanks.find({
-      owner: this.userId
+      createdBy: this.userId
     });
   });
 }

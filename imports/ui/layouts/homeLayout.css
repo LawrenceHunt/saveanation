@@ -48,15 +48,23 @@ img.carousel-image {
 
 /*slick start*/
 #carousel {
-  border: 10px solid red;
-	border-radius: 35px;
+	border-radius: 5px;
   width: 100%;
 	height: auto;
   position: absolute;
 	display: inline-block;
   top: 10%;
 	background-color: #fff;
+	overflow: scroll;
+	box-shadow:
+	1px 1px purple,
+	3px 3px blue,
+	6px 6px green,
+	9px 9px yellow,
+	12px 12px orange,
+	15px 15px red;
 }
+
 
 #carousel h1 {
 	font-family: 'Montserrat', sans-serif;

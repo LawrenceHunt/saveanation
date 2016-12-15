@@ -19,7 +19,7 @@ Template.Tower.onCreated(function towerOnCreated() {
 // ON RENDER
 Template.Tower.onRendered(function(){
   populateSprites();
-  // checkAccountExists();
+  checkAccountExists();
   // Meteor.call('coinBank.create');
 });
 
@@ -127,6 +127,9 @@ function recreateSpriteFromDatabase(elementId, src, className, x, y) {
 }
 
 Template.Tower.events({
+  // 'click #createAccount': function(){
+  //   Meteor.call('coinBank.create');
+  // },
   // Generate Kitchen elements
   'click #kitchen-generate': function(event){
     createSprite('game/kitchen/kitchen-empty.png', 'kitchen');
