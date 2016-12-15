@@ -6,11 +6,12 @@ ul {
 li {
   display: block;
   margin: 20px 0 0 0;
-
 }
 
 li img {
-    margin: 0 0 0 0;
+  margin: 0 0 0 0;
+  width:60px;
+  height:60px;
 }
 
 li p {

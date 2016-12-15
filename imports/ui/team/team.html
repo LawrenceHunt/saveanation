@@ -18,7 +18,7 @@
         <ul>
           {{#each userDetailsForDisplay}}
           <li>
-            <img src="images/avatars/{{ profile.avatar }}.jpg" width="60px" height="60px"/>
+            <img src="images/avatars/{{ profile.avatar }}.jpg"/>
             <p>{{ username }}</p>
             {{#if editMode}}
               <button class="js-delete-team-member" id={{_id}}>Delete User</button>
