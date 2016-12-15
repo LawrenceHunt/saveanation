@@ -1,19 +1,12 @@
 .home-body {
-	/*To hide the horizontal scroller appearing during the animation*/
 	overflow: hidden;
 	height: 100%;
 	width: 100%;
 }
 
-#buttons {
-	position:absolute;
-	bottom: -5%;
-	right: -30%;
-}
-
 img.logo-big {
 	margin: auto;
-	width: 70%;
+	width: 60%;
 }
 
 img.logo-small {
@@ -26,15 +19,6 @@ img.carousel-image {
 	margin-top: auto;
 	margin:auto;
 	padding-top: 10px;
-}
-
-#buttons button {
-	text-align: center;
-	color: white;
-	font-size: 28px;
-	background-color: red;
-	border-radius: 10px;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 #billboard {
@@ -54,10 +38,7 @@ img.carousel-image {
   position: absolute;
 	display: inline-block;
   top: -10%;
-	overflow: scroll;
 	background-color: #fff;
-
-	box-shadow: 10px 10px #91cef4;
 	box-shadow:
     1px 1px purple,
     3px 3px blue,
@@ -66,7 +47,6 @@ img.carousel-image {
     12px 12px orange,
     15px 15px red;
 }
-
 
 #carousel h1 {
 	font-family: 'Montserrat', sans-serif;
@@ -99,7 +79,6 @@ img.carousel-image {
 .slick-prev:before, .slick-next:before {
   color: silver;
 }
-/*slick finish*/
 
 #clouds-canvas{
 	overflow: hidden;
@@ -117,6 +96,11 @@ img.carousel-image {
 	position: absolute;
 	top: 20%;
 	left: 0%;
+}
+
+.slick-dots {
+	position: absolute;
+	top: 103%;
 }
 
 /*Time to finalise the cloud shape*/
@@ -229,7 +213,6 @@ img.carousel-image {
 
 .at-input {
 	padding: 0 10px;
-
 }
 
 span.fa.fa-check::before {
@@ -242,21 +225,41 @@ div.at-input.has-feedback.has-error span {
 	font-size: x-small;
 }
 
-#signIn {
-	position: relative;
-	right: 50px;
-	margin: -20px 0;
-}
-
 #at-btn {
 	margin: 8px 0;
+}
+
+#signIn {
+	margin: 10px;
 }
 
 .at-signup-link, .at-signin-link {
 	margin-bottom: 7px;
 }
 
-#buttons {
-	/*margin-top: 20px;*/
-	/*background-color: red;*/
+@media only screen and (max-width: 720px) {
+	.skyscraper {
+		display: none;
+	}
+
+	#billboard {
+		width: 60%;
+		height: 85%;
+		position: absolute;
+		text-align: center;
+		top: 15%;
+		right: 65%;
+	}
+
+	#clouds-canvas {
+		height: 100%;
+		width: 100%;
+		padding: 250px;
+	}
+
+	#signInForm {
+		overflow-y: auto;
+		height: 500px;
+	}
+
 }
