@@ -12,21 +12,18 @@
         <form class="new-target">
           <input type="text" class="targetAmount" name="targetAmount" placeholder="Your Target" required/>
           <input type="date" class="targetDate" name="targetDate" required/>
-          <button type="button" class="calculate">Calculate</button>
-          <button type="submit">Submit</button>
+          <button type="button" class="calculate">Calculate breakdown</button>
         </form>
+        {{#if showCalculation}}
         <div class="target-breakdown">
-          <div>
-            <p>Current Balance: {{ formatMoney currentBalance}}</p>
-          </div>
-          <div>
-            <p>To reach your target by {{formatDate tempTargetDate}}, you need to save {{formatMoney stillToSave}}.</p>
-          </div>
-          <p>Breakdown</p>
-          <p>{{ formatMoney monthlyTarget }} per month</p>
-          <p>{{ formatMoney weeklyTarget }} per week</p>
-          <p>{{ formatMoney dailyTarget }} per day</p>
+          <p>To have {{ formatMoney tempTargetAmount }} by {{formatDate tempTargetDate}}, you'll need to save:</p>
+          <h2>{{ formatMoney monthlyTarget }} per month,</h2>
+          <h2>{{ formatMoney weeklyTarget }} per week, or</h2>
+          <h2>{{ formatMoney dailyTarget }} per day</h2>
+          <p>Does that sound do-able?</p>
+          <button type="button" class="submit-target">Choose this target</button>
         </div>
+        {{/if}}
       </div>
     {{/if}}
       {{#if $.Session.get 'editMode' }}
@@ -39,6 +36,19 @@
             <button type="submit">Submit</button>
           </form>
           <div class="target-breakdown">
+            <p>
+              Okay, so given your current balance of {{ formatMoney currentBalance}},
+              to reach your target of {{ formatMoney tempTargetAmount }} by {{formatDate tempTargetDate}},
+              you need to save a further {{formatMoney stillToSave}}.
+            </p>
+            <p>Which works out as:</p>
+            <h3>{{ formatMoney monthlyTarget }} per month</h3>
+            <h3>{{ formatMoney weeklyTarget }} per week</h3>
+            <h3>{{ formatMoney dailyTarget }} per day</h3>
+            <h2>Are you up for the challenge?</h2>
+            <button type="submit">Choose this target</button>
+          </div>
+          <!-- <div class="target-breakdown">
             <div>
               <p>Current Balance: {{ formatMoney currentBalance}}</p>
             </div>
@@ -49,7 +59,7 @@
             <p>{{ formatMoney monthlyTarget }} per month</p>
             <p>{{ formatMoney weeklyTarget }} per week</p>
             <p>{{ formatMoney dailyTarget }} per day</p>
-          </div>
+          </div> -->
         </div>
     {{/if}}
     {{#if targets.count != 0}}

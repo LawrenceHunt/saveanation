@@ -107,6 +107,10 @@ Template.Target.helpers({
     let degreesBelow = ((total * 2.4) - 120 - 6).toString() + 'deg';
     return degreesBelow;
   },
+  showCalculation() {
+    const instance = Template.instance();
+    return instance.calculation.get('showCalculation');
+  }
 });
 
 Template.Target.events({
@@ -127,6 +131,7 @@ Template.Target.events({
     let amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
     let amountPerDay = Math.round(stillToSave / daysToSave);
 
+    template.calculation.set('showCalculation', true);
     template.calculation.set('tempTargetAmount', targetAmount);
     template.calculation.set('stillToSave', stillToSave);
     template.calculation.set('tempTargetDate', targetDate);
@@ -142,11 +147,11 @@ Template.Target.events({
     let transactionsTotal = transactionsValue(dateOption);
     // let targetDate = moment(Template.Target.__helpers.get('targetDate').call());
   },
-  'submit .new-target'(event) {
+  'click .submit-target'(event, template) {
     event.preventDefault();
-    const target = event.target;
-    let targetAmount = parseInt(target.targetAmount.value);
-    let targetDate = new Date(target.targetDate.value);
+    let targetAmount = parseFloat(template.calculation.get('tempTargetAmount'));
+    let targetDate = template.calculation.get('tempTargetDate');
+
     if (noAccount) {
       Meteor.call('savingsAccounts.create');
     }
