@@ -6,6 +6,7 @@ import '../imports/api/savingsAccounts/savingsAccounts.js';
 import '../imports/api/teams/teams.js';
 import '../imports/api/profiles/profiles.js';
 import '../imports/api/tower/tower.js';
+import '../imports/api/tower/coinBank.js';
 
 AccountsTemplates.configure({
     // Behavior

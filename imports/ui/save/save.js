@@ -3,7 +3,7 @@ import { Transactions } from '../../api/transactions/transactions.js';
 import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
 import { MomentsJS } from 'meteor/momentjs:moment';
 import { Accounting } from 'meteor/lepozepo:accounting';
-import { Session } from 'meteor/session'
+import { Session } from 'meteor/session';
 import { Posts } from '../../api/posts/posts.js';
 
 import './save.html';

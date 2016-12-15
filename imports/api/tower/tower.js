@@ -12,9 +12,6 @@ if(Meteor.isServer) {
 
 Meteor.methods({
   'blocks.add'(blockType, src, xPos, yPos){
-    check(blockType, String);
-    check(xPos, Number);
-    check(yPos, Number);
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
@@ -29,10 +26,6 @@ Meteor.methods({
     return block;
   },
   'blocks.edit'(blockId, blockType, xPos, yPos) {
-    check(blockId, String);
-    check(blockType, String);
-    check(xPos, Number);
-    check(yPos, Number);
     if(! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
