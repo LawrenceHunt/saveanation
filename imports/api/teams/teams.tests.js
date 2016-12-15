@@ -4,8 +4,11 @@ import { expect } from 'meteor/practicalmeteor:chai';
 import { be } from 'meteor/practicalmeteor:chai';
 import { assert } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
-// Users?:
+import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import { Teams } from './teams.js';
+
+// To do:
+// Could test publications using publication-collector
 
 if(Meteor.isServer) {
   describe('Team meteor methods in API', function() {
