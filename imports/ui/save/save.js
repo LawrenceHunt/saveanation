@@ -12,7 +12,8 @@ import './confirmation.html';
 import './save.css';
 
 import '../badges/first_saving.html';
-import '../badges/two_savings_one_day.html';
+import '../badges/second_saving.html';
+import '../badges/third_saving.html';
 
 Template.Save.onCreated(function transactionsOnCreated(){
   Meteor.subscribe('transactions');
@@ -125,12 +126,18 @@ Template.ConfirmationMessage.helpers({
     return Session.get('coinsAwarded');
   },
   firstSaving() {
-    if(Session.get('transactionsCount') == 10) {
+    if(Session.get('transactionsCount') == 1) {
       return true;
     }
   },
   secondSaving() {
-    if(Session.get('transactionsCount') == 11) {
+    if(Session.get('transactionsCount') == 2) {
+      return true;
+    }
+  }
+  ,
+  thirdSaving() {
+    if(Session.get('transactionsCount') == 3) {
       return true;
     }
   }

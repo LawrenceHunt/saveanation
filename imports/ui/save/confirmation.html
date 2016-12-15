@@ -2,10 +2,13 @@
 
   <div class="confirmation">
     {{#if firstSaving }}
-      {{>BadgeFirstSaving}}
+      {{>FirstSaving}}
     {{/if}}
     {{#if secondSaving }}
-      {{>BadgeTwoSavingsOneDay}}
+      {{>SecondSaving}}
+    {{/if}}
+    {{#if thirdSaving }}
+      {{>ThirdSaving}}
     {{/if}}
     <p>Congratulations on saving {{ savingAmount }}. You've been awarded {{ coinsAwarded }} coins to spend in your
       <a class="visit-tower" href="/tower">house.</a>
