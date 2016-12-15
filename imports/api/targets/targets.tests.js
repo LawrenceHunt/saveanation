@@ -41,11 +41,6 @@ if(Meteor.isServer) {
       //   assert.equal(Targets.find().count(), 0);
       // });
 
-      // it("won't accept a second target from the same user", function() {
-      //   addTarget.apply(invocation, [5000, targetDate]);
-      //   addTarget.apply(invocation, [5000, targetDate]);
-      //   assert.equal(Targets.find().count(), 1);
-      // })
 
       it('can edit a target value', function() {
         addTarget.apply(invocation, [5000, targetDate]);
