@@ -136,7 +136,6 @@ FlowRouter.route('/tower', {
     if(!Meteor.userId()) {
       FlowRouter.go('home');
     }
-    BlazeLayout.reset()
     BlazeLayout.render('mainLayout', {content: 'Tower'});
   }
 });
