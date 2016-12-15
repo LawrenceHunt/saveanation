@@ -1,19 +1,12 @@
 .home-body {
-	/*To hide the horizontal scroller appearing during the animation*/
 	overflow: hidden;
 	height: 100%;
 	width: 100%;
 }
 
-#buttons {
-	position:absolute;
-	bottom: -5%;
-	right: -30%;
-}
-
 img.logo-big {
 	margin: auto;
-	width: 70%;
+	width: 60%;
 }
 
 img.logo-small {
@@ -26,15 +19,6 @@ img.carousel-image {
 	margin-top: auto;
 	margin:auto;
 	padding-top: 10px;
-}
-
-#buttons button {
-	text-align: center;
-	color: white;
-	font-size: 28px;
-	background-color: red;
-	border-radius: 10px;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 #billboard {
@@ -54,9 +38,7 @@ img.carousel-image {
   position: absolute;
 	display: inline-block;
   top: -10%;
-	overflow: scroll;
 	background-color: #fff;
-	box-shadow: 10px 10px #91cef4;
 	box-shadow:
     1px 1px purple,
     3px 3px blue,
@@ -65,7 +47,6 @@ img.carousel-image {
     12px 12px orange,
     15px 15px red;
 }
-
 
 #carousel h1 {
 	font-family: 'Montserrat', sans-serif;
@@ -98,7 +79,6 @@ img.carousel-image {
 .slick-prev:before, .slick-next:before {
   color: silver;
 }
-/*slick finish*/
 
 #clouds-canvas{
 	overflow: hidden;
@@ -116,6 +96,11 @@ img.carousel-image {
 	position: absolute;
 	top: 20%;
 	left: 0%;
+}
+
+.slick-dots {
+	position: absolute;
+	top: 103%;
 }
 
 /*Time to finalise the cloud shape*/
@@ -228,7 +213,6 @@ img.carousel-image {
 
 .at-input {
 	padding: 0 10px;
-
 }
 
 span.fa.fa-check::before {
@@ -241,14 +225,12 @@ div.at-input.has-feedback.has-error span {
 	font-size: x-small;
 }
 
-#signIn {
-	position: relative;
-	right: 50px;
-	margin: -20px 0;
-}
-
 #at-btn {
 	margin: 8px 0;
+}
+
+#signIn {
+	margin: 10px;
 }
 
 .at-signup-link, .at-signin-link {
@@ -257,28 +239,25 @@ div.at-input.has-feedback.has-error span {
 
 @media only screen and (max-width: 720px) {
 	.skyscraper {
-		height: 300px;
-    width: 300;
+		display: none;
 	}
 
-	/*#clouds-canvas{
-		overflow: hidden;
-	  height: 100%;
-	  width: 50%;
-		padding: 250px;
-		background: #c9dbe9;
-		background: -webkit-linear-gradient(top, #0978ec 0%, #64abf5 100%);
-		background: -linear-gradient(top, #c9dbe9 0%, #fff 100%);
-		background: -moz-linear-gradient(top, #c9dbe9 0%, #fff 100%);
-		position: absolute;
-	}*/
-
 	#billboard {
-		width: 40%;
+		width: 60%;
 		height: 60%;
 		position: absolute;
 		text-align: center;
 		top: 15%;
-		right: 35%;
+		right: 65%;
+	}
+
+	#clouds-canvas {
+		height: 120%;
+		width: 100%;
+		padding: 250px;
+	}
+
+	.carousel-page {
+		width: 80%;
 	}
 }
