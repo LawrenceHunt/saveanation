@@ -113,6 +113,9 @@ Template.Target.events({
   'click .calculate'(event, template) {
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
+    if (noAccount) {
+      Meteor.call('savingsAccounts.create');
+    }
     let stillToSave = targetAmount - currentBalance();
 
     let targetDate = new Date(template.find('.targetDate').value);
