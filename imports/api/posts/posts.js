@@ -12,6 +12,9 @@ PostSchema = new SimpleSchema({
   author: {
     type: String,
   },
+  author_id: {
+    type: String
+  },
   createdAt: {
     type: Date,
     autoValue: function() {
@@ -33,14 +36,16 @@ Meteor.methods({
     if(!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    // var currentUser = Meteor.user().profile.username;
-    let currentUser = Meteor.user().profile.username;
-    console.log(currentUser)
+    
+    let currentUserId = this.userId;
+    let currentUser = Meteor.users.findOne(currentUserId).profile.username;
+    
     // Create the post object
     Posts.insert({
       body: text,
       encouragement: encouragement,
-      author: currentUser
+      author: currentUser,
+      author_id: currentUserId
     });
   }
 });

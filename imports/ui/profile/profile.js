@@ -46,8 +46,7 @@ Template.Profile.events({
     const updateUsername = profile.userName.value;
     const updateFirstName = profile.firstName.value;
     const updateLastName = profile.lastName.value;
-    const updateAvatar = Meteor.user().profile.avatar;
-    Meteor.call('profiles.edit', updateUsername, updateFirstName, updateLastName, updateAvatar);
+    Meteor.call('profiles.edit', updateUsername, updateFirstName, updateLastName);
     Session.set('editMode', !Session.get('editMode'));
   },
   'click .fa-edit'(event) {

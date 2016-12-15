@@ -6,3 +6,22 @@
     {{/each}}
   </select>
 </template>
+
+<template name="avatarList">
+  <p>Select Your Character</p>
+  <script>
+    setAvatar = function(id) {
+      // document.getElementById(id).style.border = "2px solid black";
+      console.log(id);
+      document.getElementById("at-field-avatar").value = id;
+    }
+  </script>
+  <div class="avatar-images">
+    <img id="1" src="images/avatars/1.jpg" height=50px width=50px onclick="setAvatar(1)"/>
+    <img id="2" src="images/avatars/2.jpg" height=50px width=50px onclick="setAvatar(2)"/>
+    <img id="3" src="images/avatars/3.jpg" height=50px width=50px onclick="setAvatar(3)"/>
+    <img id="4" src="images/avatars/4.jpg" height=50px width=50px onclick="setAvatar(4)"/>
+    <img id="5" src="images/avatars/5.jpg" height=50px width=50px onclick="setAvatar(5)"/>
+    <img id="6" src="images/avatars/6.jpg" height=50px width=50px onclick="setAvatar(6)"/>
+  </div>
+</template>
