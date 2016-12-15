@@ -1,33 +1,75 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Blocks } from '../../api/tower/tower.js';
+import { CoinBanks } from '../../api/tower/coinBank.js';
 import { jQuery } from 'meteor/jquery';
 import { Raphael } from 'meteor/agnito:raphael';
 import {jQueryUI} from 'meteor/mizzao:jquery-ui';
+import { Accounts } from 'meteor/accounts-base';
 
 import './tower.css';
 import './tower.html';
 
+// SUBSCRIPTIONS
 Template.Tower.onCreated(function towerOnCreated() {
   Meteor.subscribe('blocks');
+  Meteor.subscribe('coinBanks');
 });
 
-// IMAGE ASSET METHODS
+// ON RENDER
 Template.Tower.onRendered(function(){
+  populateSprites();
+  // checkAccountExists();
+  // Meteor.call('coinBank.create');
+});
+
+// COINBANK METHODS
+
+Template.Tower.helpers({
+  balance() {
+    var userId = Meteor.userId();
+    coinBank = CoinBanks.findOne({createdBy: userId});
+    return coinBank.balance;
+  }
+});
+
+function checkAccountExists(){
+  if (noAccount()) {
+    Meteor.call('coinBank.create');
+  }
+}
+
+function noAccount() {
+  var userId = Meteor.userId();
+  if(CoinBanks.findOne({createdBy: userId}) ){
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function addCoins(amount, userId){
+  Meteor.call('coinBank.adjustBalance', amount, userId);
+}
+
+
+
+// RETURN SPRITES
+
+function populateSprites(){
   imgBlocks = returnBlocks().fetch();
   if (imgBlocks.length > 0) {
     for(i=0; i< imgBlocks.length; i++){
       recreateSpriteFromDatabase(imgBlocks[i]._id, imgBlocks[i].src, imgBlocks[i].className, imgBlocks[i].xPos, imgBlocks[i].yPos);
     }
   }
-});
+}
 
 function returnBlocks() {
-  // console.log(Blocks.find().fetch());
   return Blocks.find();
 }
 
-// General generate element method
+// GENERATE SPRITES
 function createSprite(src, className) {
   var canvas = document.getElementById('game-canvas');
   var spanElement = document.createElement('span');
@@ -56,7 +98,7 @@ function createSprite(src, className) {
   });
 
 }
-
+// POPULATE PAGE WITH DATABASE SPRITES
 function recreateSpriteFromDatabase(elementId, src, className, x, y) {
   $(document).ready(function() {
 
@@ -152,9 +194,5 @@ Template.Tower.events({
     var element = document.getElementById(elementId);
     element.remove();
  }
-
-});
-
-Template.Tower.helpers({
 
 });

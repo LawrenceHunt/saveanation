@@ -13,12 +13,12 @@
 
 #game-canvas {
   position: absolute;
-  top: 80px;
+  top: 85px;
   width: 80%;
   height: 100%;
   bottom: 0;
   background-image: url('game/misc/background.png');
-  background-repeat: no-repeat;
+  background-repeat: vertical;
   background-size: 100%;
   display: block;
   margin: 0 auto;
@@ -47,9 +47,10 @@
   height: 100%;
   background: black;
   right: 0;
-  top: 80px;
+  top: 85px;
   text-align: center;
   overflow: scroll;
+  padding-bottom: 10px;
 }
 
 #items h2 {
