@@ -35,12 +35,6 @@ Template.Tower.helpers({
       return coinBank.balance;
     }
   },
-  spriteElements() {
-    return Blocks.find();
-  },
-  renderSpriteElements(id, src, className, xPos, yPos) {
-    recreateSpriteFromDatabase(id, src, className, xPos, yPos);
-  },
 });
 
 function checkAccountExists(){
