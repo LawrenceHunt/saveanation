@@ -11,6 +11,10 @@ import './review.html';
 import './confirmation.html';
 import './save.css';
 
+import '../badges/first_saving.html';
+import '../badges/second_saving.html';
+import '../badges/third_saving.html';
+
 Template.Save.onCreated(function transactionsOnCreated(){
   Meteor.subscribe('transactions');
   Meteor.subscribe('savingsAccounts');
@@ -102,6 +106,9 @@ Template.ReviewSaving.events({
     Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
     Session.set('showConfirmMessage', true);
     Session.set('coinsAwarded', parseInt(amount)*10);
+
+    var userId = Meteor.userId();
+    Session.set('transactionsCount', Transactions.find({owner: userId}).count());
     BlazeLayout.render("mainLayout", {content: 'Save'});
   },
   'click .reject-deposit'(event) {
@@ -117,5 +124,21 @@ Template.ConfirmationMessage.helpers({
   },
   coinsAwarded() {
     return Session.get('coinsAwarded');
+  },
+  firstSaving() {
+    if(Session.get('transactionsCount') == 1) {
+      return true;
+    }
+  },
+  secondSaving() {
+    if(Session.get('transactionsCount') == 2) {
+      return true;
+    }
+  }
+  ,
+  thirdSaving() {
+    if(Session.get('transactionsCount') == 3) {
+      return true;
+    }
   }
 });
