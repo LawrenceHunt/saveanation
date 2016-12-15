@@ -53,16 +53,18 @@ img.carousel-image {
 	height: auto;
   position: absolute;
 	display: inline-block;
-  top: 10%;
-	background-color: #fff;
+  top: -10%;
 	overflow: scroll;
+	background-color: #fff;
+
+	box-shadow: 10px 10px #91cef4;
 	box-shadow:
-	1px 1px purple,
-	3px 3px blue,
-	6px 6px green,
-	9px 9px yellow,
-	12px 12px orange,
-	15px 15px red;
+    1px 1px purple,
+    3px 3px blue,
+    6px 6px green,
+    9px 9px yellow,
+    12px 12px orange,
+    15px 15px red;
 }
 
 
@@ -223,4 +225,38 @@ img.carousel-image {
 @-o-keyframes moveclouds {
 	0% {margin-left: 1000px;}
 	100% {margin-left: -1000px;}
+}
+
+.at-input {
+	padding: 0 10px;
+
+}
+
+span.fa.fa-check::before {
+	visibility: hidden;
+}
+
+div.at-input.has-feedback.has-error span {
+	position: absolute;
+	right: 10px;
+	font-size: x-small;
+}
+
+#signIn {
+	position: relative;
+	right: 50px;
+	margin: -20px 0;
+}
+
+#at-btn {
+	margin: 8px 0;
+}
+
+.at-signup-link, .at-signin-link {
+	margin-bottom: 7px;
+}
+
+#buttons {
+	/*margin-top: 20px;*/
+	/*background-color: red;*/
 }

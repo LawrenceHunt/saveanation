@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Users } from '../profiles/profiles.js';
 import messages from './encouragement.js';
 export const Posts = new Mongo.Collection('posts');
 
@@ -10,6 +11,9 @@ PostSchema = new SimpleSchema({
   },
   author: {
     type: String,
+  },
+  author_id: {
+    type: String
   },
   createdAt: {
     type: Date,
@@ -32,12 +36,13 @@ Meteor.methods({
     if(!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    var currentUser = Meteor.user().profile.username;
-    // Create the post object
+    let currentUserId = this.userId;
+    let currentUser = Meteor.users.findOne(currentUserId).profile.username;
     Posts.insert({
       body: text,
       encouragement: encouragement,
-      author: currentUser
+      author: currentUser,
+      author_id: currentUserId
     });
   }
 });

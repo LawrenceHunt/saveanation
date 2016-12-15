@@ -13,13 +13,7 @@ if(Meteor.isServer) {
       const userId = Random.id();
       const addSavingsAccount = Meteor.server.method_handlers['savingsAccounts.create'];
       const invocation = { userId };
-      // const SavingAccountId = SavingsAccounts.insert({
-      //     amount: parseInt(125),
-      //     owner: userId,
-      //     text: "Test",
-      //     createdAt: new Date(),
-      //     type: "deposit"
-      //   });
+    
       beforeEach(function(){
         resetDatabase();
       });

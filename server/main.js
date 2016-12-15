@@ -33,10 +33,6 @@ AccountsTemplates.configure({
     positiveFeedback: true,
     showValidating: true,
 
-    // // Privacy Policy and Terms of Use
-    // privacyUrl: 'privacy',
-    // termsUrl: 'terms-of-use',
-
     // Redirects
     homeRoutePath: '/home',
     redirectTimeout: 4000,
@@ -58,8 +54,6 @@ AccountsTemplates.configure({
 });
 
 Meteor.startup(() => {
-  // code to run on server at startup
-  // process.env.MAIL_URL="YOU-CODE-HERE";
   Accounts.onCreateUser( ( options, user ) => {
     user.profile = options.profile;
     user.profile.username = user.username;

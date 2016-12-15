@@ -97,35 +97,12 @@ AccountsTemplates.addFields([
       required: true
   },
   {
-      _id: "avatar",
-      type: "select",
-      displayName: "Avatar",
-      select: [
-          {
-              text: "Frances",
-              value: "1",
-          },
-          {
-              text: "Lawrence",
-              value: "2",
-          },
-          {
-              text: "Jen",
-              value: "3",
-          },
-          {
-              text: "Andy",
-              value: "4",
-          },
-          {
-              text: "Michael",
-              value: "5",
-          },
-          {
-              text: "Stevie",
-              value: "6",
-          }],
-      required: true,
-      template: "avatarSelectTemplate"
+      _id: 'avatar',
+      type: 'hidden'
+    },
+  {
+      _id: 'selectImage',
+      type: 'text',
+      template: "avatarList"
     }
     ]);
