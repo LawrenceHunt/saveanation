@@ -27,3 +27,11 @@
 }
 
 tr:nth-child(even) {background-color: #f5f5f5}
+
+.confirmation {
+  border: 1px dotted #aaa;
+  border-radius: 3px;
+  background-color: #eee;
+  padding: 10px 25px 10px 25px;
+  margin: 10px;
+}
