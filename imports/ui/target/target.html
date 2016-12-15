@@ -64,7 +64,7 @@
     {{/if}}
     {{#if targets.count != 0}}
 
-        <h2>You have saved:</h2>
+        <h2>You've saved:</h2>
         <p class="current-balance">{{ formatMoney currentBalance }}</p>
         <div class="styled-select slate">
           <select name="date-range" class="date-range">
@@ -79,7 +79,7 @@
           .line {
             transform:rotate({{totalInDegrees}});
             animation: pendulum;
-            animation-iteration-count: 2;
+            animation-iteration-count: 1;
             animation-duration: 8s;
           }
           @keyframes pendulum {
@@ -118,9 +118,8 @@
           </div>
         </div>
 
-        <h2>You have achieved {{percentageOfTotal}}% of your target of </h2>
-        <p class="goal">{{ formatMoney targetAmount }}</p>
-        <p>which you're aiming to save by {{ formatDate targetDate }}.</p>
+        <p class="current-balance">{{percentageOfTotal}}%</p>
+        <h2>of your target of {{ formatMoney targetAmount }}</h2>
     {{/if}}
 
   </div>
