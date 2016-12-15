@@ -58,10 +58,10 @@ Template.Save.events({
     BlazeLayout.render("mainLayout", {content: 'ReviewSaving'});
   },
   'click .visit-tower'(event) {
-    resetSessionVars();
+    clearSessionVars();
   },
   'click .dismiss'(event) {
-    resetSessionVars();
+    clearSessionVars();
   }
 });
 
@@ -74,13 +74,12 @@ function noAccount() {
   }
 }
 
-function resetSessionVars() {
+function clearSessionVars() {
   Session.set('amount', undefined);
   Session.set('text', undefined);
   Session.set('showConfirmMessage', false);
+  Session.set('coinsAwarded', undefined);
 }
-
-
 
 Template.ReviewSaving.helpers({
   savingAmount() {
@@ -102,6 +101,7 @@ Template.ReviewSaving.events({
     Meteor.call('transactions.add', amount, text, 'deposit');
     Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
     Session.set('showConfirmMessage', true);
+    Session.set('coinsAwarded', parseInt(amount)*10);
     BlazeLayout.render("mainLayout", {content: 'Save'});
   },
   'click .reject-deposit'(event) {
@@ -114,5 +114,8 @@ Template.ConfirmationMessage.helpers({
   savingAmount() {
     var amount = Session.get('amount');
     return accounting.formatMoney(amount, "£", 2, ",", ".");
+  },
+  coinsAwarded() {
+    return Session.get('coinsAwarded');
   }
 });
