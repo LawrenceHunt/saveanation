@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Users } from '../profiles/profiles.js';
 import messages from './encouragement.js';
 export const Posts = new Mongo.Collection('posts');
 
@@ -36,8 +37,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
     let currentUserId = this.userId;
-    let currentUser = Meteor.users.findOne(currentUserId).profile.username
-    // Create the post object
+    let currentUser = Meteor.users.findOne(currentUserId).profile.username;
     Posts.insert({
       body: text,
       encouragement: encouragement,

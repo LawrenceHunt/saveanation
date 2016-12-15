@@ -1,0 +1,33 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: block;
+  margin: 20px 0 0 0;
+}
+
+li img {
+  margin: 0 0 0 0;
+  width:60px;
+  height:60px;
+}
+
+li p {
+  margin: 0;
+}
+
+li button {
+  font-weight: 600;
+  font-size: 12px;
+  padding: 4px 12px;
+}
+
+.submit-new-team-name input {
+  text-align: center;
+}
+
+.fa-edit {
+  padding: 0 15px 0 0;
+}
