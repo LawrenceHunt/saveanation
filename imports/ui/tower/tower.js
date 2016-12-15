@@ -35,23 +35,6 @@ Template.Tower.helpers({
       return coinBank.balance;
     }
   },
-  spriteElements() {
-    return Blocks.find()
-  },
-  renderSpriteElements(id, src, className, xPos, yPos) {
-    let htmlString = '<span><img src=' + src + ' class="' + className + ' ui-draggable ui-draggable-handle" style="position: relative; top: ' + xPos + '; left: ' + yPos + ';" id=' + id +'></span>'
-    return htmlString
-    var classNameWithDot = '.' + className;
-    $(classNameWithDot).draggable( {
-      stop: function(){
-        var finalOffset = $(this).offset();
-        var finalxPos = finalOffset.left;
-        var finalyPos = finalOffset.top;
-        Meteor.call('blocks.edit', blockId, className, finalxPos, finalyPos);
-      },
-    });
-    // recreateSpriteFromDatabase(id, src, className, xPos, yPos);
-  },
 });
 
 function checkAccountExists(){
