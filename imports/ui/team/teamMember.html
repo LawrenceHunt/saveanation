@@ -1,5 +1,10 @@
 <template name="teamMember">
   <li>
+    <img src="images/avatars/{{ profile.avatar }}.jpg" width="160px" height="160px"/>
     {{ username }}
+    {{ email }}
+    {{#if editMode}}
+      <button class="js-delete" id={{_id}}>Delete User</button>
+    {{/if}}
   </li>
 </template>

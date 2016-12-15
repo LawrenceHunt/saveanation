@@ -1,31 +1,19 @@
 <template name="Profile">
   <div class="main-area">
-    <h1>Your profile</h1>
+      <i class="fa fa-edit"></i>
+      <h1>Your Profile</h1>
     <img src="images/avatars/{{avatar}}.jpg" height="160px" width="160px">
     <div class="post-text">
-      Username
       <p class="post-info">{{userName}}</p>
     </div>
     <div class="post-text">
-      Full name
       <p class="post-info">{{fullName}}</p>
     </div>
     <div class="post-text">
-      Email
       <p class="post-info">{{emailAddress}}</p>
     </div>
-    <button id="edit-profile">Edit your profile</button>
-    <!-- <p><a href="/edit-profile">Edit your profile</a></p> -->
-  </div>
-</template>
-
-<template name="EditProfile">
-  <div class="main-area">
-    <h1>Edit your profile</h1>
-    <form class="edit-profile">
-      <div>
-        <img src="images/avatars/{{avatar}}.jpg" height=100px width=100px>
-      </div>
+    {{#if $.Session.get 'editMode'}}
+    <form class="edit-profile" id="update-profile">
       <div>
         <input class="" type="text" placeholder="Username" name="userName" id="username" value="{{ userName }}"/>
       </div>
@@ -39,5 +27,6 @@
         <button class="ui blue large button" id="update-button" type="submit">Update</button>
       </div>
     </form>
+    {{/if}}
   </div>
 </template>

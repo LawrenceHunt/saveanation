@@ -39,28 +39,7 @@ Template.Profile.events({
   'click #edit-profile'(event) {
     event.preventDefault();
     BlazeLayout.render("mainLayout", {content: 'EditProfile'});
-  }
-});
-
-Template.EditProfile.helpers({
-  userName() {
-    return Meteor.user().profile.username;
   },
-  firstName() {
-    const currentUser = Meteor.user();
-    return currentUser.profile.firstName;
-  },
-  lastName() {
-    const currentUser = Meteor.user();
-    return currentUser.profile.lastName;
-  },
-  avatar() {
-    const currentUser = Meteor.user();
-    return currentUser.profile.avatar;
-  }
-});
-
-Template.EditProfile.events({
   'submit .edit-profile'(event) {
     event.preventDefault();
     const profile = event.target;
@@ -69,6 +48,10 @@ Template.EditProfile.events({
     const updateLastName = profile.lastName.value;
     const updateAvatar = Meteor.user().profile.avatar;
     Meteor.call('profiles.edit', updateUsername, updateFirstName, updateLastName, updateAvatar);
-    FlowRouter.go('profile');
+    Session.set('editMode', !Session.get('editMode'));
+  },
+  'click .fa-edit'(event) {
+    event.preventDefault();
+    Session.set('editMode', !Session.get('editMode'));
   }
 });

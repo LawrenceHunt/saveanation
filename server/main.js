@@ -59,6 +59,7 @@ AccountsTemplates.configure({
 
 Meteor.startup(() => {
   // code to run on server at startup
+  // process.env.MAIL_URL="YOU-CODE-HERE";
   Accounts.onCreateUser( ( options, user ) => {
     user.profile = options.profile;
     user.profile.username = user.username;
@@ -72,3 +73,9 @@ Meteor.startup(() => {
     return Emojis.find();
   });
 });
+
+Accounts.emailTemplates.enrollAccount.text = function (user, url) {
+   return "You have been selected to participate in building a better future!"
+     + " To activate your account, simply click the link below:\n\n"
+     + url;
+};
