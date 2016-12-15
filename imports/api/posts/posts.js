@@ -35,8 +35,8 @@ Meteor.methods({
     if(!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    var currentUser = Meteor.user().profile.username;
-    var currentUserId = Meteor.user()._id;
+    let currentUserId = this.userId;
+    let currentUser = Meteor.users.findOne(currentUserId).profile.username
     // Create the post object
     Posts.insert({
       body: text,

@@ -23,11 +23,12 @@ Template.Profile.helpers({
   },
   lastName() {
     const currentUser = Meteor.user();
+    console.log(currentUser);
     return currentUser.profile.lastName;
   },
   emailAddress() {
     const currentUser = Meteor.user();
-    return currentUser.email;
+    return currentUser.emails[0].address;
   },
   avatar() {
     const currentUser = Meteor.user();
