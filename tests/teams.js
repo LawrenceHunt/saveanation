@@ -25,6 +25,16 @@ describe("Team @watch", function() {
     expect(getText(mainBrowser, "div.main-area","li:nth-of-type(2)")).to.equal("Donald");
   });
 
+  it("can edit team", function() {
+    createTeam(mainBrowser, "Team Trump");
+    mainBrowser.waitForExist("button.edit-team",2000);
+    mainBrowser.click("button.edit-team");
+    mainBrowser.waitForExist("input#new-team-name",2000);
+    mainBrowser.setValue("input#new-team-name", "Team POTUS");
+    mainBrowser.click("button.js-submit-new-team-name");
+    expect(getText(mainBrowser,'div.main-area', 'h2#team-name')).to.equal("Team POTUS");
+  });
+
 
   //
   // it("can invite team members", function() {
