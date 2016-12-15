@@ -14,9 +14,8 @@ describe('Saving Feed @watch', function () {
 
     it('displays saving activity', function() {
       makeSaving(mainBrowser, 10, "Because");
-      expect(getText(mainBrowser,'p.post-text')).to.equal('Just saved £10.00: Because');
+      expect(getText(mainBrowser,'p.post-text')).to.equal('Just saved £10: Because');
     });
-
 
     it('displays post', function(){
       addPost(mainBrowser, 'I have saved loads of money');
