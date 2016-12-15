@@ -65,14 +65,14 @@ Template.Save.events({
   }
 });
 
-function noAccount() {
+noAccount = function () {
   var userId = Meteor.userId();
   if(SavingsAccounts.findOne({createdBy: userId}) ){
     return false;
   } else {
     return true;
   }
-}
+};
 
 function clearSessionVars() {
   Session.set('amount', undefined);
@@ -93,7 +93,7 @@ Template.ReviewSaving.helpers({
 
 Template.ReviewSaving.events({
   'click .confirm-deposit'(event) {
-    if (noAccount()) {
+    if (noAccount) {
       Meteor.call('savingsAccounts.create');
     }
     let amount = Session.get('amount');

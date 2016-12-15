@@ -1,6 +1,6 @@
 // export function signUp(username, email, password){
 //   server.call('user.signup', username, email, password);
-// =======
+
 export function signUp(browserName, username, email, password){
   browserName.url("localhost:3000");
   browserName.waitForExist("#login-sign-in-link");

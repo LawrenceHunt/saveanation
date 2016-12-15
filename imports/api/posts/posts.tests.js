@@ -8,18 +8,21 @@ import { Posts } from './posts.js';
 if(Meteor.isServer) {
   describe('Post', function() {
     describe('methods', function() {
-      const userId = Random.id();
-      let postId;
+      const addPost = Meteor.server.method_handlers['post.add'];
+      // const userId = Random.id();
+      const userId = 1;
+      const user = Accounts.createUser({_id: 1, username: "Dave", email: "dave@dave.com", password: "password"});
+      const invocation = { userId };
 
+      let postId;
       beforeEach(function(){
         resetDatabase();
       });
 
       it('can add a post', function(){
-        const addPost = Meteor.server.method_handlers['posts.insert'];
-        const invocation = { body: "hello", createdAt: new Date()};
-        addPost.apply(invocation, [postId] );
-        expect(Posts.find().count()).to.equal(0);
+
+        addPost.apply(invocation,[ "test", "test"]);
+        expect(Posts.find().count()).to.equal(1);
       });
     });
   });
