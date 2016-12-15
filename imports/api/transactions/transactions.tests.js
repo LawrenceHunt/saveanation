@@ -43,6 +43,11 @@ if(Meteor.isServer) {
         var savingsAccountBalance = SavingsAccounts.findOne({}).balance;
         expect(savingsAccountBalance).to.equal(125);
       });
+      it("allows a decimal deposit", function(){
+        addTransaction.apply(invocation, [1.50, "test", "deposit"]);
+        var savingsAccountBalance = SavingsAccounts.findOne({}).balance;
+        expect(savingsAccountBalance).to.equal(1.50);
+      });
     });
   });
 }

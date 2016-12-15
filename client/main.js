@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import '../imports/startup/client';
-import { Users } from '../imports/api/profiles/profiles.js'
+import { Users } from '../imports/api/profiles/profiles.js';
 import '../imports/ui/account/avatarSelectTemplate.html';
 
 Meteor.startup(function() {

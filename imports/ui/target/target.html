@@ -1,7 +1,48 @@
 <template name="Target">
 
   <div class="main-area">
+
     <h1>Target</h1>
+    {{#if targets.count != 0}}
+      <i class="fa fa-edit"></i>
+      <i class="fa fa-trash" id="{{ targetId }}"></i>
+    {{else}}
+      <i class="fa fa-plus"></i>
+
+      <p>Add your target amount and date and we'll do the calculations for you!</p>
+    {{/if}}
+    {{#if $.Session.get 'addMode' }}
+      <div class="addTarget">
+        <h3>Add a target</h3>
+        <form class="new-target">
+          <input type="text" class="targetAmount" name="targetAmount" placeholder="Your Target" required/>
+          <input type="date" class="targetDate" name="targetDate" required/>
+          <button type="button" class="calculate">Calculate</button>
+          <button type="submit">Submit</button>
+        </form>
+        <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
+        <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
+        <p>{{ formatMoney monthlyTarget }} per month</p>
+        <p>{{ formatMoney weeklyTarget }} per week</p>
+        <p>{{ formatMoney dailyTarget }} per day</p>
+      </div>
+    {{/if}}
+      {{#if $.Session.get 'editMode' }}
+        <div class="editTarget">
+          <h3>Edit your target</h3>
+          <form class="edit-target">
+            <input type="text" class="targetAmount" name="targetAmount" value="{{ targetAmount }}" required/>
+            <input type="date" class="targetDate" name="targetDate" value="{{ targetDate }}" required/>
+            <button type="button" class="calculate">Calculate</button>
+            <button type="submit">Submit</button>
+          </form>
+          <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
+          <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
+          <p>{{ formatMoney monthlyTarget }} per month</p>
+          <p>{{ formatMoney weeklyTarget }} per week</p>
+          <p>{{ formatMoney dailyTarget }} per day</p>
+        </div>
+    {{/if}}
     {{#if targets.count != 0}}
 
         <h2>You have saved:</h2>
@@ -61,48 +102,14 @@
         <h2>You have achieved {{percentageOfTotal}}% of your target of </h2>
         <p class="goal">{{ formatMoney targetAmount }}</p>
         <p>which you're aiming to save by {{ formatDate targetDate }}.</p>
-
-        <!-- <h3> You still need to save: {{stillToSave}}</h3> -->
-        <button class="go-to-edit-target" name="{{ targetId }}">Edit Target</button>
-        <button class="delete-target" name="{{ targetId }}">Delete Target</button>
-
-    {{else}}
-      <h2>Enter a target</h2>
-      <form class="new-target">
-        <input type="text" class="targetAmount" name="targetAmount" placeholder="Target amount" required/>
-        <input type="date" class="targetDate" name="targetDate" placeholder="Target complete" required/>
-        <button type="button" class="calculate">Calculate</button>
-        <button type="submit">Submit</button>
-      </form>
-      <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
-      <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
-      <p>{{ formatMoney monthlyTarget }} per month</p>
-      <p>{{ formatMoney weeklyTarget }} per week</p>
-      <p>{{ formatMoney dailyTarget }} per day</p>
-
     {{/if}}
-  </div>
-</template>
 
-<template name="EditTarget">
-  <div class="main-area">
-    <h1>Edit your target</h1>
-    <form class="edit-target">
-      <input type="text" class="targetAmount" name="targetAmount" value="{{ targetAmount }}" required/>
-      <input type="date" class="targetDate" name="targetDate" value="{{ targetDate }}" required/>
-      <button type="button" class="calculate">Calculate</button>
-      <button type="submit">Submit</button>
-    </form>
-    <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
-    <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
-    <p>{{ formatMoney monthlyTarget }} per month</p>
-    <p>{{ formatMoney weeklyTarget }} per week</p>
-    <p>{{ formatMoney dailyTarget }} per day</p>
   </div>
 </template>
 
 <template name="TargetSummary">
   <div class="main-area">
+
     <h1>Your target</h1>
     {{#if targets.count != 0}}
       <h3>Your target</h3>
