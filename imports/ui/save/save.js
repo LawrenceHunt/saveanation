@@ -103,7 +103,7 @@ Template.ReviewSaving.events({
     let amount = Session.get('amount');
     let text = Session.get('text');
     Meteor.call('transactions.add', amount, text, 'deposit');
-    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, '£', 0) + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
+    Meteor.call('post.add', "Just saved " + accounting.formatMoney(amount, "£", 2, ",", ".") + ": " + (text? text: "They didn't say why?!"), Meteor.myFunctions.encouragement());
     Session.set('showConfirmMessage', true);
     Session.set('coinsAwarded', parseInt(amount)*10);
 
