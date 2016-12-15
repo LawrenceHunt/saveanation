@@ -7,24 +7,26 @@
       <i class="fa fa-edit"></i>
       <i class="fa fa-trash" id="{{ targetId }}"></i>
     {{else}}
-      <i class="fa fa-plus"></i>
-
-      <p>Add your target amount and date and we'll do the calculations for you!</p>
-    {{/if}}
-    {{#if $.Session.get 'addMode' }}
+      <p>Add your target amount and date & we'll do the calculations for you!</p>
       <div class="addTarget">
-        <h3>Add a target</h3>
         <form class="new-target">
           <input type="text" class="targetAmount" name="targetAmount" placeholder="Your Target" required/>
           <input type="date" class="targetDate" name="targetDate" required/>
           <button type="button" class="calculate">Calculate</button>
           <button type="submit">Submit</button>
         </form>
-        <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
-        <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
-        <p>{{ formatMoney monthlyTarget }} per month</p>
-        <p>{{ formatMoney weeklyTarget }} per week</p>
-        <p>{{ formatMoney dailyTarget }} per day</p>
+        <div class="target-breakdown">
+          <div>
+            <p>Current Balance: {{ formatMoney currentBalance}}</p>
+          </div>
+          <div>
+            <p>To reach your target by {{formatDate tempTargetDate}}, you need to save {{formatMoney stillToSave}}.</p>
+          </div>
+          <p>Breakdown</p>
+          <p>{{ formatMoney monthlyTarget }} per month</p>
+          <p>{{ formatMoney weeklyTarget }} per week</p>
+          <p>{{ formatMoney dailyTarget }} per day</p>
+        </div>
       </div>
     {{/if}}
       {{#if $.Session.get 'editMode' }}
@@ -36,11 +38,18 @@
             <button type="button" class="calculate">Calculate</button>
             <button type="submit">Submit</button>
           </form>
-          <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
-          <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
-          <p>{{ formatMoney monthlyTarget }} per month</p>
-          <p>{{ formatMoney weeklyTarget }} per week</p>
-          <p>{{ formatMoney dailyTarget }} per day</p>
+          <div class="target-breakdown">
+            <div>
+              <p>Current Balance: {{ formatMoney currentBalance}}</p>
+            </div>
+            <div>
+              <p>To reach your target by {{formatDate tempTargetDate}}, you need to save {{formatMoney stillToSave}}.</p>
+            </div>
+            <p>Breakdown</p>
+            <p>{{ formatMoney monthlyTarget }} per month</p>
+            <p>{{ formatMoney weeklyTarget }} per week</p>
+            <p>{{ formatMoney dailyTarget }} per day</p>
+          </div>
         </div>
     {{/if}}
     {{#if targets.count != 0}}
@@ -119,11 +128,17 @@
         <a href="/edit-target" class="edit-target">Edit Target</a>
       {{/each}}
     {{/if}}
-
-    <p>Your Current Balance is: {{ formatMoney currentBalance}}</p>
-    <p>You need an extra {{formatMoney stillToSave}}, to save {{formatMoney tempTargetAmount}} by {{formatDate tempTargetDate}}, you'll need to save:</p>
-    <p>{{ formatMoney monthlyTarget }}</p>
-    <p>{{ formatMoney weeklyTarget }}</p>
-    <p>{{ formatMoney dailyTarget }}</p>
+    <div class="target-breakdown">
+      <div>
+        <p>Current Balance: {{ formatMoney currentBalance}}</p>
+      </div>
+      <div>
+        <p>To reach your target by {{formatDate tempTargetDate}}, you need to save {{formatMoney stillToSave}}.</p>
+      </div>
+      <p>Breakdown</p>
+      <p>{{ formatMoney monthlyTarget }} per month</p>
+      <p>{{ formatMoney weeklyTarget }} per week</p>
+      <p>{{ formatMoney dailyTarget }} per day</p>
+    </div>
   </div>
 </template>
