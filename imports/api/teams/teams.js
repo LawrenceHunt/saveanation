@@ -15,14 +15,16 @@ if(Meteor.isServer) {
     'team.add'(teamName){
       check(teamName, String);
 
-      let currentUser = Meteor.user();
+      let currentUserId = this.userId;
+      let currentUser = Meteor.users.findOne(currentUserId)
+      
       Teams.insert({
         teamName,
-        memberIds: [currentUser._id],
+        memberIds: [currentUserId],
         userDetailsForDisplay: [{ email: currentUser.emails[0].address,
                                   username: currentUser.username,
                                   profile: currentUser.profile}],
-        createdBy: currentUser._id,
+        createdBy: currentUserId,
       });
     },
     'team.addMember'(newFriendEmail, newFriendUsername){

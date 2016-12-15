@@ -8,7 +8,7 @@ import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Teams } from './teams.js';
 
 if(Meteor.isServer) {
-  describe('Team', function() {
+  describe('Team meteor methods in API', function() {
     before(function() {
       // resetDatabase();
       Accounts.createUser({username: "bill", email: "bill@bill.com", password: "asddsa"});
@@ -29,21 +29,37 @@ if(Meteor.isServer) {
 
       expect(Teams.find().count()).to.equal(1);
       expect(ourTeam.teamName).to.equal(teamName);
-      expect(ourTeam.members).to.include(bill);
+      expect(ourTeam.memberIds).to.include(userId);
     });
     //not resetting database: using above team
     it('can add a team member', function(){
       let bill = Accounts.findUserByUsername("bill");
-      let ourTeam = Teams.findOne();
       let userId = bill._id;
 
       const addTeamMember = Meteor.server.method_handlers['team.addMember'];
       const invocation = { userId };
-      addTeamMember.apply(invocation, ["myfriend@friends.com"]);
+      addTeamMember.apply(invocation, ["myfriend@friends.com", "rick"]);
 
       let rick = Accounts.findUserByEmail("myfriend@friends.com");
+      let rickDisplayDetails = { _id: rick._id, username: rick.username, email: "myfriend@friends.com", profile: { avatar : 0 } }
+
       let ourTeamUpdated = Teams.findOne()
-      expect(ourTeamUpdated.members).to.include(rick);
+      expect(ourTeamUpdated.memberIds).to.include(rick._id);
+      expect(ourTeamUpdated.userDetailsForDisplay).to.include(rickDisplayDetails);
     });
+
+    // it('can remove a team member', function(){
+    //   let rick = Accounts.findUserByUsername("rick");
+    //   let ourTeam = Teams.findOne();
+    //   let userId = rick._id;
+    //
+    //   const addTeamMember = Meteor.server.method_handlers['team.addMember'];
+    //   const invocation = { userId };
+    //   addTeamMember.apply(invocation, ["myfriend@friends.com", "rick"]);
+    //
+    //   let rick = Accounts.findUserByEmail("myfriend@friends.com");
+    //   let ourTeamUpdated = Teams.findOne()
+    //   expect(ourTeamUpdated.memberIds).to.include(rick._id);
+    // });
   });
 }
