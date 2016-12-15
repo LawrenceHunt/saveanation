@@ -17,7 +17,7 @@ if(Meteor.isServer) {
 
       let currentUserId = this.userId;
       let currentUser = Meteor.users.findOne(currentUserId)
-      
+
       Teams.insert({
         teamName,
         memberIds: [currentUserId],

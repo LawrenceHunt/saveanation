@@ -41,25 +41,29 @@ if(Meteor.isServer) {
       addTeamMember.apply(invocation, ["myfriend@friends.com", "rick"]);
 
       let rick = Accounts.findUserByEmail("myfriend@friends.com");
-      let rickDisplayDetails = { _id: rick._id, username: rick.username, email: "myfriend@friends.com", profile: { avatar : 0 } }
+      let rickDisplayDetails = { _id: rick._id, username: rick.username, email: "myfriend@friends.com", profile: { avatar : 0 } };
 
       let ourTeamUpdated = Teams.findOne()
       expect(ourTeamUpdated.memberIds).to.include(rick._id);
       expect(ourTeamUpdated.userDetailsForDisplay).to.include(rickDisplayDetails);
     });
 
-    // it('can remove a team member', function(){
-    //   let rick = Accounts.findUserByUsername("rick");
-    //   let ourTeam = Teams.findOne();
-    //   let userId = rick._id;
-    //
-    //   const addTeamMember = Meteor.server.method_handlers['team.addMember'];
-    //   const invocation = { userId };
-    //   addTeamMember.apply(invocation, ["myfriend@friends.com", "rick"]);
-    //
-    //   let rick = Accounts.findUserByEmail("myfriend@friends.com");
-    //   let ourTeamUpdated = Teams.findOne()
-    //   expect(ourTeamUpdated.memberIds).to.include(rick._id);
-    // });
+    it('can remove a team member', function(){
+      let bill = Accounts.findUserByUsername("bill");
+      let userId = bill._id;
+
+      let rick = Accounts.findUserByUsername("rick");
+
+      const removeTeamMember = Meteor.server.method_handlers['team.removeMember'];
+      const invocation = { userId };
+      removeTeamMember.apply(invocation, [rick._id]);
+
+      let rickDisplayDetails = { _id: rick._id, username: rick.username, email: "myfriend@friends.com", profile: { avatar : 0 } };
+
+      let ourTeamUpdated = Teams.findOne();
+      expect(ourTeamUpdated.memberIds).to.not.include(rick._id);
+      expect(ourTeamUpdated.userDetailsForDisplay).to.not.include(rickDisplayDetails);
+
+    });
   });
 }
