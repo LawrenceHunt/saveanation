@@ -6,7 +6,7 @@
       {{#if teams.count != 0}}
       {{#each teams}}
         {{#if editMode}}
-          <form class="js-submit-new-team-name">
+          <form class="js-submit-new-team-name submit-new-team-name">
             <input type="text" name="newTeamName" placeholder="{{teamName}}">
             <button class="js-submit-new-team-name">Submit new Team Name</button>
           </form>
@@ -19,8 +19,7 @@
           {{#each userDetailsForDisplay}}
           <li>
             <img src="images/avatars/{{ profile.avatar }}.jpg" width="60px" height="60px"/>
-            {{ username }}
-            {{ email }}
+            <p>{{ username }}</p>
             {{#if editMode}}
               <button class="js-delete-team-member" id={{_id}}>Delete User</button>
             {{/if}}
@@ -31,8 +30,10 @@
         <p>Team was created on {{ formatDate createdAt }} by {{ createdBy }} </p>
         {{#if editMode}}
           <button class="delete-team" name="{{ _id }}">Delete Team</button>
+          <button class="cancel-edit-mode">Cancel Edit</button>
+        {{else}}
+          <button class="edit-team">Edit Team</button>
         {{/if}}
-        <a href="/edit-team" class="edit-team">Edit Team</a>
 
         {{> addTeamMemberForm }}
       {{/each}}
