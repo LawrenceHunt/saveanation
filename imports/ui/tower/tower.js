@@ -34,7 +34,13 @@ Template.Tower.helpers({
       coinBank = CoinBanks.findOne({createdBy: userId});
       return coinBank.balance;
     }
-  }
+  },
+  spriteElements() {
+    return Blocks.find()
+  },
+  renderSpriteElements(id, src, className, xPos, yPos) {
+    recreateSpriteFromDatabase(id, src, className, xPos, yPos);
+  },
 });
 
 function checkAccountExists(){
@@ -63,17 +69,12 @@ function changeCoins(amount){
 // RETURN SPRITES
 
 function populateSprites(){
-  imgBlocks = returnBlocks().fetch();
-  console.log(imgBlocks);
+  imgBlocks = Blocks.find().fetch();
   if (imgBlocks.length > 0) {
     for(i=0; i< imgBlocks.length; i++){
       recreateSpriteFromDatabase(imgBlocks[i]._id, imgBlocks[i].src, imgBlocks[i].className, imgBlocks[i].xPos, imgBlocks[i].yPos);
     }
   }
-}
-
-function returnBlocks() {
-  return Blocks.find();
 }
 
 // GENERATE SPRITES
@@ -107,8 +108,6 @@ function createSprite(src, className) {
 }
 // POPULATE PAGE WITH DATABASE SPRITES
 function recreateSpriteFromDatabase(elementId, src, className, x, y) {
-  $(document).ready(function() {
-
     var canvas = document.getElementById('game-canvas');
     var spanElement = document.createElement('span');
     var element = document.createElement('img');
@@ -130,7 +129,6 @@ function recreateSpriteFromDatabase(elementId, src, className, x, y) {
         Meteor.call('blocks.edit', blockId, className, finalxPos, finalyPos);
       },
     });
-  });
 }
 
 Template.Tower.events({
