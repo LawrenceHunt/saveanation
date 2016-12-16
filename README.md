@@ -1,5 +1,6 @@
-# Save a Nation
-A final project developed during the Makers Academy coding bootcamp.
+![SAN logo](http://i.imgur.com/MIhx1r3.png)
+
+### A final project developed during the Makers Academy coding bootcamp.
 
 Our deployed app can be found [here](http://saveanation.herokuapp.com]).
 
