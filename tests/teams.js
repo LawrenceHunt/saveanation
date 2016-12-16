@@ -2,7 +2,7 @@ import { cleanDatabase, getBrowser, signUpAndSignIn, getText, createTeam, addTea
 
 let mainBrowser;
 
-describe("Team", function() {
+describe("Team @watch", function() {
 
   beforeEach(function () {
     mainBrowser = getBrowser(0);

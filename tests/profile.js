@@ -2,7 +2,7 @@ import { signUpAndSignIn, getBrowser, cleanDatabase, getText, makeSaving, makeSa
 
 let mainBrowser;
 
-describe("Profile @watch", function() {
+describe("Profile", function() {
 
   beforeEach(function() {
     mainBrowser = getBrowser(0);
@@ -11,10 +11,15 @@ describe("Profile @watch", function() {
   });
 
   it("can edit username", function() {
+    mainBrowser.waitForExist("a#save-link",2000);
     mainBrowser.click("a#profile-link");
-    mainBrowser.waitForExist("input#username", 2000);
-    mainBrowser.setValue("input#username", "Donnie");
-    
+    mainBrowser.waitForExist("a#save-link",2000);
+    mainBrowser.click("i#edit-profile");
+    mainBrowser.waitForExist("a#save-link",2000);
+    mainBrowser.setValue("form.edit-profile input#username", "Donnie");
+    mainBrowser.click("button#update-button");
+    mainBrowser.waitForExist("i#edit-id", 2000);
+    expect(getText(mainBrowser,"div.main-area", "p:nth-of-type(1)")).to.contain("Donnie");
   });
 
 });
