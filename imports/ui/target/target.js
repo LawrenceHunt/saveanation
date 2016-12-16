@@ -45,9 +45,18 @@ Template.Target.helpers({
     const targetDate = moment(target.targetDate);
     return targetDate;
   },
+  dateRangeFrequency() {
+    return Session.get('dateOption');
+  },
   targetAmount() {
     let dateOption = Session.get('dateOption');
     return calculateTargetAmountByTimeRange(dateOption);
+  },
+  fullTargetAmount() {
+    const userId = Meteor.userId();
+    const target = Targets.findOne({createdBy: userId});
+    const targetAmount = target.targetAmount;
+    return targetAmount;
   },
   stillToSave() {
     const instance = Template.instance();
