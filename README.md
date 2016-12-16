@@ -1,4 +1,4 @@
-![SAN logo](http://i.imgur.com/MIhx1r3.png)
+![SAN FRONTPAGE](http://i.imgur.com/QENXAik.png)
 
 ### A final project developed during the Makers Academy coding bootcamp.
 
