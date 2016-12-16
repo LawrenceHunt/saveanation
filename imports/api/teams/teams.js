@@ -25,7 +25,6 @@ if(Meteor.isServer) {
                                   username: currentUser.username,
                                   profile: currentUser.profile}],
         createdBy: currentUserId,
-        username: currentUser.profile.username,
       });
     },
     'team.addMember'(newFriendEmail, newFriendUsername){
