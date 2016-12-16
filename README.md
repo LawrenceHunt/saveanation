@@ -2,7 +2,7 @@
 
 ### A final project developed during the Makers Academy coding bootcamp.
 
-Our deployed app can be found [here](http://saveanation.herokuapp.com]).
+Our deployed app can be found [here](http://saveanation.herokuapp.com).
 
 ### Installation Instructions
 
