@@ -1,6 +1,6 @@
 # Save a Nation
 
-Our deployed app is found (here)[http://saveanation.herokuapp.com]
+Our deployed app can be found [here](http://saveanation.herokuapp.com]).
 
 ### Solve the affordable housing problem
 
@@ -28,6 +28,9 @@ Adding to your balance creates virtual cash-monies to build a team house. Smash 
 
 ### Why Meteor?
 
+We were all keen to try a new stack for our project. We were confident we could use our newly-acqured language-agnostic skills to produce the something awesome.
+
+Meteor is a full-stack JavaScript framework, using it both on the back and front end. It is fast and everything happens in real-time. With our vision of a game that many members of a team could take part in, the ability for real-time gameplay was very enticing.
 
 ### User Stories
 
@@ -38,4 +41,5 @@ Adding to your balance creates virtual cash-monies to build a team house. Smash 
   * You didn't buy coffee 5 times this week - unlock an armchair!
   * Cooking dinner instead of getting take out last Friday - unlock a new lamp.
   * Got the tube home instead of a taxi - unlock new wallpaper.
-* Hook it up with a real bank account so the money can be saved in realtime.
+* Hook it up with a real bank account, e.g. Monzo, so the money can be saved in realtime.
+* Build up the game properly. At the minute it is a proof of concept but it has enormous potential.

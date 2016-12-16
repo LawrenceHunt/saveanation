@@ -8,6 +8,7 @@ import { Accounting } from 'meteor/lepozepo:accounting';
 import '../save/save.js';
 
 import './target.html';
+import './edit-target.html';
 import './target.css';
 
 Template.Target.onCreated(function targetOnCreated() {
@@ -44,11 +45,6 @@ Template.Target.helpers({
     const targetDate = moment(target.targetDate);
     return targetDate;
   },
-  // persistedDate() {
-  //   const userId = Meteor.userId();
-  //   const target = Targets.findOne({createdBy: userId});
-  //   // return target.targetDate;
-  // },
   targetAmount() {
     let dateOption = Session.get('dateOption');
     return calculateTargetAmountByTimeRange(dateOption);
@@ -81,6 +77,11 @@ Template.Target.helpers({
     const instance = Template.instance();
     return instance.calculation.get('tempTargetAmount');
   },
+  targetDateForFormPrepopulation() {
+    const userId = Meteor.userId();
+    const targetDate = moment(Targets.findOne({createdBy: userId}).targetDate).format('YYYY-MM-D');
+    return targetDate;
+  },
   currentBalance() {
     if(account()) {
       return currentBalance();
@@ -107,15 +108,23 @@ Template.Target.helpers({
     let degreesBelow = ((total * 2.4) - 120 - 6).toString() + 'deg';
     return degreesBelow;
   },
+  showCalculation() {
+    const instance = Template.instance();
+    return instance.calculation.get('showCalculation');
+  }
 });
 
 Template.Target.events({
   'click .calculate'(event, template) {
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
-    let stillToSave = targetAmount - currentBalance();
 
+    if (noAccount) {
+      Meteor.call('savingsAccounts.create');
+    }
+    let stillToSave = targetAmount - currentBalance();
     let targetDate = new Date(template.find('.targetDate').value);
+
     let targetDateMoment = moment(targetDate);
     let today = moment(new Date());
     let daysToSave = targetDateMoment.diff(today, 'days');
@@ -124,6 +133,7 @@ Template.Target.events({
     let amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
     let amountPerDay = Math.round(stillToSave / daysToSave);
 
+    template.calculation.set('showCalculation', true);
     template.calculation.set('tempTargetAmount', targetAmount);
     template.calculation.set('stillToSave', stillToSave);
     template.calculation.set('tempTargetDate', targetDate);
@@ -137,13 +147,11 @@ Template.Target.events({
     let dateOption = dateRange.value;
     Session.set('dateOption', dateOption);
     let transactionsTotal = transactionsValue(dateOption);
-    // let targetDate = moment(Template.Target.__helpers.get('targetDate').call());
   },
-  'submit .new-target'(event) {
+  'click .submit-target'(event, template) {
     event.preventDefault();
-    const target = event.target;
-    let targetAmount = parseInt(target.targetAmount.value);
-    let targetDate = new Date(target.targetDate.value);
+    let targetAmount = parseFloat(template.calculation.get('tempTargetAmount'));
+    let targetDate = template.calculation.get('tempTargetDate');
     if (noAccount) {
       Meteor.call('savingsAccounts.create');
     }
@@ -152,34 +160,120 @@ Template.Target.events({
     Session.set('addMode', !Session.get('addMode'));
   },
   'click .delete-target'(event) {
-    console.log(event);
     const target = event.target;
     let targetId = target.name;
-    console.log(target);
     Meteor.call('targets.remove', targetId);
     Meteor.call('post.add', "Deleted a target, is this a cry for help?!");
   },
-  'submit .edit-target'(event) {
-    event.preventDefault();
-    const target = event.target;
-    const targetAmount = parseInt(target.targetAmount.value);
-    const targetDate = new Date(target.targetDate.value);
-    Meteor.call('targets.edit', targetAmount, targetDate);
-    Meteor.call('post.add', "Had a change of heart, now aiming for " + accounting.formatMoney(targetAmount, "£", 0)+ " by " + moment(targetDate).format("ddd Do MMM YYYY"));
-    Session.set('editMode', !Session.get('editMode'));
-  },
   'click .fa-edit'(event) {
-    Session.set('editMode', !Session.get('editMode'));
+    BlazeLayout.render("mainLayout", {content: 'EditTarget'});
   },
   'click .fa-trash'(event) {
     const target = event.target;
     let targetId = target.id;
     Meteor.call('targets.remove', targetId);
-    Meteor.call('post.add', "Deleted a target, is this a cry for help?!");
-  },
-  'click .fa-plus'(event) {
-    Session.set('addMode', !Session.get('addMode'));
+    Meteor.call('post.add', "Deleted a target. Is this a cry for help?!");
   }
+});
+
+Template.EditTarget.onCreated(function targetOnCreated() {
+  this.calculation = new ReactiveDict();
+  Meteor.subscribe('targets');
+  Meteor.subscribe('savingsAccounts');
+  Meteor.subscribe('transactions');
+});
+
+Template.EditTarget.helpers({
+  targetDate() {
+    const userId = Meteor.userId();
+    const target = Targets.findOne({createdBy: userId});
+    const targetDate = moment(target.targetDate);
+    return targetDate;
+  },
+  targetAmount() {
+    let dateOption = Session.get('dateOption');
+    return calculateTargetAmountByTimeRange(dateOption);
+  },
+  stillToSave() {
+    const instance = Template.instance();
+    return instance.calculation.get('stillToSave');
+  },
+  targetSummary() {
+    const instance = Template.instance();
+    return instance.calculation.get('targetSummary');
+  },
+  dailyTarget() {
+    const instance = Template.instance();
+    return instance.calculation.get('dailyTarget');
+  },
+  weeklyTarget() {
+    const instance = Template.instance();
+    return instance.calculation.get('weeklyTarget');
+  },
+  monthlyTarget() {
+    const instance = Template.instance();
+    return instance.calculation.get('monthlyTarget');
+  },
+  tempTargetDate() {
+    const instance = Template.instance();
+    return moment(instance.calculation.get('tempTargetDate'));
+  },
+  tempTargetAmount() {
+    const instance = Template.instance();
+    return instance.calculation.get('tempTargetAmount');
+  },
+  targetDateForFormPrepopulation() {
+    const userId = Meteor.userId();
+    const targetDate = moment(Targets.findOne({createdBy: userId}).targetDate).format('YYYY-MM-D');
+    return targetDate;
+  },
+  currentBalance() {
+    if(account()) {
+      return currentBalance();
+    }
+  },
+  showCalculation() {
+    const instance = Template.instance();
+    return instance.calculation.get('showCalculation');
+  }
+});
+
+Template.EditTarget.events({
+  'click .calculate'(event, template) {
+    event.preventDefault();
+    const targetAmount = template.find('.targetAmount').value;
+
+    if (noAccount) {
+      Meteor.call('savingsAccounts.create');
+    }
+
+    let stillToSave = targetAmount - currentBalance();
+    let targetDate = new Date(template.find('.targetDate').value);
+
+    let targetDateMoment = moment(targetDate);
+    let today = moment(new Date());
+    let daysToSave = targetDateMoment.diff(today, 'days');
+
+    let amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
+    let amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
+    let amountPerDay = Math.round(stillToSave / daysToSave);
+
+    template.calculation.set('showCalculation', true);
+    template.calculation.set('tempTargetAmount', targetAmount);
+    template.calculation.set('stillToSave', stillToSave);
+    template.calculation.set('tempTargetDate', targetDate);
+    template.calculation.set('monthlyTarget', amountPerMonth);
+    template.calculation.set('weeklyTarget', amountPerWeek);
+    template.calculation.set('dailyTarget', amountPerDay);
+  },
+  'click .edit-target-button'(event, template) {
+    event.preventDefault();
+    let targetAmount = parseFloat(template.calculation.get('tempTargetAmount'));
+    let targetDate = template.calculation.get('tempTargetDate');
+    Meteor.call('targets.edit', targetAmount, targetDate);
+    Meteor.call('post.add', "Had a change of heart, now aiming for " + accounting.formatMoney(targetAmount, "£", 0)+ " by " + moment(targetDate).format("ddd Do MMM YYYY"));
+    BlazeLayout.render("mainLayout", {content: 'Target'});
+  },
 });
 
 function setPreviousDate(date,number,period) {
@@ -213,7 +307,6 @@ function transactionsValue(dateOption){
 function targetDate() {
   return Targets.findOne({createdBy: currentUserId()}).targetDate;
 }
-
 
 function stillToSave() {
   return targetAmount() - currentBalance();
