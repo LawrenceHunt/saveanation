@@ -29,6 +29,10 @@ Adding to your balance creates virtual cash-monies to build a team house. Smash 
 
 You can see our final presentation deck [here](https://docs.google.com/presentation/d/1ZVtpoi-xec5hmihIYDvUKKlrFgpizgwN538iZzxoc9g/edit?usp=sharing)
 
+###Screenshots
+
+![Save a Nation Screenshots](http://i.imgur.com/CeYpPlm.png?1)
+
 ### Product Development
 
 [Product wireframes](https://www.draw.io/?state=%7B%22ids%22:%5B%220B2Jnx_hGC3G3Z3dYMWhTU0JZTGM%22%5D,%22action%22:%22open%22,%22userId%22:%22{userId}%22%7D#G0B2Jnx_hGC3G3Z3dYMWhTU0JZTGM)
@@ -36,9 +40,6 @@ You can see our final presentation deck [here](https://docs.google.com/presentat
 ![Site Structure](http://i66.tinypic.com/2vkys1k.png)
 ![User Journeys](http://i66.tinypic.com/23vcoyg.png)
 
-###Screenshots
-
-![Save a Nation Screenshots](http://i.imgur.com/CeYpPlm.png?1)
 
 ### Why Meteor?
 
