@@ -26,6 +26,11 @@ Adding to your balance creates virtual cash-monies to build a team house. Smash 
 ![Site Structure](http://i66.tinypic.com/2vkys1k.png)
 ![User Journeys](http://i66.tinypic.com/23vcoyg.png)
 
+###Screenshots
+
+Inline-style:
+![Screenshots](http://imgur.com/gallery/O9OPh)
+
 ### Why Meteor?
 
 We were all keen to try a new stack for our project. We were confident we could use our newly-acqured language-agnostic skills to produce the something awesome.
