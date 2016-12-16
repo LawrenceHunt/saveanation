@@ -28,8 +28,7 @@ Adding to your balance creates virtual cash-monies to build a team house. Smash 
 
 ###Screenshots
 
-Inline-style:
-![Screenshots](http://imgur.com/CeYpPlm)
+[Save a Nation Screenshots](http://i.imgur.com/CeYpPlm.png?1)
 
 ### Why Meteor?
 
