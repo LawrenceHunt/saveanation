@@ -244,7 +244,7 @@ div.at-input.has-feedback.has-error span {
 
 	#billboard {
 		width: 60%;
-		height: 60%;
+		height: 85%;
 		position: absolute;
 		text-align: center;
 		top: 15%;
@@ -252,12 +252,14 @@ div.at-input.has-feedback.has-error span {
 	}
 
 	#clouds-canvas {
-		height: 120%;
+		height: 100%;
 		width: 100%;
 		padding: 250px;
 	}
 
-	.carousel-page {
-		width: 80%;
+	#signInForm {
+		overflow-y: auto;
+		height: 500px;
 	}
+
 }

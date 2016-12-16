@@ -2,7 +2,7 @@ import { signUpAndSignIn, getBrowser, cleanDatabase, getText, makeSaving, makeSa
 
 let mainBrowser;
 
-describe("Save @watch", function() {
+describe("Save", function() {
 
   beforeEach(function() {
     mainBrowser = getBrowser(0);

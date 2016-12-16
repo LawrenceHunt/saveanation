@@ -15,13 +15,6 @@
 .transactions th {
   background-color: #ddd;
 }
-/* I've put this in main.styl instead!
-
-.transactions th, td {
-  text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}*/
 
 .monies {
   text-align: right;

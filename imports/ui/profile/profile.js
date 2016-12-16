@@ -23,7 +23,6 @@ Template.Profile.helpers({
   },
   lastName() {
     const currentUser = Meteor.user();
-    console.log(currentUser);
     return currentUser.profile.lastName;
   },
   emailAddress() {

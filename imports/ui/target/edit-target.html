@@ -1,0 +1,29 @@
+<template name="EditTarget">
+
+  <div class="main-area">
+
+    <h1>Edit your target</h1>
+
+    <form class="edit-target">
+      <input type="text" class="targetAmount" name="targetAmount" value="{{ targetAmount }}" required/>
+      <input type="date" class="targetDate" name="targetDate" value="{{ targetDateForFormPrepopulation }}" required/>
+      <button type="button" class="calculate">Calculate</button>
+    </form>
+    {{#if showCalculation}}
+    <div class="target-breakdown">
+      <p>
+        So, given your current balance of {{ formatMoney currentBalance}},
+        to have {{ formatMoney tempTargetAmount }} in the bank by {{formatDate tempTargetDate}},
+        you'll need to save a further {{formatMoney stillToSave}}.
+      </p>
+      <p>Which works out as:</p>
+      <h2>{{ formatMoney monthlyTarget }} per month</h2>
+      <h2>{{ formatMoney weeklyTarget }} per week</h2>
+      <h2>{{ formatMoney dailyTarget }} per day</h2>
+      <p>Does that sound do-able?</p>
+      <button type="button" class="edit-target-button">Choose this target</button>
+    </div>
+    {{/if}}
+
+  </div>
+</template>

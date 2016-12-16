@@ -3,142 +3,91 @@
   <div class="main-area">
 
     <h1>Target</h1>
-    {{#if targets.count != 0}}
-      <i class="fa fa-edit"></i>
-      <i class="fa fa-trash" id="{{ targetId }}"></i>
-    {{else}}
-      <p>Add your target amount and date & we'll do the calculations for you!</p>
-      <div class="addTarget">
-        <form class="new-target">
-          <input type="text" class="targetAmount" name="targetAmount" placeholder="Your Target" required/>
-          <input type="date" class="targetDate" name="targetDate" required/>
-          <button type="button" class="calculate">Calculate</button>
-          <button id="submit-target" type="submit">Submit</button>
-        </form>
-        <div class="target-breakdown">
-          <div>
-            <p>Current Balance: {{ formatMoney currentBalance}}</p>
-          </div>
-          <div>
-            <p>To reach your target by {{formatDate tempTargetDate}}, you need to save {{formatMoney stillToSave}}.</p>
-          </div>
-          <p>Breakdown</p>
-          <p>{{ formatMoney monthlyTarget }} per month</p>
-          <p>{{ formatMoney weeklyTarget }} per week</p>
-          <p>{{ formatMoney dailyTarget }} per day</p>
-        </div>
-      </div>
-    {{/if}}
-      {{#if $.Session.get 'editMode' }}
-        <div class="editTarget">
-          <h3>Edit your target</h3>
-          <form class="edit-target">
-            <input type="text" class="targetAmount" name="targetAmount" value="{{ targetAmount }}" required/>
-            <input type="date" class="targetDate" name="targetDate" value="{{ targetDate }}" required/>
-            <button type="button" class="calculate">Calculate</button>
-            <button type="submit">Submit</button>
-          </form>
-          <div class="target-breakdown">
-            <div>
-              <p>Current Balance: {{ formatMoney currentBalance}}</p>
-            </div>
-            <div>
-              <p>To reach your target by {{formatDate tempTargetDate}}, you need to save {{formatMoney stillToSave}}.</p>
-            </div>
-            <p>Breakdown</p>
-            <p>{{ formatMoney monthlyTarget }} per month</p>
-            <p>{{ formatMoney weeklyTarget }} per week</p>
-            <p>{{ formatMoney dailyTarget }} per day</p>
-          </div>
-        </div>
-    {{/if}}
+
     {{#if targets.count != 0}}
 
-        <h2>You have saved:</h2>
-        <p class="current-balance">{{ formatMoney currentBalance }}</p>
-        <div class="styled-select slate">
-          <select name="date-range" class="date-range">
-            <option value="overall">overall</option>
-            <option value="months">this month</option>
-            <option value="weeks">this week</option>
-            <option value="days">today</option>
-          </select>
-        </div>
-
-        <style type="text/css">
-          .line {
-            transform:rotate({{totalInDegrees}});
-            animation: pendulum;
-            animation-iteration-count: 2;
-            animation-duration: 8s;
-          }
-          @keyframes pendulum {
-            0% { transform:rotate(-120deg) }
-            25% { transform:rotate({{degreesAbove}}) }
-            50% { transform:rotate({{degreesBelow}}) }
-            75% { transform:rotate({{totalInDegrees}}) }
-          }
-        </style>
-
-        <div class="container">
-          <div id="tachometer">
-            <div class="ii">
-              <div><b><span class="num_1"></span></b></div>
-              <div><b></b></div>
-              <div><b><span class="num_2"></span></b></div>
-              <div><b></b></div>
-              <div><b><span class="num_3"></span></b></div>
-              <div><b></b></div>
-              <div><b><span class="num_4"></span></b></div>
-              <div><b></b></div>
-              <div><b><span class="num_5"></span></b></div>
-              <div><b></b></div>
-              <div><b><span class="num_6"></span></b></div>
-              <div><b></b></div>
-              <div><b><span class="num_7"></span></b></div>
-              <div><b></b></div>
-              <div><b><span class="num_8"></span></b></div>
-              <div><b></b></div>
-              <div><b><span class="num_9"></span></b></div>
-            </div>
-            <div class="line"></div>
-            <div class="pin">
-              <div class="inner"></div>
-            </div>
-          </div>
-        </div>
-
-        <h2>You have achieved {{percentageOfTotal}}% of your target of </h2>
-        <p class="goal">{{ formatMoney targetAmount }}</p>
-        <p>which you're aiming to save by {{ formatDate targetDate }}.</p>
-    {{/if}}
-
-  </div>
-</template>
-
-<template name="TargetSummary">
-  <div class="main-area">
-
-    <h1>Your target</h1>
-    {{#if targets.count != 0}}
-      <h3>Your target</h3>
-      {{#each targets}}
-        <p>You want to save £{{ formatMoney targetAmount }} by {{ targetDate }}</p>
-        <button class="delete-target" name="{{ _id }}">Delete Target</button>
-        <a href="/edit-target" class="edit-target">Edit Target</a>
-      {{/each}}
-    {{/if}}
-    <div class="target-breakdown">
-      <div>
-        <p>Current Balance: {{ formatMoney currentBalance}}</p>
-      </div>
-      <div>
-        <p>To reach your target by {{formatDate tempTargetDate}}, you need to save {{formatMoney stillToSave}}.</p>
-      </div>
-      <p>Breakdown</p>
-      <p>{{ formatMoney monthlyTarget }} per month</p>
-      <p>{{ formatMoney weeklyTarget }} per week</p>
-      <p>{{ formatMoney dailyTarget }} per day</p>
+    <h2>You've saved:</h2>
+    <p class="current-balance">{{ formatMoney currentBalance }}</p>
+    <div class="styled-select slate">
+      <select name="date-range" class="date-range">
+        <option value="overall">overall</option>
+        <option value="months">this month</option>
+        <option value="weeks">this week</option>
+        <option value="days">today</option>
+      </select>
     </div>
+
+    <style type="text/css">
+      .line {
+        transform:rotate({{totalInDegrees}});
+        animation: pendulum;
+        animation-iteration-count: 1;
+        animation-duration: 8s;
+      }
+      @keyframes pendulum {
+        0% { transform:rotate(-120deg) }
+        25% { transform:rotate({{degreesAbove}}) }
+        50% { transform:rotate({{degreesBelow}}) }
+        75% { transform:rotate({{totalInDegrees}}) }
+      }
+    </style>
+
+    <div class="container">
+      <div id="tachometer">
+        <div class="ii">
+          <div><b><span class="num_1"></span></b></div>
+          <div><b></b></div>
+          <div><b><span class="num_2"></span></b></div>
+          <div><b></b></div>
+          <div><b><span class="num_3"></span></b></div>
+          <div><b></b></div>
+          <div><b><span class="num_4"></span></b></div>
+          <div><b></b></div>
+          <div><b><span class="num_5"></span></b></div>
+          <div><b></b></div>
+          <div><b><span class="num_6"></span></b></div>
+          <div><b></b></div>
+          <div><b><span class="num_7"></span></b></div>
+          <div><b></b></div>
+          <div><b><span class="num_8"></span></b></div>
+          <div><b></b></div>
+          <div><b><span class="num_9"></span></b></div>
+        </div>
+        <div class="line"></div>
+        <div class="pin">
+          <div class="inner"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="current-balance">{{percentageOfTotal}}%</p>
+    <h2>of your target of {{ formatMoney targetAmount }}</h2>
+    <p class="targetDate">which you'd like to achieve by {{ formatDate targetDate }}</p>
+
+    <i class="fa fa-edit"></i>
+    <i class="fa fa-trash" id="{{ targetId }}"></i>
+
+    {{else}}
+
+    <p>Add your target amount and date and we'll do the calculations for you!</p>
+    <div class="addTarget">
+      <form class="new-target">
+        <input type="text" class="targetAmount" name="targetAmount" placeholder="Your Target" required/>
+        <input type="date" class="targetDate" name="targetDate" required/>
+        <button type="button" class="calculate">Calculate breakdown</button>
+      </form>
+      {{#if showCalculation}}
+      <div class="target-breakdown">
+        <p>To have {{ formatMoney tempTargetAmount }} by {{formatDate tempTargetDate}}, you'll need to save:</p>
+        <h2>{{ formatMoney monthlyTarget }} per month,</h2>
+        <h2>{{ formatMoney weeklyTarget }} per week, or</h2>
+        <h2>{{ formatMoney dailyTarget }} per day</h2>
+        <p>Does that sound do-able?</p>
+        <button type="button" class="submit-target">Choose this target</button>
+      </div>
+      {{/if}}
+    </div>
+  {{/if}}
+
   </div>
 </template>
