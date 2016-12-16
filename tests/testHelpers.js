@@ -1,6 +1,3 @@
-// export function signUp(username, email, password){
-//   server.call('user.signup', username, email, password);
-
 export function signUp(browserName, username, email, password, firstName, lastName){
   browserName.url("localhost:3000");
   browserName.waitForExist("#signIn");
@@ -44,7 +41,7 @@ export function getText(browserName, element, elementId) {
 export function addPost(browserName, text) {
   browserName.waitForExist('input#body-field', 2000);
   browserName.setValue('input#body-field', text);
-  browserName.keys("\uE006"); //press ENTER
+  browserName.keys("\uE006");
   browserName.waitForExist('div.post', 2000);
 }
 
@@ -70,10 +67,19 @@ export function makeSaving(browserName, amount, text) {
   browserName.waitForExist("input#amount-input", 20000);
   browserName.setValue("input#amount-input", amount);
   browserName.setValue("input#text-input", text);
-  browserName.keys("\uE006"); //press ENTER
+  browserName.keys("\uE006");
   browserName.waitForExist('button.confirm-deposit');
   browserName.click('button.confirm-deposit');
+}
 
+export function makeMultipleSavings(browserName, amount, text) {
+  browserName.waitForExist("input#amount-input", 20000);
+  browserName.setValue("input#amount-input", amount);
+  browserName.setValue("input#text-input", text);
+  browserName.keys("\uE006");
+  browserName.waitForExist('button.confirm-deposit');
+  browserName.click('button.confirm-deposit');
+  browserName.waitForExist("a#save-link",2000);
 }
 
 export function makeSavingBlank(browserName, amount, text) {
@@ -81,8 +87,7 @@ export function makeSavingBlank(browserName, amount, text) {
   browserName.click('a#save-link');
   browserName.waitForExist("input#amount-input", 2000);
   browserName.setValue("input#amount-input", amount);
-  browserName.keys("\uE006"); //press ENTER
+  browserName.keys("\uE006");
   browserName.waitForExist('button.confirm-deposit');
   browserName.click('button.confirm-deposit');
-
 }
