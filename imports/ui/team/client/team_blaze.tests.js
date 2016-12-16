@@ -60,7 +60,4 @@ describe('Team blaze layout', function() {
   //   withRenderedTemplate('Team', data, (el) => {
   //     console.log(el)
   //   });
-
-  });
-
 });

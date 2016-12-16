@@ -61,8 +61,8 @@
     </div>
 
     <p class="current-balance">{{percentageOfTotal}}%</p>
-    <h2>of your target of {{ formatMoney targetAmount }}</h2>
-    <p class="targetDate">which you'd like to achieve by {{ formatDate targetDate }}</p>
+    <h2>of your {{ dateRangeFrequency }} target of {{ formatMoney targetAmount }}</h2>
+    <p class="targetDate">Your goal is to save {{ formatMoney fullTargetAmount }} by {{ formatDate targetDate }}</p>
 
     <i class="fa fa-edit"></i>
     <i class="fa fa-trash" id="{{ targetId }}"></i>
