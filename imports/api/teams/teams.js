@@ -16,7 +16,7 @@ if(Meteor.isServer) {
       check(teamName, String);
 
       let currentUserId = this.userId;
-      let currentUser = Meteor.users.findOne(currentUserId)
+      let currentUser = Meteor.users.findOne(currentUserId);
 
       Teams.insert({
         teamName,
@@ -31,18 +31,18 @@ if(Meteor.isServer) {
       check(newFriendEmail, String);
       check(newFriendUsername, String);
       let newFriendId = Accounts.createUser({email: newFriendEmail, username: newFriendUsername, profile: {username: newFriendUsername}});
-      let newFriendUserObject = Meteor.users.findOne(newFriendId)
+      let newFriendUserObject = Meteor.users.findOne(newFriendId);
       // we can add the below function here to send an enrollment email:
-      Accounts.sendEnrollmentEmail(newFriendUserObject, newFriendEmail)
+      Accounts.sendEnrollmentEmail(newFriendUserObject, newFriendEmail);
       // more info here http://docs.meteor.com/api/passwords.html#Accounts-sendEnrollmentEmail
 
       let currentUserId = this.userId;
       let currentTeam = Teams.findOne({ createdBy: currentUserId });
       // could generate a random avatar with code below, or just set it as 0
-      // randomAvatarGenerator = Math.floor(Math.random()*7);
+      randomAvatarGenerator = Math.floor(Math.random()*7);
       Teams.update(
         { _id: currentTeam._id },
-        { $push: { userDetailsForDisplay: { _id: newFriendId, username: newFriendUsername, email: newFriendEmail, profile: { avatar : 0 }},
+        { $push: { userDetailsForDisplay: { _id: newFriendId, username: newFriendUsername, email: newFriendEmail, profile: { avatar : randomAvatarGenerator }},
                    memberIds: newFriendId }});
     },
     'team.destroy'(teamId) {
