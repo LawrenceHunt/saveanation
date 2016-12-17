@@ -2,13 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Teams } from '../../api/teams/teams.js';
 import { MomentsJS } from 'meteor/momentjs:moment';
-import '../account/avatarSelectTemplate.html';
 
+import '../account/avatarSelectTemplate.html';
 import './team.html';
 import './addNewTeamForm.html';
 import './addTeamMemberForm.html';
 import './teamMember.html';
-import './team.css'
+import './team.css';
 
 Template.Team.onCreated(function() {
   Meteor.subscribe('teams');
@@ -56,7 +56,7 @@ Template.Team.events({
     const target = event.target;
     const teamId = target.name;
     if (confirm("Are you sure you want to delete this team?")) {
-      Meteor.call('team.destroy', teamId)
+      Meteor.call('team.destroy', teamId);
     }
   },
   'click .edit-team, click .cancel-edit-mode'(event, template) {
@@ -68,12 +68,12 @@ Template.Team.events({
     let target = event.target;
     let userId = target.id;
     if (confirm("Are you sure you want to remove this team member?")) {
-      Meteor.call('team.removeMember', userId)
+      Meteor.call('team.removeMember', userId);
     }
   },
   'submit .js-submit-new-team-name'(event, template) {
     event.preventDefault();
-    let newTeamName = event.target.newTeamName.value
+    let newTeamName = event.target.newTeamName.value;
     template.editMode.set(!template.editMode.get());
 
     Meteor.call('team.updateTeamName', newTeamName);
