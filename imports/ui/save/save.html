@@ -19,11 +19,11 @@
           <th></th>
         </tr>
         {{#each transactions}}
-        <tr>
-          <td>{{ formatDate createdAt }}</td>
-          <td>{{ text }}</td>
-          <td class="monies">{{ formatMoney amount }}</td>
-        </tr>
+          <tr>
+            <td>{{ formatDate createdAt }}</td>
+            <td>{{ text }}</td>
+            <td class="monies">{{ formatMoney amount }}</td>
+          </tr>
         {{/each}}
         <tr>
           <td></td>

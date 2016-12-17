@@ -8,9 +8,9 @@ if(Meteor.isServer) {
   // Only publish user accounts that belong to the current user
   Meteor.publish('users', function () {
     if (this.userId) {
-        return Meteor.users.find({},{fields: {'_id' : 1, 'profile': 1}});
-      }
-    });
+      return Meteor.users.find({},{fields: {'_id' : 1, 'profile': 1}});
+    }
+  });
 }
 
 Meteor.methods({
@@ -28,9 +28,9 @@ Meteor.methods({
       throw new Error("username already taken");
     }
     Meteor.users.update(this.userId, {$set: {
-          username: userName,
-          profile: { username: userName, firstName: firstName, lastName: lastName, avatar: currentAvatar}
-        }
-      });
+        username: userName,
+        profile: { username: userName, firstName: firstName, lastName: lastName, avatar: currentAvatar}
+      }
+    });
   }
 });
