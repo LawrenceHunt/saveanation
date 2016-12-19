@@ -18,6 +18,14 @@ Template.Target.onCreated(function targetOnCreated() {
   Meteor.subscribe('transactions');
 });
 
+Template.Target.onRendered(function () {
+  setMinDate();
+});
+
+Template.EditTarget.onRendered(function () {
+  setMinDate();
+});
+
 Template.registerHelper('formatMoney', function(amount) {
     return accounting.formatMoney(amount, "£", 0);
 });
@@ -127,28 +135,29 @@ Template.Target.events({
   'click .calculate'(event, template) {
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
+    if (targetAmount > 0) {
+      if (noAccount) {
+        Meteor.call('savingsAccounts.create');
+      }
+      let stillToSave = targetAmount - currentBalance();
+      let targetDate = new Date(template.find('.targetDate').value);
 
-    if (noAccount) {
-      Meteor.call('savingsAccounts.create');
+      let targetDateMoment = moment(targetDate);
+      let today = moment(new Date());
+      let daysToSave = targetDateMoment.diff(today, 'days');
+
+      let amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
+      let amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
+      let amountPerDay = Math.round(stillToSave / daysToSave);
+
+      template.calculation.set('showCalculation', true);
+      template.calculation.set('tempTargetAmount', targetAmount);
+      template.calculation.set('stillToSave', stillToSave);
+      template.calculation.set('tempTargetDate', targetDate);
+      template.calculation.set('monthlyTarget', amountPerMonth);
+      template.calculation.set('weeklyTarget', amountPerWeek);
+      template.calculation.set('dailyTarget', amountPerDay);
     }
-    let stillToSave = targetAmount - currentBalance();
-    let targetDate = new Date(template.find('.targetDate').value);
-
-    let targetDateMoment = moment(targetDate);
-    let today = moment(new Date());
-    let daysToSave = targetDateMoment.diff(today, 'days');
-
-    let amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
-    let amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
-    let amountPerDay = Math.round(stillToSave / daysToSave);
-
-    template.calculation.set('showCalculation', true);
-    template.calculation.set('tempTargetAmount', targetAmount);
-    template.calculation.set('stillToSave', stillToSave);
-    template.calculation.set('tempTargetDate', targetDate);
-    template.calculation.set('monthlyTarget', amountPerMonth);
-    template.calculation.set('weeklyTarget', amountPerWeek);
-    template.calculation.set('dailyTarget', amountPerDay);
   },
   'change .date-range'(event) {
     event.preventDefault();
@@ -182,6 +191,7 @@ Template.Target.events({
     let targetId = target.id;
     Meteor.call('targets.remove', targetId);
     Meteor.call('post.add', "Deleted a target. Is this a cry for help?!");
+    BlazeLayout.render("mainLayout", {content: 'Target'});
   }
 });
 
@@ -251,29 +261,30 @@ Template.EditTarget.events({
   'click .calculate'(event, template) {
     event.preventDefault();
     const targetAmount = template.find('.targetAmount').value;
+    if (targetAmount > 0) {
+      if (noAccount) {
+        Meteor.call('savingsAccounts.create');
+      }
 
-    if (noAccount) {
-      Meteor.call('savingsAccounts.create');
+      let stillToSave = targetAmount - currentBalance();
+      let targetDate = new Date(template.find('.targetDate').value);
+
+      let targetDateMoment = moment(targetDate);
+      let today = moment(new Date());
+      let daysToSave = targetDateMoment.diff(today, 'days');
+
+      let amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
+      let amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
+      let amountPerDay = Math.round(stillToSave / daysToSave);
+
+      template.calculation.set('showCalculation', true);
+      template.calculation.set('tempTargetAmount', targetAmount);
+      template.calculation.set('stillToSave', stillToSave);
+      template.calculation.set('tempTargetDate', targetDate);
+      template.calculation.set('monthlyTarget', amountPerMonth);
+      template.calculation.set('weeklyTarget', amountPerWeek);
+      template.calculation.set('dailyTarget', amountPerDay);
     }
-
-    let stillToSave = targetAmount - currentBalance();
-    let targetDate = new Date(template.find('.targetDate').value);
-
-    let targetDateMoment = moment(targetDate);
-    let today = moment(new Date());
-    let daysToSave = targetDateMoment.diff(today, 'days');
-
-    let amountPerMonth = Math.round(((stillToSave / daysToSave) * 365) / 12);
-    let amountPerWeek = Math.round((stillToSave / daysToSave) * 7);
-    let amountPerDay = Math.round(stillToSave / daysToSave);
-
-    template.calculation.set('showCalculation', true);
-    template.calculation.set('tempTargetAmount', targetAmount);
-    template.calculation.set('stillToSave', stillToSave);
-    template.calculation.set('tempTargetDate', targetDate);
-    template.calculation.set('monthlyTarget', amountPerMonth);
-    template.calculation.set('weeklyTarget', amountPerWeek);
-    template.calculation.set('dailyTarget', amountPerDay);
   },
   'click .edit-target-button'(event, template) {
     event.preventDefault();
@@ -378,4 +389,20 @@ function calculateTargetAmountByTimeRange(dateOption) {
   else {
     return targetAmount();
   }
+}
+
+function setMinDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1;
+  var yyyy = today.getFullYear();
+   if(dd<10){
+          dd='0'+dd;
+      }
+      if(mm<10){
+          mm='0'+mm;
+      }
+
+  today = yyyy+'-'+mm+'-'+dd;
+  document.getElementById("target-date").setAttribute("min", today);
 }

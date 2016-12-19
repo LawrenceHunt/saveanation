@@ -72,8 +72,8 @@
       <p>Add your target amount and date and we'll do the calculations for you!</p>
       <div class="addTarget">
         <form class="new-target">
-          <input type="text" class="targetAmount" name="targetAmount" placeholder="Your Target" required/>
-          <input type="date" class="targetDate" name="targetDate" required/>
+          <input type="number" min="1000" step="100" class="targetAmount" name="targetAmount" required/>
+          <input type="date" id="target-date" class="targetDate" name="targetDate" required/>
           <button type="button" class="calculate">Calculate breakdown</button>
         </form>
         {{#if showCalculation}}
