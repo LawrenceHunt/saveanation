@@ -5,8 +5,8 @@
     <h1>Edit your target</h1>
 
     <form class="edit-target">
-      <input type="text" class="targetAmount" name="targetAmount" value="{{ targetAmount }}" required/>
-      <input type="date" class="targetDate" name="targetDate" value="{{ targetDateForFormPrepopulation }}" required/>
+      <input type="number" min="1000" step="100" class="targetAmount" name="targetAmount" value="{{ targetAmount }}" required/>
+      <input type="date" id="target-date-edit" class="targetDate" name="targetDate" value="{{ targetDateForFormPrepopulation }}" required/>
       <button type="button" class="calculate">Calculate</button>
     </form>
     {{#if showCalculation}}
