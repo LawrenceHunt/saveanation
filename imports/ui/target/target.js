@@ -5,8 +5,8 @@ import { SavingsAccounts } from '../../api/savingsAccounts/savingsAccounts.js';
 import { Transactions } from '../../api/transactions/transactions.js';
 import { MomentsJS } from 'meteor/momentjs:moment';
 import { Accounting } from 'meteor/lepozepo:accounting';
-import '../save/save.js';
 
+import '../save/save.js';
 import './target.html';
 import './edit-target.html';
 import './target.css';

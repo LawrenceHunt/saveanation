@@ -21,8 +21,8 @@ describe('Team blaze layout', function() {
     const data = {};
 
     withRenderedTemplate('Team', data, el => {
-      expect($(el).context.innerText).to.include("Create a team")
-      expect($(el).context.children[0].children[2].innerHTML).to.include("Team name")
+      expect($(el).context.innerText).to.include("Create a team");
+      expect($(el).context.children[0].children[2].innerHTML).to.include("Team name");
     });
   });
   // This test is not working correctly - there is a problem with rendering the data correctly...
