@@ -19,35 +19,11 @@ Template.Target.onCreated(function targetOnCreated() {
 });
 
 Template.Target.onRendered(function () {
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth()+1;
-  var yyyy = today.getFullYear();
-   if(dd<10){
-          dd='0'+dd;
-      }
-      if(mm<10){
-          mm='0'+mm;
-      }
-
-  today = yyyy+'-'+mm+'-'+dd;
-  document.getElementById("target-date-input").setAttribute("min", today);
+  setMinDate();
 });
 
 Template.EditTarget.onRendered(function () {
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth()+1;
-  var yyyy = today.getFullYear();
-   if(dd<10){
-          dd='0'+dd;
-      }
-      if(mm<10){
-          mm='0'+mm;
-      }
-
-  today = yyyy+'-'+mm+'-'+dd;
-  document.getElementById("target-date-edit").setAttribute("min", today);
+  setMinDate();
 });
 
 Template.registerHelper('formatMoney', function(amount) {
@@ -413,4 +389,20 @@ function calculateTargetAmountByTimeRange(dateOption) {
   else {
     return targetAmount();
   }
+}
+
+function setMinDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1;
+  var yyyy = today.getFullYear();
+   if(dd<10){
+          dd='0'+dd;
+      }
+      if(mm<10){
+          mm='0'+mm;
+      }
+
+  today = yyyy+'-'+mm+'-'+dd;
+  document.getElementById("target-date").setAttribute("min", today);
 }
