@@ -4,6 +4,7 @@ import { Template } from 'meteor/templating';
 import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
 import { withRenderedTemplate } from '../../test-helpers.js';
+import StubCollections from 'meteor/hwillson:stub-collections';
 import '../team.js';
 
 import { expect } from 'meteor/practicalmeteor:chai';
@@ -25,39 +26,34 @@ describe('Team blaze layout', function() {
       expect($(el).context.children[0].children[2].innerHTML).to.include("Team name");
     });
   });
-  // This test is not working correctly - there is a problem with rendering the data correctly...
-  // it('renders correctly with teams', function () {
-  //   const timestamp = new Date();
-  //   teamDetails = { teamName: "Gophers",
-  //                   memberIds: ["1111"],
-  //                   userDetailsForDisplay: [{ email: "test@test.com",
-  //                                             username: "test",
-  //                                             profile: { avatar: 0 }}],
-  //                   createdBy: "1111",
-  //                   createdAt: timestamp
-  //   }
-  //   Factory.define('teams', Teams, teamDetails);
-  //
-  //
-  //   const teamsCollection = new Mongo.Collection(null, { transform: Teams._transform });
-  //   const teams = Factory.build('teams', teamDetails);
-  //   teamsCollection.insert(teams);
-  //
-  //   const teamsCursor = teamsCollection.find();
-  //   const data = {
-  //     'teams.count'() { return 1 },
-  //     teams() { return teams},
-  //     editMode() { return false },
-  //     teamName: "Gophers",
-  //     memberIds: ["1111"],
-  //     userDetailsForDisplay: [{ email: "test@test.com",
-  //                               username: "test",
-  //                               profile: { avatar: 0 }}],
-  //     createdBy: "1111",
-  //     createdAt: timestamp
-  //   };
-  //
-  //   withRenderedTemplate('Team', data, (el) => {
-  //     console.log(el)
-  //   });
+  
+  it('renders correctly with teams', function () {
+    //stub the teams collection
+    StubCollections.stub(Teams);
+    //create the details for our team:
+    const timestamp = new Date();
+    teamDetails = { teamName: "Gophers",
+                    memberIds: ["1111"],
+                    userDetailsForDisplay: [{ email: "test@test.com",
+                                              username: "test",
+                                              profile: { avatar: 0 }}],
+                    createdBy: "1111",
+                    createdAt: timestamp
+    }
+    // Now Teams is stubbed to a simple local collection mock:
+    Teams.insert(teamDetails);
+
+    const data = {
+      editMode() { return false },
+    };
+
+    withRenderedTemplate('Team', data, (el) => {
+      console.log($(el).context.innerText)
+      expect($(el).context.innerText).to.include("Your team")
+      expect($(el).context.innerText).to.include("Gophers")
+      expect($(el).context.innerText).to.include("Team was created on " + moment(timestamp).format("ddd Do MMM YYYY"))
+    });
+    // Restore the `Teams' collection
+    StubCollections.restore();
+  });
 });
