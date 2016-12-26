@@ -1,15 +1,15 @@
-export function signUp(username, email, password){
-  server.call('user.signup', username, email, password);
-=======
-export function signUp(browserName, username, email, password){
+export function signUp(browserName, username, email, password, firstName, lastName){
   browserName.url("localhost:3000");
-  browserName.waitForExist("#login-sign-in-link");
-  browserName.click("#login-sign-in-link")
-             .click("#signup-link")
-             .setValue('#login-username', username)
-             .setValue('#login-email', email)
-             .setValue('#login-password', password)
-             .click('#login-buttons-password');
+  browserName.waitForExist("#signIn");
+  browserName.click("#signIn")
+             .click("#at-signUp")
+             .setValue('#at-field-username', username)
+             .setValue('#at-field-email', email)
+             .setValue('#at-field-password', password)
+             .setValue('#at-field-password_again', password)
+             .setValue('#at-field-firstName', firstName)
+             .setValue('#at-field-lastName', lastName)
+             .keys("\uE006");
 }
 
 export function signIn(browserName, email, password) {
@@ -22,8 +22,8 @@ export function getBrowser(i) {
   return browser.instances[i];
 }
 
-export function signUpAndSignIn(browserName, username, email, password) {
-  signUp(browserName, username, email, password);
+export function signUpAndSignIn(browserName, username, email, password, firstName, lastName) {
+  signUp(browserName, username, email, password, firstName, lastName);
   signIn(browserName, email, password);
 }
 
@@ -33,21 +33,61 @@ export function cleanDatabase() {
   });
 }
 
-export function createCharacter(browserName, characterName) {
-  browserName.waitForExist(".newCharacterForm");
-  browserName.setValue( '[name="name"]', characterName )
-         .submitForm( '.newCharacterForm' );
-
+export function getText(browserName, element, elementId) {
+  var text = browserName.element(element);
+  return text.getText(elementId);
 }
 
-export function getText(browserName) {
-  var messageLi = browserName.element('li.post:nth-of-type(1)');
-  return messageLi.getText('h3.post-text');
+export function addPost(browserName, text) {
+  browserName.waitForExist('input#body-field', 2000);
+  browserName.setValue('input#body-field', text);
+  browserName.keys("\uE006");
+  browserName.waitForExist('div.post', 2000);
 }
 
-export function addPost(text, browserName) {
-  browserName.url('http://localhost:3000/feed');
-  browserName.setValue('input#body', text);
-  browserName.keys("\uE006"); //press ENTER
-  browserName.waitForExist('li', 2000);
+export function createTeam(browserName, teamName) {
+  browserName.waitForExist("a#team-link",2000);
+  browserName.click("a#team-link");
+  browserName.waitForExist("input.teamName",2000);
+  browserName.setValue("input.teamName", teamName);
+  browserName.click("button#new-team");
+}
+
+export function addTeamMember(browserName, userName, email) {
+  browserName.waitForExist("input.memberUsername",2000);
+  browserName.setValue("input.memberUsername", userName);
+  browserName.setValue("input.memberEmail", email);
+  browserName.click("button#add-team-member");
+  browserName.waitForExist("li:nth-of-type(2)");
+}
+
+export function makeSaving(browserName, amount, text) {
+  browserName.waitForExist("a#save-link",2000);
+  browserName.click('a#save-link');
+  browserName.waitForExist("input#amount-input", 20000);
+  browserName.setValue("input#amount-input", amount);
+  browserName.setValue("input#text-input", text);
+  browserName.keys("\uE006");
+  browserName.waitForExist('button.confirm-deposit');
+  browserName.click('button.confirm-deposit');
+}
+
+export function makeMultipleSavings(browserName, amount, text) {
+  browserName.waitForExist("input#amount-input", 20000);
+  browserName.setValue("input#amount-input", amount);
+  browserName.setValue("input#text-input", text);
+  browserName.keys("\uE006");
+  browserName.waitForExist('button.confirm-deposit');
+  browserName.click('button.confirm-deposit');
+  browserName.waitForExist("a#save-link",2000);
+}
+
+export function makeSavingBlank(browserName, amount, text) {
+  browserName.waitForExist("a#save-link",2000);
+  browserName.click('a#save-link');
+  browserName.waitForExist("input#amount-input", 2000);
+  browserName.setValue("input#amount-input", amount);
+  browserName.keys("\uE006");
+  browserName.waitForExist('button.confirm-deposit');
+  browserName.click('button.confirm-deposit');
 }

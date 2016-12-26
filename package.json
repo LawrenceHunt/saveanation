@@ -5,7 +5,7 @@
     "start": "meteor run",
     "test": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --path=tests || exit 0",
     "test-watch": "CUCUMBER_BROWSERS=2 chimp --ddp=http://localhost:3000 --mocha --watch --path=tests || exit 0",
-    "practical": "meteor test --driver-package=practicalmeteor:mocha"
+    "practical": "meteor test --driver-package=practicalmeteor:mocha --port 4567"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chimp": "^0.45.0",
     "mocha": "^3.2.0"
   }
 }

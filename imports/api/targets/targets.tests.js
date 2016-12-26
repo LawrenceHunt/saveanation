@@ -31,22 +31,6 @@ if(Meteor.isServer) {
         assert.equal(testObject.targetAmount, 5000);
       });
 
-      // it('won\'t accept a negative target value', function() {
-      //   addTarget.apply(invocation, [-5, targetDate]);
-      //   assert.equal(Targets.find().count(), 0);
-      // });
-
-      // it("won't accept a target date in the past", function() {
-      //   addTarget.apply(invocation, [5000, targetDate.setDate(-5)]);
-      //   assert.equal(Targets.find().count(), 0);
-      // });
-
-      // it("won't accept a second target from the same user", function() {
-      //   addTarget.apply(invocation, [5000, targetDate]);
-      //   addTarget.apply(invocation, [5000, targetDate]);
-      //   assert.equal(Targets.find().count(), 1);
-      // })
-
       it('can edit a target value', function() {
         addTarget.apply(invocation, [5000, targetDate]);
         const editTarget = Meteor.server.method_handlers['targets.edit'];
@@ -62,6 +46,16 @@ if(Meteor.isServer) {
         deleteTarget.apply(invocation, [targetId]);
         assert.equal(Targets.find().count(), 0);
       });
+
+      // it('won\'t accept a negative target value', function() {
+      //   addTarget.apply(invocation, [-5, targetDate]);
+      //   assert.equal(Targets.find().count(), 0);
+      // });
+
+      // it("won't accept a target date in the past", function() {
+      //   addTarget.apply(invocation, [5000, targetDate.setDate(-5)]);
+      //   assert.equal(Targets.find().count(), 0);
+      // });
     });
   });
-};
+}

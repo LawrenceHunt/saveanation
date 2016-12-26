@@ -1,7 +1,7 @@
 <template name="Profile">
   <div class="main-area">
-      <i class="fa fa-edit"></i>
-      <h1>Your Profile</h1>
+    <i id="edit-profile" class="fa fa-edit"></i>
+    <h1>Your Profile</h1>
     <img src="images/avatars/{{avatar}}.jpg" height="160px" width="160px">
     <div class="post-text">
       <p class="post-info">{{userName}}</p>
@@ -13,20 +13,20 @@
       <p class="post-info">{{emailAddress}}</p>
     </div>
     {{#if $.Session.get 'editMode'}}
-    <form class="edit-profile" id="update-profile">
-      <div>
-        <input class="" type="text" placeholder="Username" name="userName" id="username" value="{{ userName }}"/>
-      </div>
-      <div>
-        <input class="" type="text" placeholder="First Name" name="firstName" id="first-name" value="{{ firstName }}"/>
-      </div>
-      <div>
-        <input class="" type="text" placeholder="Last Name" name="lastName" id="last-name" value="{{ lastName }}" />
-      </div>
-      <div>
-        <button class="ui blue large button" id="update-button" type="submit">Update</button>
-      </div>
-    </form>
+      <form class="edit-profile" id="update-profile">
+        <div>
+          <input class="" type="text" placeholder="Username" name="userName" id="username" value="{{ userName }}"/>
+        </div>
+        <div>
+          <input class="" type="text" placeholder="First Name" name="firstName" id="first-name" value="{{ firstName }}"/>
+        </div>
+        <div>
+          <input class="" type="text" placeholder="Last Name" name="lastName" id="last-name" value="{{ lastName }}" />
+        </div>
+        <div>
+          <button class="ui blue large button" id="update-button" type="submit">Update</button>
+        </div>
+      </form>
     {{/if}}
   </div>
 </template>

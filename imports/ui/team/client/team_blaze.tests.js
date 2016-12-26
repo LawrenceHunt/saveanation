@@ -22,11 +22,11 @@ describe('Team blaze layout', function() {
     const data = {};
 
     withRenderedTemplate('Team', data, el => {
-      expect($(el).context.innerText).to.include("Create a team")
-      expect($(el).context.children[0].children[2].innerHTML).to.include("Team name")
+      expect($(el).context.innerText).to.include("Create a team");
+      expect($(el).context.children[0].children[2].innerHTML).to.include("Team name");
     });
   });
-
+  
   it('renders correctly with teams', function () {
     //stub the teams collection
     StubCollections.stub(Teams);
@@ -56,5 +56,4 @@ describe('Team blaze layout', function() {
     // Restore the `Teams' collection
     StubCollections.restore();
   });
-
 });

@@ -36,6 +36,7 @@ fastclick
 erasaur:meteor-lodash
 check
 practicalmeteor:mocha
+practicalmeteor:sinon
 xolvio:cleaner
 xolvio:backdoor
 reactive-dict
@@ -51,7 +52,7 @@ lepozepo:accounting
 agnito:raphael
 mizzao:jquery-ui
 session
-lookback:emoji
 email
+lookback:emoji
 johanbrook:publication-collector
 dburles:factory

@@ -4,46 +4,46 @@
     <h1>Your team</h1>
     {{#if Template.subscriptionsReady}}
       {{#if teams.count != 0}}
-      {{#each teams}}
-        {{#if editMode}}
-          <form class="js-submit-new-team-name submit-new-team-name">
-            <input type="text" name="newTeamName" placeholder="{{teamName}}">
-            <button class="js-submit-new-team-name">Submit new Team Name</button>
-          </form>
-        {{else}}
-          <h2>{{ teamName }}</h2>
-        {{/if}}
-        <p>{{ memberIds.length }} members</p>
+        {{#each teams}}
+          {{#if editMode}}
+            <form class="js-submit-new-team-name submit-new-team-name">
+              <input id="new-team-name" type="text" name="newTeamName" placeholder="{{teamName}}">
+              <button class="js-submit-new-team-name">Submit new Team Name</button>
+            </form>
+          {{else}}
+            <h2 id='team-name'>{{ teamName }}</h2>
+          {{/if}}
+          <p>{{ memberIds.length }} members</p>
 
-        <ul>
-          {{#each userDetailsForDisplay}}
-          <li>
-            <img src="images/avatars/{{ profile.avatar }}.jpg"/>
-            <p>{{ username }}</p>
-            {{#if editMode}}
-              <button class="js-delete-team-member" id={{_id}}>Delete User</button>
-            {{/if}}
-          </li>
-          {{/each}}
-        </ul>
+          <ul>
+            {{#each userDetailsForDisplay}}
+            <li>
+              <img src="images/avatars/{{ profile.avatar }}.jpg"/>
+              <p>{{ username }}</p>
+              {{#if editMode}}
+                <button class="js-delete-team-member" id={{_id}}>Delete User</button>
+              {{/if}}
+            </li>
+            {{/each}}
+          </ul>
 
-        <p>Team was created on {{ formatDate createdAt }} by {{ createdBy }} </p>
-        {{#if editMode}}
-          <button class="delete-team" name="{{ _id }}">Delete Team</button>
-          <button class="cancel-edit-mode">Cancel Edit</button>
-        {{else}}
-          <button class="edit-team"><i class="fa fa-edit"></i> Edit Team </button>
-        {{/if}}
+          <p>Team was created on {{ formatDate createdAt }}</p>
+          {{#if editMode}}
+            <button class="delete-team" name="{{ _id }}">Delete Team</button>
+            <button class="cancel-edit-mode">Cancel Edit</button>
+          {{else}}
+            <button class="edit-team"><i class="fa fa-edit"></i> Edit Team </button>
+          {{/if}}
 
-        {{> addTeamMemberForm }}
-      {{/each}}
+          {{> addTeamMemberForm }}
+        {{/each}}
+
+      {{else}}
+        {{> addNewTeamForm }}
+      {{/if}}
 
     {{else}}
-      {{> addNewTeamForm }}
+      <p>Loading...</p>
     {{/if}}
-
-  {{else}}
-    <p>Loading...</p>
-  {{/if}}
   </div>
 </template>

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Accounts } from 'meteor/accounts-base';
 
 export const SavingsAccounts = new Mongo.Collection('savingsAccounts');
 
@@ -8,7 +9,7 @@ if(Meteor.isServer) {
   // Only publish savingsAccounts that belong to the current user
   Meteor.publish('savingsAccounts', function transactionsPublication() {
     return SavingsAccounts.find({
-      createdBy: this.userId 
+      createdBy: this.userId
     });
   });
 }
